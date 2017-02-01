@@ -6,7 +6,7 @@ defmodule GoodApi.JobSeekerController do
         case JobSeeker.create(user_params) do
             {:ok, job_seeker} ->
                 conn
-                |>put_status(:create)
+                |>put_status(:created)
                 |>render("job_seeker.json", job_seeker: job_seeker)
             {:error, changeset} ->
                 conn

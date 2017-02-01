@@ -57,7 +57,7 @@ end
 """
 curl -X POST -H "Content-Type: application/json" -d '{
 	"job_seeker": {
-		"email": "user@gmail.com",
+		"email": "dimarco@gmail.com",
 		"name": "Phil DiMarco",
 		"password": "123456",
 		"picture": "link-to-picture",

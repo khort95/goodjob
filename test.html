@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Plug.Parsers.ParseError at POST /api/job_seeker</title>
+    <title>FunctionClauseError at POST /api/job_seeker</title>
     <meta name="viewport" content="width=device-width">
     <style>/*! normalize.css v4.2.0 | MIT License | github.com/necolas/normalize.css */html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block}audio:not([controls]){display:none;height:0}progress{vertical-align:baseline}template,[hidden]{display:none}a{background-color:transparent;-webkit-text-decoration-skip:objects}a:active,a:hover{outline-width:0}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:inherit}b,strong{font-weight:bolder}dfn{font-style:italic}h1{font-size:2em;margin:0.67em 0}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-0.25em}sup{top:-0.5em}img{border-style:none}svg:not(:root){overflow:hidden}code,kbd,pre,samp{font-family:monospace, monospace;font-size:1em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0;overflow:visible}button,input,optgroup,select,textarea{font:inherit;margin:0}optgroup{font-weight:bold}button,input{overflow:visible}button,select{text-transform:none}button,html [type="button"],[type="reset"],[type="submit"]{-webkit-appearance:button}button::-moz-focus-inner,[type="button"]::-moz-focus-inner,[type="reset"]::-moz-focus-inner,[type="submit"]::-moz-focus-inner{border-style:none;padding:0}button:-moz-focusring,[type="button"]:-moz-focusring,[type="reset"]:-moz-focusring,[type="submit"]:-moz-focusring{outline:1px dotted ButtonText}fieldset{border:1px solid #c0c0c0;margin:0 2px;padding:0.35em 0.625em 0.75em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}textarea{overflow:auto}[type="checkbox"],[type="radio"]{box-sizing:border-box;padding:0}[type="number"]::-webkit-inner-spin-button,[type="number"]::-webkit-outer-spin-button{height:auto}[type="search"]{-webkit-appearance:textfield;outline-offset:-2px}[type="search"]::-webkit-search-cancel-button,[type="search"]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-input-placeholder{color:inherit;opacity:0.54}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}</style>
     <style>
@@ -613,11 +613,11 @@
         <header class="exception-info">
             
             <h5 class="struct">
-                Plug.Parsers.ParseError
+                FunctionClauseError
                 <small>at POST</small>
                 <small class="path">/api/job_seeker</small>
             </h5>
-            <h1 class="title">malformed request, a Poison.SyntaxError exception was raised with message &quot;Unexpected token: \&quot;&quot;</h1>
+            <h1 class="title">no function clause matching in Plug.Conn.Status.code/1</h1>
             
         </header>
 
@@ -626,50 +626,54 @@
                 
                   <div class="frame-info" data-index="0" role="stack-trace-details">
                     <div class="file">
-                        <a href="">lib/plug/parsers/json.ex</a>
+                        <a href="">lib/plug/conn/status.ex</a>
                     </div>
 
                     
-<pre class="code code-block"><span class="line "><span class="ln">49</span><span class="code">        {:ok, terms, conn}</span></span>
-<span class="line "><span class="ln">50</span><span class="code">      terms -&gt;</span></span>
-<span class="line "><span class="ln">51</span><span class="code">        {:ok, %{&quot;_json&quot; =&gt; terms}, conn}</span></span>
-<span class="line "><span class="ln">52</span><span class="code">    end</span></span>
-<span class="line "><span class="ln">53</span><span class="code">  rescue</span></span>
-<span class="line -highlight"><span class="ln">54</span><span class="code">    e -&gt; raise Plug.Parsers.ParseError, exception: e</span></span>
-<span class="line "><span class="ln">55</span><span class="code">  end</span></span>
-<span class="line "><span class="ln">56</span><span class="code">end</span></span>
+<pre class="code code-block"><span class="line "><span class="ln">107</span><span class="code">  #{custom_status_doc}</span></span>
+<span class="line "><span class="ln">108</span><span class="code">  &quot;&quot;&quot;</span></span>
+<span class="line "><span class="ln">109</span><span class="code">  @spec code(integer | atom) :: integer</span></span>
+<span class="line "><span class="ln">110</span><span class="code">  def code(integer_or_atom)</span></span>
+<span class="line "><span class="ln">111</span><span class="code"></span></span>
+<span class="line -highlight"><span class="ln">112</span><span class="code">  def code(integer) when integer in 100..999 do</span></span>
+<span class="line "><span class="ln">113</span><span class="code">    integer</span></span>
+<span class="line "><span class="ln">114</span><span class="code">  end</span></span>
+<span class="line "><span class="ln">115</span><span class="code"></span></span>
+<span class="line "><span class="ln">116</span><span class="code">  for {code, reason_phrase} &lt;- statuses do</span></span>
+<span class="line "><span class="ln">117</span><span class="code">    atom = reason_phrase_to_atom.(reason_phrase)</span></span>
 </pre>
                     
 
                     
-                    <div class="meta">
-                        <div class="frame-summary -short">
+                    <details class="meta">
+                        <summary class="frame-summary">
                             
                             <span class="app">plug</span>
                             
-                            Plug.Parsers.JSON.decode/2
-                        </div>
-                    </div>
+                            Plug.Conn.Status.code/1
+                        </summary>
+                        <blockquote class="code-quote -padded">[:create]</blockquote>
+                    </details>
                     
                 </div>
                 
                   <div class="frame-info" data-index="1" role="stack-trace-details">
                     <div class="file">
-                        <a href="">lib/plug/parsers.ex</a>
+                        <a href="">lib/plug/conn.ex</a>
                     </div>
 
                     
-<pre class="code code-block"><span class="line "><span class="ln">205</span><span class="code">  def call(%{body_params: body_params} = conn, _opts) do</span></span>
-<span class="line "><span class="ln">206</span><span class="code">    merge_params(conn, make_empty_if_unfetched(body_params))</span></span>
-<span class="line "><span class="ln">207</span><span class="code">  end</span></span>
-<span class="line "><span class="ln">208</span><span class="code"></span></span>
-<span class="line "><span class="ln">209</span><span class="code">  defp reduce(conn, [h|t], type, subtype, headers, opts) do</span></span>
-<span class="line -highlight"><span class="ln">210</span><span class="code">    case h.parse(conn, type, subtype, headers, opts) do</span></span>
-<span class="line "><span class="ln">211</span><span class="code">      {:ok, body, conn} -&gt;</span></span>
-<span class="line "><span class="ln">212</span><span class="code">        merge_params(conn, body)</span></span>
-<span class="line "><span class="ln">213</span><span class="code">      {:next, conn} -&gt;</span></span>
-<span class="line "><span class="ln">214</span><span class="code">        reduce(conn, t, type, subtype, headers, opts)</span></span>
-<span class="line "><span class="ln">215</span><span class="code">      {:error, :too_large, _conn} -&gt;</span></span>
+<pre class="code code-block"><span class="line "><span class="ln">368</span><span class="code">  def put_status(%Conn{state: :sent}, _status),</span></span>
+<span class="line "><span class="ln">369</span><span class="code">    do: raise AlreadySentError</span></span>
+<span class="line "><span class="ln">370</span><span class="code">  def put_status(%Conn{} = conn, nil),</span></span>
+<span class="line "><span class="ln">371</span><span class="code">    do: %{conn | status: nil}</span></span>
+<span class="line "><span class="ln">372</span><span class="code">  def put_status(%Conn{} = conn, status),</span></span>
+<span class="line -highlight"><span class="ln">373</span><span class="code">    do: %{conn | status: Plug.Conn.Status.code(status)}</span></span>
+<span class="line "><span class="ln">374</span><span class="code"></span></span>
+<span class="line "><span class="ln">375</span><span class="code">  @doc &quot;&quot;&quot;</span></span>
+<span class="line "><span class="ln">376</span><span class="code">  Sends a response to the client.</span></span>
+<span class="line "><span class="ln">377</span><span class="code"></span></span>
+<span class="line "><span class="ln">378</span><span class="code">  It expects the connection state to be `:set`, otherwise raises an</span></span>
 </pre>
                     
 
@@ -679,13 +683,174 @@
                             
                             <span class="app">plug</span>
                             
-                            Plug.Parsers.reduce/6
+                            Plug.Conn.put_status/2
                         </div>
                     </div>
                     
                 </div>
                 
                   <div class="frame-info" data-index="2" role="stack-trace-details">
+                    <div class="file">
+                        <a href="">web/controllers/job_seeker_controller.ex</a>
+                    </div>
+
+                    
+<pre class="code code-block"><span class="line "><span class="ln">4</span><span class="code"></span></span>
+<span class="line "><span class="ln">5</span><span class="code">    def create(conn, %{&quot;job_seeker&quot; =&gt; user_params}) do</span></span>
+<span class="line "><span class="ln">6</span><span class="code">        case JobSeeker.create(user_params) do</span></span>
+<span class="line "><span class="ln">7</span><span class="code">            {:ok, job_seeker} -&gt;</span></span>
+<span class="line "><span class="ln">8</span><span class="code">                conn</span></span>
+<span class="line -highlight"><span class="ln">9</span><span class="code">                |&gt;put_status(:create)</span></span>
+<span class="line "><span class="ln">10</span><span class="code">                |&gt;render(&quot;job_seeker.json&quot;, job_seeker: job_seeker)</span></span>
+<span class="line "><span class="ln">11</span><span class="code">            {:error, changeset} -&gt;</span></span>
+<span class="line "><span class="ln">12</span><span class="code">                conn</span></span>
+<span class="line "><span class="ln">13</span><span class="code">                |&gt;put_status(:bad_request)</span></span>
+<span class="line "><span class="ln">14</span><span class="code">                |&gt;json(%{error: &quot;error creating job_seeker&quot;})</span></span>
+</pre>
+                    
+
+                    
+                    <div class="meta">
+                        <div class="frame-summary -short">
+                            
+                            <span class="app">good_api</span>
+                            
+                            GoodApi.JobSeekerController.create/2
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                  <div class="frame-info" data-index="3" role="stack-trace-details">
+                    <div class="file">
+                        <a href="">web/controllers/job_seeker_controller.ex</a>
+                    </div>
+
+                    
+<pre class="code code-block"><span class="line -highlight"><span class="ln">1</span><span class="code">defmodule GoodApi.JobSeekerController do</span></span>
+<span class="line "><span class="ln">2</span><span class="code">    use GoodApi.Web, :controller</span></span>
+<span class="line "><span class="ln">3</span><span class="code">    alias GoodApi.JobSeeker</span></span>
+<span class="line "><span class="ln">4</span><span class="code"></span></span>
+<span class="line "><span class="ln">5</span><span class="code">    def create(conn, %{&quot;job_seeker&quot; =&gt; user_params}) do</span></span>
+<span class="line "><span class="ln">6</span><span class="code">        case JobSeeker.create(user_params) do</span></span>
+</pre>
+                    
+
+                    
+                    <div class="meta">
+                        <div class="frame-summary -short">
+                            
+                            <span class="app">good_api</span>
+                            
+                            GoodApi.JobSeekerController.action/2
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                  <div class="frame-info" data-index="4" role="stack-trace-details">
+                    <div class="file">
+                        <a href="">web/controllers/job_seeker_controller.ex</a>
+                    </div>
+
+                    
+<pre class="code code-block"><span class="line -highlight"><span class="ln">1</span><span class="code">defmodule GoodApi.JobSeekerController do</span></span>
+<span class="line "><span class="ln">2</span><span class="code">    use GoodApi.Web, :controller</span></span>
+<span class="line "><span class="ln">3</span><span class="code">    alias GoodApi.JobSeeker</span></span>
+<span class="line "><span class="ln">4</span><span class="code"></span></span>
+<span class="line "><span class="ln">5</span><span class="code">    def create(conn, %{&quot;job_seeker&quot; =&gt; user_params}) do</span></span>
+<span class="line "><span class="ln">6</span><span class="code">        case JobSeeker.create(user_params) do</span></span>
+</pre>
+                    
+
+                    
+                    <div class="meta">
+                        <div class="frame-summary -short">
+                            
+                            <span class="app">good_api</span>
+                            
+                            GoodApi.JobSeekerController.phoenix_controller_pipeline/2
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                  <div class="frame-info" data-index="5" role="stack-trace-details">
+                    <div class="file">
+                        <a href="">lib/good_api/endpoint.ex</a>
+                    </div>
+
+                    
+<pre class="code code-block"><span class="line -highlight"><span class="ln">1</span><span class="code">defmodule GoodApi.Endpoint do</span></span>
+<span class="line "><span class="ln">2</span><span class="code">  use Phoenix.Endpoint, otp_app: :good_api</span></span>
+<span class="line "><span class="ln">3</span><span class="code"></span></span>
+<span class="line "><span class="ln">4</span><span class="code">  socket &quot;/socket&quot;, GoodApi.UserSocket</span></span>
+<span class="line "><span class="ln">5</span><span class="code"></span></span>
+<span class="line "><span class="ln">6</span><span class="code">  # Serve at &quot;/&quot; the static files from &quot;priv/static&quot; directory.</span></span>
+</pre>
+                    
+
+                    
+                    <div class="meta">
+                        <div class="frame-summary -short">
+                            
+                            <span class="app">good_api</span>
+                            
+                            GoodApi.Endpoint.instrument/4
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                  <div class="frame-info" data-index="6" role="stack-trace-details">
+                    <div class="file">
+                        <a href="">lib/phoenix/router.ex</a>
+                    </div>
+
+                    
+                    <div class="code code-block-empty">No code available.</div>
+                    
+
+                    
+                    <div class="meta">
+                        <div class="frame-summary -short">
+                            
+                            <span class="app">good_api</span>
+                            
+                            GoodApi.Router.dispatch/2
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                  <div class="frame-info" data-index="7" role="stack-trace-details">
+                    <div class="file">
+                        <a href="">web/router.ex</a>
+                    </div>
+
+                    
+<pre class="code code-block"><span class="line -highlight"><span class="ln">1</span><span class="code">defmodule GoodApi.Router do</span></span>
+<span class="line "><span class="ln">2</span><span class="code">  use GoodApi.Web, :router</span></span>
+<span class="line "><span class="ln">3</span><span class="code"></span></span>
+<span class="line "><span class="ln">4</span><span class="code">  pipeline :api do</span></span>
+<span class="line "><span class="ln">5</span><span class="code">    plug :accepts, [&quot;json&quot;]</span></span>
+<span class="line "><span class="ln">6</span><span class="code">  end</span></span>
+</pre>
+                    
+
+                    
+                    <div class="meta">
+                        <div class="frame-summary -short">
+                            
+                            <span class="app">good_api</span>
+                            
+                            GoodApi.Router.do_call/2
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                  <div class="frame-info" data-index="8" role="stack-trace-details">
                     <div class="file">
                         <a href="">lib/good_api/endpoint.ex</a>
                     </div>
@@ -712,7 +877,7 @@
                     
                 </div>
                 
-                  <div class="frame-info" data-index="3" role="stack-trace-details">
+                  <div class="frame-info" data-index="9" role="stack-trace-details">
                     <div class="file">
                         <a href="">lib/plug/debugger.ex</a>
                     </div>
@@ -733,7 +898,7 @@
                     
                 </div>
                 
-                  <div class="frame-info" data-index="4" role="stack-trace-details">
+                  <div class="frame-info" data-index="10" role="stack-trace-details">
                     <div class="file">
                         <a href="">lib/good_api/endpoint.ex</a>
                     </div>
@@ -760,7 +925,7 @@
                     
                 </div>
                 
-                  <div class="frame-info" data-index="5" role="stack-trace-details">
+                  <div class="frame-info" data-index="11" role="stack-trace-details">
                     <div class="file">
                         <a href="">lib/plug/adapters/cowboy/handler.ex</a>
                     </div>
@@ -792,7 +957,7 @@
                     
                 </div>
                 
-                  <div class="frame-info" data-index="6" role="stack-trace-details">
+                  <div class="frame-info" data-index="12" role="stack-trace-details">
                     <div class="file">
                         <a href="">src/cowboy_protocol.erl</a>
                     </div>
@@ -841,11 +1006,11 @@
                                 
 
                                 <span class="filename">
-                                    lib/plug/parsers/json.ex<span class="line">:54</span>
+                                    lib/plug/conn/status.ex<span class="line">:112</span>
                                 </span>
                             </span>
 
-                            <span class="info">Plug.Parsers.JSON.decode/2</span>
+                            <span class="info">Plug.Conn.Status.code/1</span>
                         </button>
                     </li>
                     
@@ -857,16 +1022,112 @@
                                 
 
                                 <span class="filename">
-                                    lib/plug/parsers.ex<span class="line">:210</span>
+                                    lib/plug/conn.ex<span class="line">:373</span>
                                 </span>
                             </span>
 
-                            <span class="info">Plug.Parsers.reduce/6</span>
+                            <span class="info">Plug.Conn.put_status/2</span>
                         </button>
                     </li>
                     
                     <li>
                         <button class="stack-trace-item -app" role="stack-trace-item" data-index="2">
+                            <span class="left">
+                                
+                                <span class="app">good_api</span>
+                                
+
+                                <span class="filename">
+                                    web/controllers/job_seeker_controller.ex<span class="line">:9</span>
+                                </span>
+                            </span>
+
+                            <span class="info">GoodApi.JobSeekerController.create/2</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button class="stack-trace-item -app" role="stack-trace-item" data-index="3">
+                            <span class="left">
+                                
+                                <span class="app">good_api</span>
+                                
+
+                                <span class="filename">
+                                    web/controllers/job_seeker_controller.ex<span class="line">:1</span>
+                                </span>
+                            </span>
+
+                            <span class="info">GoodApi.JobSeekerController.action/2</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button class="stack-trace-item -app" role="stack-trace-item" data-index="4">
+                            <span class="left">
+                                
+                                <span class="app">good_api</span>
+                                
+
+                                <span class="filename">
+                                    web/controllers/job_seeker_controller.ex<span class="line">:1</span>
+                                </span>
+                            </span>
+
+                            <span class="info">GoodApi.JobSeekerController.phoenix_controller_pipeline/2</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button class="stack-trace-item -app" role="stack-trace-item" data-index="5">
+                            <span class="left">
+                                
+                                <span class="app">good_api</span>
+                                
+
+                                <span class="filename">
+                                    lib/good_api/endpoint.ex<span class="line">:1</span>
+                                </span>
+                            </span>
+
+                            <span class="info">GoodApi.Endpoint.instrument/4</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button class="stack-trace-item -app" role="stack-trace-item" data-index="6">
+                            <span class="left">
+                                
+                                <span class="app">good_api</span>
+                                
+
+                                <span class="filename">
+                                    lib/phoenix/router.ex<span class="line">:261</span>
+                                </span>
+                            </span>
+
+                            <span class="info">GoodApi.Router.dispatch/2</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button class="stack-trace-item -app" role="stack-trace-item" data-index="7">
+                            <span class="left">
+                                
+                                <span class="app">good_api</span>
+                                
+
+                                <span class="filename">
+                                    web/router.ex<span class="line">:1</span>
+                                </span>
+                            </span>
+
+                            <span class="info">GoodApi.Router.do_call/2</span>
+                        </button>
+                    </li>
+                    
+                    <li>
+                        <button class="stack-trace-item -app" role="stack-trace-item" data-index="8">
                             <span class="left">
                                 
                                 <span class="app">good_api</span>
@@ -882,7 +1143,7 @@
                     </li>
                     
                     <li>
-                        <button class="stack-trace-item -app" role="stack-trace-item" data-index="3">
+                        <button class="stack-trace-item -app" role="stack-trace-item" data-index="9">
                             <span class="left">
                                 
                                 <span class="app">good_api</span>
@@ -898,7 +1159,7 @@
                     </li>
                     
                     <li>
-                        <button class="stack-trace-item -app" role="stack-trace-item" data-index="4">
+                        <button class="stack-trace-item -app" role="stack-trace-item" data-index="10">
                             <span class="left">
                                 
                                 <span class="app">good_api</span>
@@ -914,7 +1175,7 @@
                     </li>
                     
                     <li>
-                        <button class="stack-trace-item -all" role="stack-trace-item" data-index="5">
+                        <button class="stack-trace-item -all" role="stack-trace-item" data-index="11">
                             <span class="left">
                                 
                                 <span class="app">plug</span>
@@ -930,7 +1191,7 @@
                     </li>
                     
                     <li>
-                        <button class="stack-trace-item -all" role="stack-trace-item" data-index="6">
+                        <button class="stack-trace-item -all" role="stack-trace-item" data-index="12">
                             <span class="left">
                                 
                                 <span class="app">cowboy</span>
@@ -952,13 +1213,23 @@
 
     <div class="conn-info">
         
+        <details class="conn-details" open>
+            <summary>Params</summary>
+            
+            <dl>
+                <dt>job_seeker</dt>
+                <dd><pre>%{&quot;api_token&quot; =&gt; &quot;temp&quot;, &quot;bio&quot; =&gt; &quot;I am a software engineer&quot;, &quot;chat_ids&quot; =&gt; [1, 2], &quot;distance_range&quot; =&gt; 15, &quot;email&quot; =&gt; &quot;phildimarco@gmail.com&quot;, &quot;jobs_matched&quot; =&gt; [1, 2], &quot;name&quot; =&gt; &quot;Phil DiMarco&quot;, &quot;password&quot; =&gt; &quot;123456&quot;, &quot;picture&quot; =&gt; &quot;link-to-picture&quot;, &quot;resume&quot; =&gt; &quot;Please give me a job&quot;, &quot;tags&quot; =&gt; [&quot;se&quot;, &quot;coding&quot;]}</pre></dd>
+            </dl>
+            
+        </details>
+        
 
         <details class="conn-details">
             <summary>Request info</summary>
 
             <dl>
                 <dt>URI:</dt>
-                <dd class="code-quote">http://localhost:4000/api/job_seeker</dd>
+                <dd class="code-quote">http://sepract1.monmouth.edu:4000/api/job_seeker</dd>
             </dl>
 
             <dl>
@@ -968,7 +1239,7 @@
 
             <dl>
                 <dt>Peer:</dt>
-                <dd class="code-quote">127.0.0.1:50650</dd>
+                <dd class="code-quote">10.71.23.199:44992</dd>
             </dl>
         </details>
 
@@ -981,8 +1252,13 @@
             </dl>
             
             <dl>
+                <dt>authorization</dt>
+                <dd class="code-quote">Basic dWJ1bnR1Og==</dd>
+            </dl>
+            
+            <dl>
                 <dt>content-length</dt>
-                <dd class="code-quote">366</dd>
+                <dd class="code-quote">314</dd>
             </dl>
             
             <dl>
@@ -992,7 +1268,7 @@
             
             <dl>
                 <dt>host</dt>
-                <dd class="code-quote">localhost:4000</dd>
+                <dd class="code-quote">sepract1.monmouth.edu:4000</dd>
             </dl>
             
             <dl>
