@@ -5,11 +5,15 @@
 # is restricted to this project.
 use Mix.Config
 
+# General application configuration
+config :good_api,
+  ecto_repos: [GoodApi.Repo]
+
 # Configures the endpoint
 config :good_api, GoodApi.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "eI8BBleA6Y6JJ3S1IvsoHi/0t4NVbAeUPJwdlgmtz5/32oBTj3RDCZsb5Sw7YD18",
-  render_errors: [view: GoodApi.ErrorView, accepts: ~w(html json)],
+  secret_key_base: "Ga7TMur98pS8zkg0jjzziuELNJ9kmOYzIjm9OsIIbhxCZczupLFbkW7BjmlweDlH",
+  render_errors: [view: GoodApi.ErrorView, accepts: ~w(json)],
   pubsub: [name: GoodApi.PubSub,
            adapter: Phoenix.PubSub.PG2]
 

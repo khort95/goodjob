@@ -14,20 +14,18 @@ config :good_api, GoodApi.Endpoint,
   watchers: []
 
 
-# Watch static and templates for browser reloading.
-config :good_api, GoodApi.Endpoint,
-  live_reload: [
-    patterns: [
-      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
-      ~r{priv/gettext/.*(po)$},
-      ~r{web/views/.*(ex)$},
-      ~r{web/templates/.*(eex)$}
-    ]
-  ]
-
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.
 config :phoenix, :stacktrace_depth, 20
+
+# Configure your database
+config :good_api, GoodApi.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "postgres",
+  database: "good_api_dev",
+  hostname: "localhost",
+  pool_size: 10

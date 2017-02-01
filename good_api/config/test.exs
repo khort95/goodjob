@@ -8,3 +8,12 @@ config :good_api, GoodApi.Endpoint,
 
 # Print only warnings and errors during test
 config :logger, level: :warn
+
+# Configure your database
+config :good_api, GoodApi.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "postgres",
+  password: "postgres",
+  database: "good_api_test",
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox

@@ -20,6 +20,11 @@ defmodule GoodApi.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
+      alias GoodApi.Repo
+      import Ecto
+      import Ecto.Changeset
+      import Ecto.Query
+
 
       # The default endpoint for testing
       @endpoint GoodApi.Endpoint
@@ -27,6 +32,11 @@ defmodule GoodApi.ChannelCase do
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(GoodApi.Repo)
+
+    unless tags[:async] do
+      Ecto.Adapters.SQL.Sandbox.mode(GoodApi.Repo, {:shared, self()})
+    end
 
     :ok
   end

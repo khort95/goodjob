@@ -1,26 +1,14 @@
 defmodule GoodApi.Router do
   use GoodApi.Web, :router
 
-  pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
-  end
-
   pipeline :api do
     plug :accepts, ["json"]
   end
 
-  scope "/", GoodApi do
-    pipe_through :browser # Use the default browser stack
+  scope "/api", GoodApi do
+    pipe_through :api
 
-    get "/", PageController, :index
+    resources "/job_seeker", JobSeekerController, except: [:new, :edit]
+    post "/job_seeker/authenticate", JobSeekerController, :authenticate
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", GoodApi do
-  #   pipe_through :api
-  # end
 end

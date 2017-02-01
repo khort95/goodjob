@@ -8,6 +8,8 @@ defmodule GoodApi do
 
     # Define workers and child supervisors to be supervised
     children = [
+      # Start the Ecto repository
+      supervisor(GoodApi.Repo, []),
       # Start the endpoint when the application starts
       supervisor(GoodApi.Endpoint, []),
       # Start your own worker by calling: GoodApi.Worker.start_link(arg1, arg2, arg3)
