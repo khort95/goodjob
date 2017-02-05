@@ -36,5 +36,6 @@ defmodule GoodApi.Endpoint do
     key: "_good_api_key",
     signing_salt: "WY1YL7xg"
 
+  plug CORSPlug
   plug GoodApi.Router
 end
