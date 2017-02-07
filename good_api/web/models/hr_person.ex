@@ -50,6 +50,13 @@ defmodule GoodApi.HrPerson do
           _ -> Comeonin.Pbkdf2.checkpw(password, job_seeker.password)
       end
   end
+
+  def authenticate_by_token(token) do
+    case token do
+      nil -> nil
+      _ -> GoodApi.Repo.get_by(GoodApi.HrPerson, api_token: token)
+    end
+  end
 end
 
 """

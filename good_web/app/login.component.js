@@ -11,10 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var good_job_service_1 = require('./good-job.service');
+var router_1 = require('@angular/router');
 var LoginPage = (function () {
-    function LoginPage(fb, goodJobService) {
+    function LoginPage(fb, goodJobService, router) {
         this.fb = fb;
         this.goodJobService = goodJobService;
+        this.router = router;
         this.user = { email: "", picture: "", bio: "", permissions: [], role: "", api_token: "", name: " error" };
         this.loginForm = this.fb.group({
             email: ["", forms_1.Validators.required],
@@ -22,15 +24,19 @@ var LoginPage = (function () {
         });
     }
     LoginPage.prototype.doLogin = function (event) {
-        this.user = this.goodJobService.login(this.loginForm.value.password, this.loginForm.value.email);
+        this.goodJobService.login(this.loginForm.value.password, this.loginForm.value.email);
+        this.user = this.goodJobService.get_user();
         console.log(this.user);
+        if (this.user.name !== "error!") {
+            this.router.navigate(['/app']);
+        }
     };
     LoginPage = __decorate([
         core_1.Component({
             selector: 'login-page',
-            template: "\n  <form [formGroup]=\"loginForm\" (ngSubmit)=\"doLogin($event)\">\n    <input formControlName=\"email\" type=\"email\" placeholder=\"Your email\">\n    <input formControlName=\"password\" type=\"password\" placeholder=\"Your password\">\n  <button type=\"submit\">Log in</button>\n</form>\n<div>\n  <h4>{{user.name}} has logged in!</h4>\n</div>\n  "
+            template: "\n  <form [formGroup]=\"loginForm\" (ngSubmit)=\"doLogin($event)\">\n    <input formControlName=\"email\" type=\"email\" placeholder=\"Your email\">\n    <input formControlName=\"password\" type=\"password\" placeholder=\"Your password\">\n  <button type=\"submit\">Log in</button>\n</form>\n<div>\n  <h4>{{user.name}} has logged in!</h4>\n</div>\n<create-user>\n  "
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, good_job_service_1.GoodJobService])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, good_job_service_1.GoodJobService, router_1.Router])
     ], LoginPage);
     return LoginPage;
 }());

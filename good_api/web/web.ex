@@ -29,13 +29,12 @@ defmodule GoodApi.Web do
   def controller do
     quote do
       use Phoenix.Controller
-
       alias GoodApi.Repo
       import Ecto
       import Ecto.Query
-
       import GoodApi.Router.Helpers
       import GoodApi.Gettext
+      import GoodApi.Helpers.AuthHelper
     end
   end
 

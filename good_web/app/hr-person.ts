@@ -6,4 +6,5 @@ export interface HrPerson{
     permissions: string[], 
     role: string, 
     api_token: string
+
 }

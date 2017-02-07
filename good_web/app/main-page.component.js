@@ -9,17 +9,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
+var good_job_service_1 = require('./good-job.service');
+var MainPage = (function () {
+    function MainPage(goodJobService) {
+        this.goodJobService = goodJobService;
+        this.user = null;
+        this.user = goodJobService.get_user();
     }
-    AppComponent = __decorate([
+    MainPage = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            template: "\n    <h1>Good Job</h1>\n  \n    <router-outlet></router-outlet>\n    "
+            selector: 'main-page',
+            template: "\n\n<div>\n  <h4>hello {{user.name}}</h4>\n</div>\n  "
         }), 
-        __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+        __metadata('design:paramtypes', [good_job_service_1.GoodJobService])
+    ], MainPage);
+    return MainPage;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.MainPage = MainPage;
+//# sourceMappingURL=main-page.component.js.map

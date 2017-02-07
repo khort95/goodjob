@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
     selector: 'my-app',
     template: `
     <h1>Good Job</h1>
-    <login-page>
+  
+    <router-outlet></router-outlet>
     `
 })
 export class AppComponent { }

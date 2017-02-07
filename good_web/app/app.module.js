@@ -15,14 +15,17 @@ var forms_1 = require('@angular/forms');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var login_component_1 = require('./login.component');
+var main_page_component_1 = require('./main-page.component');
+var create_user_component_1 = require('./create_user.component');
 var good_job_service_1 = require('./good-job.service');
+var app_routes_1 = require('./app.routes');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.ReactiveFormsModule, http_1.HttpModule],
-            declarations: [app_component_1.AppComponent, login_component_1.LoginPage],
+            imports: [platform_browser_1.BrowserModule, forms_1.ReactiveFormsModule, http_1.HttpModule, app_routes_1.routing],
+            declarations: [app_component_1.AppComponent, login_component_1.LoginPage, create_user_component_1.CreateUser, main_page_component_1.MainPage],
             bootstrap: [app_component_1.AppComponent],
             providers: [good_job_service_1.GoodJobService]
         }), 

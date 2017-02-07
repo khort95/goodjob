@@ -11,9 +11,10 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class GoodJobService{
 constructor (private http: Http) {}
-public hr_person: HrPerson
+public static hr_person: HrPerson
   
-login(password: string, email: string) :HrPerson {
+login(password: string, email: string)  {
+ 
   let creds = JSON.stringify({ email: email, password: password });
 
   let headers = new Headers();
@@ -23,8 +24,7 @@ login(password: string, email: string) :HrPerson {
     headers: headers
     }).map(data => data.json()).subscribe(
       data => 
-        
-        this.hr_person = {
+        GoodJobService.hr_person = {
             email: data.email,
             name: data.name, 
             picture: data.picture,
@@ -35,11 +35,37 @@ login(password: string, email: string) :HrPerson {
         }
       
     )
-     if(this.hr_person == null){return {email: "", picture: "", bio: "",  permissions: [], role: "", api_token:"", name: " error"}}
-     return this.hr_person;
     }
 
+  create_user(newPerson: any) :HrPerson {
+    let creds = JSON.stringify(newPerson);
 
- 
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    this.http.post('http://localhost:4000/api/hr_person', creds, {
+      headers: headers
+      }).map(data => data.json()).subscribe(
+        data => 
+          GoodJobService.hr_person = {
+              email: data.email,
+              name: data.name, 
+              picture: data.picture,
+              bio: data.bio,
+              permissions: data.permissions, 
+              role: data.role, 
+              api_token: data.api_token
+          }
+        
+      )
+      if(GoodJobService.hr_person == null){return {email: "", picture: "", bio: "",  permissions: [], role: "", api_token:"", name: "error!"}}
+      return GoodJobService.hr_person;
+    }
+
+    get_user() :HrPerson {
+     if(GoodJobService.hr_person == null){return {email: "", picture: "", bio: "",  permissions: [], role: "", api_token:"", name: "error!"}}
+     return GoodJobService.hr_person;
+    }
+
 }
 

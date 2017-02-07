@@ -18,14 +18,13 @@ var GoodJobService = (function () {
         this.http = http;
     }
     GoodJobService.prototype.login = function (password, email) {
-        var _this = this;
         var creds = JSON.stringify({ email: email, password: password });
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         this.http.post('http://localhost:4000/api/hr_person/authenticate', creds, {
             headers: headers
         }).map(function (data) { return data.json(); }).subscribe(function (data) {
-            return _this.hr_person = {
+            return GoodJobService.hr_person = {
                 email: data.email,
                 name: data.name,
                 picture: data.picture,
@@ -35,10 +34,34 @@ var GoodJobService = (function () {
                 api_token: data.api_token
             };
         });
-        if (this.hr_person == null) {
-            return { email: "", picture: "", bio: "", permissions: [], role: "", api_token: "", name: " error" };
+    };
+    GoodJobService.prototype.create_user = function (newPerson) {
+        var creds = JSON.stringify(newPerson);
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        this.http.post('http://localhost:4000/api/hr_person', creds, {
+            headers: headers
+        }).map(function (data) { return data.json(); }).subscribe(function (data) {
+            return GoodJobService.hr_person = {
+                email: data.email,
+                name: data.name,
+                picture: data.picture,
+                bio: data.bio,
+                permissions: data.permissions,
+                role: data.role,
+                api_token: data.api_token
+            };
+        });
+        if (GoodJobService.hr_person == null) {
+            return { email: "", picture: "", bio: "", permissions: [], role: "", api_token: "", name: "error!" };
         }
-        return this.hr_person;
+        return GoodJobService.hr_person;
+    };
+    GoodJobService.prototype.get_user = function () {
+        if (GoodJobService.hr_person == null) {
+            return { email: "", picture: "", bio: "", permissions: [], role: "", api_token: "", name: "error!" };
+        }
+        return GoodJobService.hr_person;
     };
     GoodJobService = __decorate([
         core_1.Injectable(), 

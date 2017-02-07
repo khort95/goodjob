@@ -7,12 +7,16 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 
 import { LoginPage } from './login.component';
+import { MainPage } from './main-page.component';
+import { CreateUser } from './create_user.component';
 import { GoodJobService } from './good-job.service';
+
+import { routing } from './app.routes';
 
 
 @NgModule({
-  imports: [ BrowserModule, ReactiveFormsModule, HttpModule],
-  declarations: [ AppComponent, LoginPage],
+  imports: [ BrowserModule, ReactiveFormsModule, HttpModule, routing ],
+  declarations: [ AppComponent, LoginPage, CreateUser, MainPage ],
   bootstrap: [ AppComponent ],
   providers: [GoodJobService]
 })
