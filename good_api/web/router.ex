@@ -13,5 +13,8 @@ defmodule GoodApi.Router do
 
     resources "/hr_person", HrPersonController, except: [:new, :edit]
     post "/hr_person/authenticate", HrPersonController, :authenticate
+
+    resources "/company", CompanyController, except: [:new, :edit]
+    post "/company/show", CompanyController, :show
   end
 end
