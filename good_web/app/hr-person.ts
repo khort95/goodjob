@@ -4,7 +4,6 @@ export interface HrPerson{
     picture: string,
     bio: string,
     permissions: string[], 
-    role: string, 
-    api_token: string
-
+    role: string,
+    company: string
 }

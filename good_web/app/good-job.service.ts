@@ -20,7 +20,7 @@ login(password: string, email: string)  {
   let headers = new Headers();
   headers.append('Content-Type', 'application/json');
 
-  this.http.post('http://localhost:4000/api/hr_person/authenticate', creds, {
+  this.http.post('http://localhost:4000/api/hr_person/login', creds, {
     headers: headers
     }).map(data => data.json()).subscribe(
       data => 
@@ -30,8 +30,8 @@ login(password: string, email: string)  {
             picture: data.picture,
             bio: data.bio,
             permissions: data.permissions, 
-            role: data.role, 
-            api_token: data.api_token
+            role: data.role,
+            company: data.company
         }
       
     )
@@ -53,17 +53,17 @@ login(password: string, email: string)  {
               picture: data.picture,
               bio: data.bio,
               permissions: data.permissions, 
-              role: data.role, 
-              api_token: data.api_token
+              role: data.role,
+              company: data.company
           }
         
       )
-      if(GoodJobService.hr_person == null){return {email: "", picture: "", bio: "",  permissions: [], role: "", api_token:"", name: "error!"}}
+      if(GoodJobService.hr_person == null){return {email: "", picture: "", bio: "",  permissions: [], role: "",  name: "error!", company: ""}}
       return GoodJobService.hr_person;
     }
 
     get_user() :HrPerson {
-     if(GoodJobService.hr_person == null){return {email: "", picture: "", bio: "",  permissions: [], role: "", api_token:"", name: "error!"}}
+     if(GoodJobService.hr_person == null){return {email: "", picture: "", bio: "",  permissions: [], role: "", name: "error!", company: ""}}
      return GoodJobService.hr_person;
     }
 

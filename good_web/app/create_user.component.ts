@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { GoodJobService } from './good-job.service';
 import { HrPerson } from './hr-person';
 import { NgModule }      from '@angular/core';
+import { ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'create-user',
@@ -30,8 +31,8 @@ export class CreateUser {
     bio: "",  
     permissions: [], 
     role: "", 
-    api_token:"temp", 
-    name: " error"
+    name: " error",
+    company:""
   }
  
   public loginForm = this.fb.group({
@@ -44,26 +45,24 @@ export class CreateUser {
   });
 
   
-  constructor(public fb: FormBuilder, private goodJobService: GoodJobService) {}
+  constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {}
   newUser(event: any) {
-    this.user = {email: this.loginForm.value.email, picture: "link-to-picture", bio: this.loginForm.value.bio,  permissions: [], role: this.loginForm.value.role, api_token:"", name: this.loginForm.value.name}
+    this.user = {email: this.loginForm.value.email, picture: "link-to-picture", bio: this.loginForm.value.bio,  permissions: [], role: this.loginForm.value.role, name: this.loginForm.value.name, company: ""}
     var response = this.goodJobService.create_user(this.create(this.user, this.loginForm.value.password))
-    console.log(this.user)
+    this.router.navigate(['/start'])
   }
 
   create(user: HrPerson, password: string) :any{
        let hr = 
          {
-          "hr_person": {
+          "create": {
             "email": user.email,
             "name": user.name,
             "password": password,
             "bio": user.bio,
             "picture": user.picture,
             "role": user.role,
-            "is_head_hr_manager":"false",
             "permissions": user.permissions,
-            "api_token": "temp"
            }
         }
 

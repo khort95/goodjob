@@ -17,15 +17,13 @@ import { ActivatedRoute, Router} from '@angular/router';
     <input formControlName="password" type="password" placeholder="Your password">
   <button type="submit">Log in</button>
 </form>
-<div>
-  <h4>{{user.name}} has logged in!</h4>
-</div>
-<create-user>
+
+<a href="create user" [routerLink]="['/create']">create user</a>
   `
 })
 
 export class LoginPage {
-  user: HrPerson = {email: "", picture: "", bio: "",  permissions: [], role: "", api_token:"", name: " error"}
+  user: HrPerson = {email: "", picture: "", bio: "",  permissions: [], role: "", name: " error", company: ""}
  
   public loginForm = this.fb.group({
     email: ["", Validators.required],

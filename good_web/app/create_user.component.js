@@ -11,18 +11,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var good_job_service_1 = require('./good-job.service');
+var router_1 = require('@angular/router');
 var CreateUser = (function () {
-    function CreateUser(fb, goodJobService) {
+    function CreateUser(fb, goodJobService, router) {
         this.fb = fb;
         this.goodJobService = goodJobService;
+        this.router = router;
         this.user = {
             email: "",
             picture: "",
             bio: "",
             permissions: [],
             role: "",
-            api_token: "temp",
-            name: " error"
+            name: " error",
+            company: ""
         };
         this.loginForm = this.fb.group({
             email: ["", forms_1.Validators.required],
@@ -34,22 +36,20 @@ var CreateUser = (function () {
         });
     }
     CreateUser.prototype.newUser = function (event) {
-        this.user = { email: this.loginForm.value.email, picture: "link-to-picture", bio: this.loginForm.value.bio, permissions: [], role: this.loginForm.value.role, api_token: "", name: this.loginForm.value.name };
+        this.user = { email: this.loginForm.value.email, picture: "link-to-picture", bio: this.loginForm.value.bio, permissions: [], role: this.loginForm.value.role, name: this.loginForm.value.name, company: "" };
         var response = this.goodJobService.create_user(this.create(this.user, this.loginForm.value.password));
-        console.log(this.user);
+        this.router.navigate(['/start']);
     };
     CreateUser.prototype.create = function (user, password) {
         var hr = {
-            "hr_person": {
+            "create": {
                 "email": user.email,
                 "name": user.name,
                 "password": password,
                 "bio": user.bio,
                 "picture": user.picture,
                 "role": user.role,
-                "is_head_hr_manager": "false",
                 "permissions": user.permissions,
-                "api_token": "temp"
             }
         };
         return hr;
@@ -59,7 +59,7 @@ var CreateUser = (function () {
             selector: 'create-user',
             template: "\n  <form [formGroup]=\"loginForm\" (ngSubmit)=\"newUser($event)\">\n    <input formControlName=\"email\" type=\"email\" placeholder=\"Your email\">\n    <input formControlName=\"password\" type=\"password\" placeholder=\"Your password\">\n    <input formControlName=\"name\" type=\"name\" placeholder=\"Your name\">\n    <input formControlName=\"company\" type=\"company\" placeholder=\"Your company\">\n    <input formControlName=\"bio\" type=\"bio\" placeholder=\"A shot desciprtion of yourself\">\n    <input formControlName=\"role\" type=\"role\" placeholder=\"Your role at your company\">\n  <button type=\"submit\">create!</button>\n</form>\n<div>\n  <h4>{{user.name}} has been create!</h4>\n</div>\n  "
         }), 
-        __metadata('design:paramtypes', [forms_1.FormBuilder, good_job_service_1.GoodJobService])
+        __metadata('design:paramtypes', [forms_1.FormBuilder, good_job_service_1.GoodJobService, router_1.Router])
     ], CreateUser);
     return CreateUser;
 }());

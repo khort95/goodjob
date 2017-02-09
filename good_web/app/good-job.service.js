@@ -21,7 +21,7 @@ var GoodJobService = (function () {
         var creds = JSON.stringify({ email: email, password: password });
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        this.http.post('http://localhost:4000/api/hr_person/authenticate', creds, {
+        this.http.post('http://localhost:4000/api/hr_person/login', creds, {
             headers: headers
         }).map(function (data) { return data.json(); }).subscribe(function (data) {
             return GoodJobService.hr_person = {
@@ -31,7 +31,7 @@ var GoodJobService = (function () {
                 bio: data.bio,
                 permissions: data.permissions,
                 role: data.role,
-                api_token: data.api_token
+                company: data.company
             };
         });
     };
@@ -49,17 +49,17 @@ var GoodJobService = (function () {
                 bio: data.bio,
                 permissions: data.permissions,
                 role: data.role,
-                api_token: data.api_token
+                company: data.company
             };
         });
         if (GoodJobService.hr_person == null) {
-            return { email: "", picture: "", bio: "", permissions: [], role: "", api_token: "", name: "error!" };
+            return { email: "", picture: "", bio: "", permissions: [], role: "", name: "error!", company: "" };
         }
         return GoodJobService.hr_person;
     };
     GoodJobService.prototype.get_user = function () {
         if (GoodJobService.hr_person == null) {
-            return { email: "", picture: "", bio: "", permissions: [], role: "", api_token: "", name: "error!" };
+            return { email: "", picture: "", bio: "", permissions: [], role: "", name: "error!", company: "" };
         }
         return GoodJobService.hr_person;
     };

@@ -17,7 +17,7 @@ var LoginPage = (function () {
         this.fb = fb;
         this.goodJobService = goodJobService;
         this.router = router;
-        this.user = { email: "", picture: "", bio: "", permissions: [], role: "", api_token: "", name: " error" };
+        this.user = { email: "", picture: "", bio: "", permissions: [], role: "", name: " error", company: "" };
         this.loginForm = this.fb.group({
             email: ["", forms_1.Validators.required],
             password: ["", forms_1.Validators.required]
@@ -34,7 +34,7 @@ var LoginPage = (function () {
     LoginPage = __decorate([
         core_1.Component({
             selector: 'login-page',
-            template: "\n  <form [formGroup]=\"loginForm\" (ngSubmit)=\"doLogin($event)\">\n    <input formControlName=\"email\" type=\"email\" placeholder=\"Your email\">\n    <input formControlName=\"password\" type=\"password\" placeholder=\"Your password\">\n  <button type=\"submit\">Log in</button>\n</form>\n<div>\n  <h4>{{user.name}} has logged in!</h4>\n</div>\n<create-user>\n  "
+            template: "\n  <form [formGroup]=\"loginForm\" (ngSubmit)=\"doLogin($event)\">\n    <input formControlName=\"email\" type=\"email\" placeholder=\"Your email\">\n    <input formControlName=\"password\" type=\"password\" placeholder=\"Your password\">\n  <button type=\"submit\">Log in</button>\n</form>\n\n<a href=\"create user\" [routerLink]=\"['/create']\">create user</a>\n  "
         }), 
         __metadata('design:paramtypes', [forms_1.FormBuilder, good_job_service_1.GoodJobService, router_1.Router])
     ], LoginPage);

@@ -1,6 +1,7 @@
 import { Routes, RouterModule }  from '@angular/router';
 import { LoginPage } from './login.component';
 import { MainPage } from './main-page.component';
+import { CreateUser } from './create_user.component';
 
 // Route config let's you map routes to components
 const routes: Routes = [
@@ -8,6 +9,10 @@ const routes: Routes = [
   {
     path: 'start',
     component: LoginPage,
+  },
+    {
+    path: 'create',
+    component: CreateUser,
   },
   {
     path: 'app',
