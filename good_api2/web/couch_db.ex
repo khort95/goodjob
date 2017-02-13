@@ -1,6 +1,8 @@
 defmodule GoodApi2.CouchDb do
     alias Couchdb.Connector.Writer
     alias Couchdb.Connector.Reader
+    alias Couchdb.Connector
+    
     
     @goodjob_db %{protocol: "http", hostname: "localhost",database: "good_job", port: 5984}
 
@@ -32,6 +34,18 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
+    def user_update_company(email, company) do
+        case Reader.get(@goodjob_db, email) do
+            {:ok, data} -> 
+                case get_company(company) do
+                    {:ok, _} -> user = Poison.decode!(data)
+                                {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{user | "company" => company, "is_head?" => true})
+                    {:error, _} -> {:error, "company not found"}
+                end
+            {:error, _} -> {:error, "no match"}
+        end
+    end
+
     def new_company(company) do
         IO.inspect company
         json = Poison.encode!(company)
@@ -49,4 +63,7 @@ defmodule GoodApi2.CouchDb do
             {:error, _} -> {:error, "no match"}  
         end
     end
+
+    #make chat ids user.email-company.name !
+    #http://127.0.0.1:5984/_utils/index.html
 end

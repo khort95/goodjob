@@ -1,6 +1,7 @@
 defmodule GoodApi2.JobSeeker do
   use GoodApi2.Web, :model
   alias GoodApi2.CouchDb, as: Couch
+  alias GoodApi2.Util
   
   @derive [Poison.Encoder]
   defstruct [:name, :email, :password, :bio, :resume, :picture, :distance_range, :tags, :chat_ids]
@@ -8,7 +9,7 @@ defmodule GoodApi2.JobSeeker do
   def create(inputs) do
       keys = ["name", "email", "password", "bio", "resume", "picture", "distance_range", "tags"]
       IO.inspect inputs
-      case check_keys(keys, inputs) do
+      case Util.check_keys(keys, inputs) do
         {:ok, user} -> 
             temp = %__MODULE__{name: user["name"], email: user["email"], password: user["password"], bio: user["bio"], tags: user["tags"], resume: user["resume"], picture: user["picture"], distance_range: user["distance_range"]}
             add = %__MODULE__{temp |  chat_ids: ["none"]}
@@ -26,13 +27,6 @@ defmodule GoodApi2.JobSeeker do
         {:ok, user} -> {:ok, user}
         {:error, msg} -> {:error, msg}
       end
-  end
-
-  defp check_keys(keys, map) do
-    case Enum.map(keys, fn k -> Map.has_key?(map, k) end) |> Enum.all? do
-      true -> {:ok, map}
-      false -> {:error, "missing"}
-    end
   end
 end
 

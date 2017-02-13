@@ -1,6 +1,7 @@
 defmodule GoodApi2.HrPerson do
   use GoodApi2.Web, :model
   alias GoodApi2.CouchDb, as: Couch
+  alias GoodApi2.Util
   
   @derive [Poison.Encoder]
   defstruct [:name, :email, :password, :bio, :role, :picture, :company, :is_head?, :permissions]
@@ -8,10 +9,10 @@ defmodule GoodApi2.HrPerson do
   def create(inputs) do
       keys = ["name", "email", "password", "bio", "role", "picture"]
       IO.inspect inputs
-      case check_keys(keys, inputs) do
+      case Util.check_keys(keys, inputs) do
         {:ok, user} -> 
             temp = %__MODULE__{name: user["name"], email: user["email"], password: user["password"], bio: user["bio"], role: user["role"], picture: user["picture"]}
-            add = %__MODULE__{temp |  company: "nil", is_head?: false, permissions: ["none"]}
+            add = %__MODULE__{temp |  company: "nil", is_head?: false, permissions: ["nil"]}
             case Couch.new_user(add) do
               {:ok, _, _} -> {:ok, add}
               {:error, _, _} -> {:error, "cant fit inside"}
@@ -26,13 +27,6 @@ defmodule GoodApi2.HrPerson do
         {:ok, user} -> {:ok, user}
         {:error, msg} -> {:error, msg}
       end
-  end
-
-  defp check_keys(keys, map) do
-    case Enum.map(keys, fn k -> Map.has_key?(map, k) end) |> Enum.all? do
-      true -> {:ok, map}
-      false -> {:error, "missing"}
-    end
   end
 end
 
