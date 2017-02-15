@@ -4,7 +4,7 @@ jspm_packages
 npm-debug.*
 link-checker-results.txt
 good_web/app/*.js
-*.js.map
+good_web/app/*.js.map
 e2e/**/*.js
 e2e/**/*.js.map
 _test-output
