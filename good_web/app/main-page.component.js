@@ -14,12 +14,15 @@ var MainPage = (function () {
     function MainPage(goodJobService) {
         this.goodJobService = goodJobService;
         this.user = null;
+        this.company = null;
         this.user = goodJobService.get_user();
+        goodJobService.fetch_company(this.user.company);
+        this.company = goodJobService.get_company();
     }
     MainPage = __decorate([
         core_1.Component({
             selector: 'main-page',
-            template: "\n\n<div>\n  <h4>hello {{user.name}}</h4>\n</div>\n  "
+            template: "\n\n<div>\n  <h4>hello {{user.name}}</h4>\n  <h4>hello {{company.name}}</h4>\n  <h4>hello {{company.bio}}</h4>\n\n</div>\n  "
         }), 
         __metadata('design:paramtypes', [good_job_service_1.GoodJobService])
     ], MainPage);

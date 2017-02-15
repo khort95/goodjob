@@ -49,7 +49,7 @@ export class CreateUser {
   newUser(event: any) {
     this.user = {email: this.loginForm.value.email, picture: "link-to-picture", bio: this.loginForm.value.bio,  permissions: [], role: this.loginForm.value.role, name: this.loginForm.value.name, company: ""}
     var response = this.goodJobService.create_user(this.create(this.user, this.loginForm.value.password))
-    this.router.navigate(['/start'])
+    this.router.navigate(['/company'])
   }
 
   create(user: HrPerson, password: string) :any{

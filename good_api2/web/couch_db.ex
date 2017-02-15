@@ -60,7 +60,42 @@ defmodule GoodApi2.CouchDb do
     def get_company(name) do
         case Reader.get(@goodjob_db, name) do
             {:ok, data} -> {:ok, Poison.decode!(data)}
-            {:error, _} -> {:error, "no match"}  
+            {:error, _} -> {:error, "company not found"}  
+        end
+    end
+
+    def company_new_job(company, job) do
+
+        case get_company(company) do
+            {:ok, company} -> 
+                    list = case company["jobs"] do
+                                nil -> []
+                                jobs -> jobs
+                           end
+                    {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{company | "jobs" => list ++ [job]})
+            {:error, _} -> {:error, "company not found"}
+        end
+    end
+
+    def new_job(job) do
+        IO.inspect job
+        json = Poison.encode!(job)
+     
+        case !String.contains?(job.name, "@") do
+            true  -> 
+                case get_company(job.company) do
+                    {:ok, _company} -> Writer.create(@goodjob_db, json, "#{job.company}&#{job.name}")
+                    {:error, _} -> {:error, "invalid company"}
+                end
+            false -> {:error, "has @ sign", :bad}
+        end
+    end
+
+    def get_job(company, job) do
+        IO.puts "#{company}&#{job}"
+        case Reader.get(@goodjob_db, "#{company}&#{job}") do
+            {:ok, data} -> {:ok, Poison.decode!(data)}
+            {:error, _} -> {:error, "company not found"}  
         end
     end
 

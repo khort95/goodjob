@@ -16,5 +16,8 @@ defmodule GoodApi2.Router do
 
     post "/company", CompanyController, :create
     post "/company/show", CompanyController, :show
+
+    post "/job", JobController, :create
+    post "/job/show", JobController, :show
   end
 end

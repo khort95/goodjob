@@ -35,6 +35,24 @@ var GoodJobService = (function () {
             };
         });
     };
+    GoodJobService.prototype.fetch_company = function (name) {
+        var creds = JSON.stringify({ name: name });
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        var s = this.http.post('http://localhost:4000/api/company/show', creds, {
+            headers: headers
+        }).map(function (data) { return data.json(); }).subscribe(function (data) {
+            return GoodJobService.company = {
+                name: data.name,
+                logo: data.logo,
+                bio: data.bio,
+                list_of_locations: data.list_of_locations,
+                link_to_website: data.link_to_website,
+                hr_manager_ids: data.manager_ids
+            };
+        });
+        console.log(s);
+    };
     GoodJobService.prototype.create_user = function (newPerson) {
         var creds = JSON.stringify(newPerson);
         var headers = new http_1.Headers();
@@ -57,11 +75,38 @@ var GoodJobService = (function () {
         }
         return GoodJobService.hr_person;
     };
+    GoodJobService.prototype.create_company = function (newPerson) {
+        var creds = JSON.stringify(newPerson);
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/json');
+        this.http.post('http://localhost:4000/api/company', creds, {
+            headers: headers
+        }).map(function (data) { return data.json(); }).subscribe(function (data) {
+            return GoodJobService.company = {
+                name: data.name,
+                logo: data.logo,
+                bio: data.bio,
+                list_of_locations: data.list_of_locations,
+                link_to_website: data.link_to_website,
+                hr_manager_ids: data.manager_ids
+            };
+        });
+        if (GoodJobService.company == null) {
+            return { name: "error", logo: "", bio: "", link_to_website: "", list_of_locations: [], hr_manager_ids: [] };
+        }
+        return GoodJobService.company;
+    };
     GoodJobService.prototype.get_user = function () {
         if (GoodJobService.hr_person == null) {
             return { email: "", picture: "", bio: "", permissions: [], role: "", name: "error!", company: "" };
         }
         return GoodJobService.hr_person;
+    };
+    GoodJobService.prototype.get_company = function () {
+        if (GoodJobService.company == null) {
+            return { name: "error", logo: "", bio: "", link_to_website: "", list_of_locations: [], hr_manager_ids: [] };
+        }
+        return GoodJobService.company;
     };
     GoodJobService = __decorate([
         core_1.Injectable(), 

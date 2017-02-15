@@ -38,7 +38,7 @@ var CreateUser = (function () {
     CreateUser.prototype.newUser = function (event) {
         this.user = { email: this.loginForm.value.email, picture: "link-to-picture", bio: this.loginForm.value.bio, permissions: [], role: this.loginForm.value.role, name: this.loginForm.value.name, company: "" };
         var response = this.goodJobService.create_user(this.create(this.user, this.loginForm.value.password));
-        this.router.navigate(['/start']);
+        this.router.navigate(['/company']);
     };
     CreateUser.prototype.create = function (user, password) {
         var hr = {

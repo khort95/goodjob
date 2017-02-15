@@ -14,8 +14,8 @@ defmodule GoodApi2.JobController do
         end  
     end
 
-    def show(conn, %{"name" => name}) do
-        case Job.show(name) do
+    def show(conn, %{"company"=>company, "job" => name}) do
+        case Job.show(company, name) do
             {:ok, job} ->
                 conn
                 |>render("job_couch.json", %{job: job})

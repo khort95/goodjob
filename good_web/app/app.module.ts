@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { LoginPage } from './login.component';
 import { MainPage } from './main-page.component';
 import { CreateUser } from './create_user.component';
+import { CreateCompany } from './create_company.component';
 import { GoodJobService } from './good-job.service';
 
 import { routing } from './app.routes';
@@ -16,7 +17,7 @@ import { routing } from './app.routes';
 
 @NgModule({
   imports: [ BrowserModule, ReactiveFormsModule, HttpModule, routing ],
-  declarations: [ AppComponent, LoginPage, CreateUser, MainPage ],
+  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany],
   bootstrap: [ AppComponent ],
   providers: [GoodJobService]
 })
