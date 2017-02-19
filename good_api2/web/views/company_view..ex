@@ -10,6 +10,7 @@ defmodule GoodApi2.CompanyView do
             link_to_website: company.link_to_website,
             list_of_locations: company.list_of_locations,
             manager_ids: company.manager_ids, 
+            jobs: company.jobs
         }
     end
 
@@ -20,7 +21,8 @@ defmodule GoodApi2.CompanyView do
             logo: company["logo"],  
             link_to_website: company["link_to_website"],
             list_of_locations: company["list_of_locations"], 
-            manager_ids: company["manager_ids"]
+            manager_ids: company["manager_ids"],
+            jobs: company["jobs"]
         }
     end
 end

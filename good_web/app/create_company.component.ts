@@ -24,14 +24,7 @@ import { ActivatedRoute, Router} from '@angular/router';
   `
 })
 export class CreateCompany {
-  company: Company = {
-    name: "error", 
-    logo: "",
-    bio: "",
-    link_to_website: "",
-    list_of_locations: [],
-    hr_manager_ids: []
-  }
+  company: Company = this.goodJobService.fetch_null_company();
  
   public loginForm = this.fb.group({
     name: ["", Validators.required],
@@ -44,7 +37,7 @@ export class CreateCompany {
   
   constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {}
   newUser(event: any) {
-    this.company = {name: this.loginForm.value.name, logo: "link-to-picture", bio: this.loginForm.value.bio,  list_of_locations: this.loginForm.value.list_of_locations,  link_to_website: this.loginForm.value.link_to_website, hr_manager_ids:[]}
+    this.company = {name: this.loginForm.value.name, logo: "link-to-picture", bio: this.loginForm.value.bio,  list_of_locations: this.loginForm.value.list_of_locations,  link_to_website: this.loginForm.value.link_to_website, hr_manager_ids:[], jobs:[]}
     var response = this.goodJobService.create_company(this.create(this.company, this.goodJobService.get_user().email)) 
     this.router.navigate(['/start'])
   }

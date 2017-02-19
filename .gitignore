@@ -12,10 +12,10 @@ _test-output
 _temp
 
 # App artifacts
-/_build
-/db
-/deps
-/*.ez
+good_api2/_build
+good_api2/db
+good_api2/deps
+good_api2/*.ez
 
 # Generated on crash by the VM
 erl_crash.dump

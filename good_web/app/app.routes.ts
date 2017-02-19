@@ -3,6 +3,7 @@ import { LoginPage } from './login.component';
 import { MainPage } from './main-page.component';
 import { CreateUser } from './create_user.component';
 import { CreateCompany } from './create_company.component';
+import { Temp } from './temp.component';
 
 // Route config let's you map routes to components
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'app',
     component: MainPage
+  },
+  {
+    path: 'temp',
+    component: Temp
   },
   // map '/' to '/persons' as our default route
   {

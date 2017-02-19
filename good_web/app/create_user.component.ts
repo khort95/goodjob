@@ -14,7 +14,6 @@ import { ActivatedRoute, Router} from '@angular/router';
     <input formControlName="email" type="email" placeholder="Your email">
     <input formControlName="password" type="password" placeholder="Your password">
     <input formControlName="name" type="name" placeholder="Your name">
-    <input formControlName="company" type="company" placeholder="Your company">
     <input formControlName="bio" type="bio" placeholder="A shot desciprtion of yourself">
     <input formControlName="role" type="role" placeholder="Your role at your company">
   <button type="submit">create!</button>
@@ -39,7 +38,6 @@ export class CreateUser {
     email: ["", Validators.required],
     password: ["", Validators.required],
     name: ["", Validators.required],
-    company: ["", Validators.required],
     bio: ["", Validators.required],
     role: ["", Validators.required]    
   });
