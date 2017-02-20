@@ -15,6 +15,8 @@ export class GoodJobService{
 constructor (private http: Http) {}
 public static hr_person: HrPerson
 public static company: Company
+url: string = "http://localhost:4000/"
+//url: string = "http://sepract1.monmouth.edu:4000/"
   
 login(password: string, email: string)  {
  
@@ -23,7 +25,7 @@ login(password: string, email: string)  {
   let headers = new Headers();
   headers.append('Content-Type', 'application/json');
 
-  this.http.post('http://localhost:4000/api/hr_person/login', creds, {
+  this.http.post(this.url+ 'api/hr_person/login', creds, {
     headers: headers
     }).map(data => data.json()).subscribe(
       data => 
@@ -47,7 +49,7 @@ login(password: string, email: string)  {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    this.http.post('http://localhost:4000/api/hr_person', creds, {
+    this.http.post(this.url + 'api/hr_person', creds, {
       headers: headers
       }).map(data => data.json()).subscribe(
         data => 
@@ -72,7 +74,7 @@ login(password: string, email: string)  {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    this.http.post('http://localhost:4000/api/company', creds, {
+    this.http.post(this.url + 'api/company', creds, {
       headers: headers
       }).map(data => data.json()).subscribe(
         data => 
@@ -106,7 +108,7 @@ login(password: string, email: string)  {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      return this.http.post('http://localhost:4000/api/hr_person/login', creds, {
+      return this.http.post(this.url + 'api/hr_person/login', creds, {
         headers: headers
         }).map(this.mapHrPerson)
     }
@@ -138,7 +140,7 @@ login(password: string, email: string)  {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      return this.http.post('http://localhost:4000/api/company/show', body, {
+      return this.http.post(this.url + 'api/company/show', body, {
         headers: headers})
         .map(this.mapCompany);
     }
@@ -180,7 +182,7 @@ login(password: string, email: string)  {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      return this.http.post('http://localhost:4000/api/job', creds, {
+      return this.http.post(this.url + 'api/job', creds, {
         headers: headers
         }).map(this.mapJob);
       }
@@ -191,7 +193,7 @@ login(password: string, email: string)  {
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
 
-      return this.http.post('http://localhost:4000/api/job/show', creds, {
+      return this.http.post(this.url + 'api/job/show', creds, {
         headers: headers
         }).map(this.mapJob);
     }
