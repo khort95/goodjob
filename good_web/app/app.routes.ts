@@ -4,6 +4,7 @@ import { MainPage } from './main-page.component';
 import { CreateUser } from './create_user.component';
 import { CreateCompany } from './create_company.component';
 import { Temp } from './temp.component';
+import { JobPanel } from './job_panel.component';
 
 // Route config let's you map routes to components
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'temp',
     component: Temp
+  },
+  {
+    path: 'app/job/:name/:company',
+    component: JobPanel
   },
   // map '/' to '/persons' as our default route
   {

@@ -12,6 +12,7 @@ import { CreateUser } from './create_user.component';
 import { CreateCompany } from './create_company.component';
 import { CreateJob } from './create_job.component';
 import { Temp } from './temp.component';
+import { JobPanel } from './job_panel.component';
 import { GoodJobService } from './good-job.service';
 
 import { routing } from './app.routes';
@@ -19,7 +20,7 @@ import { routing } from './app.routes';
 
 @NgModule({
   imports: [ BrowserModule, ReactiveFormsModule, HttpModule, routing ],
-  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Temp ],
+  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Temp, JobPanel ],
   bootstrap: [ AppComponent ],
   providers: [GoodJobService]
 })

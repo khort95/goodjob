@@ -185,6 +185,17 @@ login(password: string, email: string)  {
         }).map(this.mapJob);
       }
 
+    fetch_job(company: string, name: string) :Observable<Job>{
+      let creds = JSON.stringify({job: name, company: company});
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      return this.http.post('http://localhost:4000/api/job/show', creds, {
+        headers: headers
+        }).map(this.mapJob);
+    }
+
     
     mapJob(response:Response): Job{
       console.log("res::", response.json())

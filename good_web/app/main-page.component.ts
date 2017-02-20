@@ -19,7 +19,9 @@ import { CreateJob} from './create_job.component'
   <div>
   <ul>
     <li *ngFor="let job of company.jobs">
+      <a href= "#" [routerLink]="['/app/job', job, company.name]">
       {{job}}
+      </a>
     </li>
   </ul>
   </div>
