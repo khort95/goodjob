@@ -48,8 +48,8 @@ export class JobPanel implements OnInit{
   
 
   ngOnInit(){
-   var name;
-   var company; 
+   let name: string;
+   let company: string; 
 
    this.route.params.subscribe(params => {
           name = params['name'];
