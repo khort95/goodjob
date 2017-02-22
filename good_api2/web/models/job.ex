@@ -46,6 +46,22 @@ defmodule GoodApi2.Job do
     defp add_job_to_company(company, job) do
         Couch.company_new_job(company, job)
     end
+
+    def like(job, user, choice) do
+        case choice do
+            "like" -> Couch.like(job, user, choice)
+            "pass" -> Couch.like(job, user, choice)
+            _      -> {:error, "invalid choice"}
+        end
+    end
+
+    def approve(job, user, choice) do
+        case choice do
+            "approve" -> Couch.approve(job, user, choice)
+            "reject"  -> Couch.approve(job, user, choice)
+            _         -> {:error, "invalid choice"}
+        end
+    end
 end
 """
 curl -X POST -H "Content-Type: application/json" -d '
@@ -63,4 +79,12 @@ curl -X POST -H "Content-Type: application/json" -d '
 curl -X POST -H "Content-Type: application/json" -d '
 {"company":"Evil Corp", "job":"paper boy"}
 ' "http://localhost:4000/api/job/show"
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"job":"Evil Corp&paper boy", "user":"se.phildimarco@gmail.com", "choice":"like"}
+' "http://localhost:4000/api/job/like"
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"job":"Evil Corp&paper boy", "user":"se.phildimarco@gmail.com", "choice":"approve"}
+' "http://localhost:4000/api/job/approve"
 """

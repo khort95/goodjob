@@ -34,6 +34,13 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
+    defp valid_user?(email) do
+        case Reader.get(@goodjob_db, email) do
+            {:ok, data}     -> {:found, data}
+            {:error, _error} -> :error
+        end
+    end
+
     def user_update_company(email, company) do
         case Reader.get(@goodjob_db, email) do
             {:ok, data} -> 
@@ -96,6 +103,92 @@ defmodule GoodApi2.CouchDb do
         case Reader.get(@goodjob_db, "#{company}&#{job}") do
             {:ok, data} -> {:ok, Poison.decode!(data)}
             {:error, _} -> {:error, "company not found"}  
+        end
+    end
+
+    defp valid_job?(job) do
+        case Reader.get(@goodjob_db, job) do
+            {:ok, data}      -> {:found, data}
+            {:error, _error} -> :error
+        end
+    end
+
+    def like(job_name, user_name, "like") do
+        case valid_user?(user_name) do
+            {:found, user_result} -> case valid_job?(job_name) do
+                        {:found, result} ->
+                            job = Poison.decode!(result)
+                            user = Poison.decode!(user_result)
+                            {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job | "likes" => add_to_list(job["likes"], user_name)})
+                            {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{user | "seen" => add_to_list(user["seen"], job_name)})
+                            
+                            {:ok, "job liked"}
+                        :error -> {:error, "job not found"}
+                      end
+            :error -> {:error, "user not found"}
+        end 
+    end
+
+    def like(job_name, user_name, "pass") do
+        case valid_user?(user_name) do
+            {:found, result} -> case valid_job?(job_name) do
+                        {:found, _result} ->
+                            user = Poison.decode!(result)
+                            {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{user | "seen" => add_to_list(user["seen"], job_name)})
+                            {:ok, "job passed"}
+                        :error -> {:error, "job not found"}
+                      end
+            :error -> {:error, "user not found"}
+        end 
+    end
+
+    def approve(job_name, user_name, "approve") do
+        case valid_user?(user_name) do
+            {:found, _user_result} -> case valid_job?(job_name) do
+                        {:found, result} ->
+                            job = Poison.decode!(result)
+                            case find_in_listremove(job["likes"], user_name) do
+                                {:ok, list} -> 
+                                    {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job | "likes" => list, "active_chats"=>add_to_list(job["active_chats"], user_name)})
+                                    {:ok, "user added to chat"}
+                                :error      -> {:error, "user not found in job"}
+                            end
+                        :error -> {:error, "job not found"}
+                      end
+            :error -> {:error, "user not found"}
+        end 
+    end
+
+    def approve(job_name, user_name, "reject") do
+        case valid_user?(user_name) do
+            {:found, _user_result} -> case valid_job?(job_name) do
+                        {:found, result} ->
+                            job = Poison.decode!(result)
+                            case find_in_listremove(job["likes"], user_name) do
+                                {:ok, list} -> 
+                                    {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job | "likes" => list})
+                                    {:ok, "user rejected"}
+                                :error      -> {:error, "user not found in job"}
+                            end
+                        :error -> {:error, "job not found"}
+                      end
+            :error -> {:error, "user not found"}
+        end 
+    end
+
+    defp add_to_list(list, item) do
+        list++[item]
+        |>Enum.uniq()
+    end
+
+    defp find_in_listremove(list, item) do
+        size = Enum.count(list)
+        new_list = List.delete(list, item)
+        size2 = Enum.count(new_list)
+    
+        case size - size2 == 0 do
+            true  -> :error
+            false -> {:ok, new_list}
         end
     end
 

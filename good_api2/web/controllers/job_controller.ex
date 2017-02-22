@@ -25,4 +25,28 @@ defmodule GoodApi2.JobController do
                 |>json(%{error: msg})
         end
     end
+
+    def like(conn, %{"job"=>job, "user"=>user, "choice"=>choice}) do
+            case Job.like(job, user, choice) do
+            {:ok, job} ->
+                conn
+                |>json(%{ok: job})
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end
+    end
+
+     def approve(conn, %{"job"=>job, "user"=>user, "choice"=>choice}) do
+            case Job.approve(job, user, choice) do
+            {:ok, job} ->
+                conn
+                |>json(%{ok: job})
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end
+    end
 end
