@@ -2,8 +2,8 @@ defmodule GoodApi2.ChatController do
     use GoodApi2.Web, :controller
     alias GoodApi2.Chat
 
-    def send_message(conn, %{"user"=>user, "chat"=>chat, "content"=>content}) do
-         case Chat.new_message(user, chat, content) do
+    def send_message(conn, %{"user"=>user, "job_seeker"=>job_seeker, "job"=>job,"content"=>content}) do
+         case Chat.new_message(user, job_seeker, job, content) do
             {:ok, _chat} ->
                 conn
                 |>json(%{ok: "message sent"})
@@ -14,8 +14,8 @@ defmodule GoodApi2.ChatController do
         end  
     end
 
-    def show(conn, %{"show"=>chat}) do
-        case Chat.get_chat(chat) do
+    def show(conn, %{"job_seeker"=>job_seeker, "job"=>job}) do
+        case Chat.get_chat(job_seeker, job) do
             {:ok, chat} ->
                 conn
                 |>render("company.json", %{chat: chat})
