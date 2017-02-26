@@ -72,7 +72,6 @@ defmodule GoodApi2.CouchDb do
     end
 
     def company_new_job(company, job) do
-
         case get_company(company) do
             {:ok, company} -> 
                     list = case company["jobs"] do
@@ -144,13 +143,18 @@ defmodule GoodApi2.CouchDb do
 
     def approve(job_name, user_name, "approve") do
         case valid_user?(user_name) do
-            {:found, _user_result} -> case valid_job?(job_name) do
+            {:found, user_result} -> case valid_job?(job_name) do
                         {:found, result} ->
                             job = Poison.decode!(result)
+                            user =  Poison.decode!(user_result)
                             case find_in_listremove(job["likes"], user_name) do
                                 {:ok, list} -> 
-                                    {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job | "likes" => list, "active_chats"=>add_to_list(job["active_chats"], user_name)})
-                                    {:ok, "user added to chat"}
+                                    case new_chat(user, job_name) do
+                                        {:ok, chat} ->
+                                            {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job | "likes" => list, "active_chats"=>add_to_list(job["active_chats"], chat)}) 
+                                            {:ok, "user added to chat #{chat}"}
+                                        {:error, msg} -> {:error, msg}
+                                    end
                                 :error      -> {:error, "user not found in job"}
                             end
                         :error -> {:error, "job not found"}
@@ -174,6 +178,55 @@ defmodule GoodApi2.CouchDb do
                       end
             :error -> {:error, "user not found"}
         end 
+    end
+
+    #takes a user and a job name and creates a new chat document and adds the chat to the user
+    defp new_chat(job_seeker, job) do
+        empty_chat = %{"job_seeker"=>job_seeker["email"], "job"=>job, "messages"=>[]}
+        |>Poison.encode!
+
+        new_id = create_chat_id(job_seeker["email"], job)
+        #assume job/jobseeker validaded in approve
+        case Writer.create(@goodjob_db, empty_chat, new_id) do
+            {:ok, _, _} -> 
+                {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job_seeker | "chat_ids" => add_to_list(job_seeker["chat_ids"], new_id)})
+                {:ok, new_id}
+            {:error, _, _} -> {:error, "failed to create chat"}
+        end
+    end
+
+    def valid_chat?(chat) do
+        case Reader.get(@goodjob_db, chat) do
+            {:ok, data}      -> {:found, data}
+            {:error, _error} -> {:error, "chat not found"}
+        end
+    end
+
+    defp create_chat_id(job_seeker, job) do
+        "#{job_seeker}&&#{job}"
+    end
+
+    #think about changing this so send message requires a user and a chat, creates the id, sends the message 
+        #the chat_id would not be stored directly in any doc, the job_seeker would have the job, the company
+        #would have the job_seeker
+    def send_message(chat_id, message) do
+        case valid_chat?(chat_id) do
+            {:found, raw} ->
+                case valid_user?(message["user"]) do
+                    {:found, _user} ->
+                        chat = Poison.decode!(raw)
+                        update_document(chat, "messages", add_to_list(chat["messages"], Poison.encode!(message)), "message sent")
+                    {:error, msg} -> {:error, msg}
+                end
+            {:error, msg} -> {:error, msg}
+        end
+    end
+
+    def update_document(old, field_name, new_field, success) do
+         case Connector.update(@goodjob_db, %{old | field_name => new_field}) do
+             {:ok, %{:headers => _h, :payload => _p}} -> {:ok, success}
+             {:error, _} -> {:error, "failed to update document"}
+         end
     end
 
     defp add_to_list(list, item) do

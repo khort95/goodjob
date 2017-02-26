@@ -20,6 +20,9 @@ defmodule GoodApi2.Router do
     post "/job", JobController, :create
     post "/job/show", JobController, :show
     post "/job/like", JobController, :like
-     post "/job/approve", JobController, :approve
+    post "/job/approve", JobController, :approve
+
+    post "/chat", ChatController, :send_message
+    post "/chat/show", ChatController, :send_message
   end
 end

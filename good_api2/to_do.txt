@@ -1,10 +1,9 @@
-1. need to make chat model
-2. need to make 'approve' make a new chat
-    2a. nofications stored in user??
-3. need to build front end for these features
+1. need to fix chat stuff **see comment in couch_db line 209
+2. need to build front end for these features for approve/chat
 4. figure out how to deliver best jobs for users
     4a. filter based on a set of params
     4b. most relevent jobs to the top
     4c. figure out best way to store these jobs in DB
     4d. should job list be figured out as soon as login?
 5. look into real time chat
+    5a. notifcations for new messages/job approves

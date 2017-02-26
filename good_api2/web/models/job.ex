@@ -18,7 +18,7 @@ defmodule GoodApi2.Job do
                     likes: [],
                     active_chats: [],
                     description: job["description"],
-                    post_date: Date.to_string(Date.utc_today()),
+                    post_date: DateTime.to_string(DateTime.utc_now()),
                     salary_range: job["salary_range"],
                     employment_type: job["employment_type"],
                     location: job["location"],
