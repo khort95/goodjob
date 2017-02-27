@@ -3,6 +3,7 @@ import { LoginPage } from './login.component';
 import { MainPage } from './main-page.component';
 import { CreateUser } from './create_user.component';
 import { CreateCompany } from './create_company.component';
+import { ChatWindow } from './chat.component';
 import { Temp } from './temp.component';
 import { JobPanel } from './job_panel.component';
 
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'app/job/:name/:company',
     component: JobPanel
+  },
+  {
+    path: 'app/job/chat/:job_seeker/:company/:job',
+    component: ChatWindow
   },
   // map '/' to '/persons' as our default route
   {

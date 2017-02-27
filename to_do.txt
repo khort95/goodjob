@@ -1,0 +1,16 @@
+1. need to build front end for approve
+    1a. need to build a view for job_seeker
+    1b. need to be able to access 'public' information about job_seekers
+2. a refresh for chats??
+3. fix refresh problem on chat page
+    3a. add cookies for storing logged in users?
+    3b. less reliance on params in url maybe?
+3. when a user makes a new job maybe return a new company thing kind of like how chat works
+4. figure out how to deliver best jobs for users
+    4a. filter based on a set of params
+    4b. most relevent jobs to the top
+    4c. figure out best way to store these jobs in DB
+    4d. should job list be figured out as soon as login?
+5. refactor CouchDB code, maybe it should all be in the models? USE with, clean up cases .. do
+6. look into real time chat
+    5a. notifcations for new messages/job approves

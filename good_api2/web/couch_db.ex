@@ -182,7 +182,7 @@ defmodule GoodApi2.CouchDb do
 
     #takes a user and a job name and creates a new chat document and adds the chat to the user
     defp new_chat(job_seeker, job) do
-        empty_chat = %{"job_seeker"=>job_seeker["email"], "job"=>job, "messages"=>[]}
+        empty_chat = %{"job_seeker"=>job_seeker["email"], "job_seeker_name"=>job_seeker["name"], "job"=>job, "messages"=>[]}
         |>Poison.encode!
 
         new_id = make_chat_id(job_seeker["email"], job)
@@ -219,10 +219,12 @@ defmodule GoodApi2.CouchDb do
         case valid_chat?(chat_id) do
             {:found, raw} ->
                 case valid_user?(message["sender"]) do
-                    {:found, _user} ->
+                    {:found, user_raw} ->
                         chat = Poison.decode!(raw)
-                        update_document(chat, "messages", add_to_list(chat["messages"], Poison.encode!(message)), "message sent")
-                    {:error, msg} -> {:error, msg}
+                        user = Poison.decode!(user_raw)
+                        message = %{message | "sender_name"=>user["name"]}
+                        update_document(chat, "messages", add_to_list(chat["messages"], message), "message sent")
+                    :error -> {:error, "invalid hr_person"}
                 end
             {:error, msg} -> {:error, msg}
         end
@@ -230,7 +232,7 @@ defmodule GoodApi2.CouchDb do
 
     def update_document(old, field_name, new_field, success) do
          case Connector.update(@goodjob_db, %{old | field_name => new_field}) do
-             {:ok, %{:headers => _h, :payload => _p}} -> {:ok, success}
+             {:ok, %{:headers => _h, :payload => _p}} -> {:ok, %{old | field_name => new_field}}
              {:error, _} -> {:error, "failed to update document (error doing #{success})"}
          end
     end

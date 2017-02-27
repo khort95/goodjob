@@ -4,7 +4,7 @@ defmodule GoodApi2.Chat do
     alias GoodApi2.Util
 
     def new_message(sender, job_seeker, job, content) do
-        message = %{"sender"=>sender, "content"=>content, "timestamp"=>DateTime.to_string(DateTime.utc_now())}
+        message = %{"sender"=>sender,"sender_name"=>"", "content"=>content, "timestamp"=>DateTime.to_string(DateTime.utc_now())}
         case Couch.send_message(job_seeker, job, message) do
             {:ok, msg} -> {:ok, msg}
             {:error, msg} -> {:error, msg}
@@ -20,6 +20,10 @@ defmodule GoodApi2.Chat do
 end
 """
 curl -X POST -H "Content-Type: application/json" -d '
-{"user":"se.phildimarco@gmail.com", "job_seeker":"se.phildimarco@gmail.com", "job":"Evil Corp&paper boy", "content":"hello!"}
+{"sender":"se.phildimarco@gmail.com", "job_seeker":"se.phildimarco@gmail.com", "job":"Evil Corp&paper boy", "content":"hello!"}
 ' "http://localhost:4000/api/chat"
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"job_seeker":"se.phildimarco@gmail.com", "job":"Evil Corp&paper boy"}
+' "http://localhost:4000/api/chat/show"
 """

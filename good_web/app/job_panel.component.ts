@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { NgModule, OnInit}      from '@angular/core';
+import { Component, NgModule, OnInit} from '@angular/core';
 import { Job } from './job';
 import { GoodJobService } from './good-job.service';
 import { CreateJob} from './create_job.component';
@@ -22,7 +21,9 @@ import { ActivatedRoute } from '@angular/router';
     chats
     <ul>
     <li *ngFor="let user of job.active_chats">
+      <a href= "#" [routerLink]="['/app/job/chat', user, job.company, job.name]">
       {{user}}
+      </a>
     </li>
     </ul>
     </div>

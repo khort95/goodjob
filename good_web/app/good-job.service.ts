@@ -1,6 +1,7 @@
 import { HrPerson } from './hr-person';
 import { Company } from './company';
 import { Job } from './job';
+import { Message, Chat } from './chat';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Injectable }     from '@angular/core';
 
@@ -219,7 +220,63 @@ login(password: string, email: string)  {
       return company
     }
 
+    fetch_null_chat(): Chat{
+      return{
+        job_seeker: "empty chat",
+        job:"",
+        messages: this.fetch_null_message()
+      }
+    }
 
+    fetch_null_message(): Message[]{
+      return [{sender: "GoodJob", timestamp:"", content:"no messages"}]
+    }
 
+    private make_job_id(company: string, job: string): string {
+      return company + '&' + job
+    }
+
+    fetch_chat(job_seeker_name: string, company_name: string, job_name: string) :Observable<Chat>{
+      let creds = JSON.stringify({job_seeker: job_seeker_name, job: this.make_job_id(company_name, job_name)});
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      return this.http.post(this.url + 'api/chat/show', creds, {
+        headers: headers
+        }).map(this.map_chat);
+    }
+
+    send_message(sender: string, job_seeker_name: string, company_name: string, job_name: string, msg: string) :Observable<Chat>{
+      let creds = JSON.stringify({sender: sender, job_seeker: job_seeker_name, job: this.make_job_id(company_name, job_name), content: msg});
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      return this.http.post(this.url + 'api/chat', creds, {
+        headers: headers
+        }).map(this.map_chat);
+    }
+
+    map_chat(response:Response): Chat{
+      console.log("res::", response.json())
+      let data = response.json();
+      let chat = <Chat>({
+               job_seeker: data.job_seeker,
+               job: data.job,
+               messages: data.messages
+        })
+
+      return chat
+    }
+
+    private static map_messages(messages: any[]): Message[]{
+      let msgs: Message[] = []
+      for(let obj of messages){
+        
+        msgs.push(JSON.parse(obj))
+      }
+      return msgs
+    }
 }
 
