@@ -16,11 +16,11 @@ export class GoodJobService{
 constructor (private http: Http) {}
 public static hr_person: HrPerson
 public static company: Company
-url: string = "http://localhost:4000/"
-//url: string = "http://sepract1.monmouth.edu:4000/"
-  
+//url: string = "http://localhost:4000/"
+url: string = "http://sepract1.monmouth.edu:4000/"
+
 login(password: string, email: string)  {
- 
+
   let creds = JSON.stringify({ email: email, password: password });
 
   let headers = new Headers();
@@ -29,17 +29,17 @@ login(password: string, email: string)  {
   this.http.post(this.url+ 'api/hr_person/login', creds, {
     headers: headers
     }).map(data => data.json()).subscribe(
-      data => 
+      data =>
         GoodJobService.hr_person = {
             email: data.email,
-            name: data.name, 
+            name: data.name,
             picture: data.picture,
             bio: data.bio,
-            permissions: data.permissions, 
+            permissions: data.permissions,
             role: data.role,
             company: data.company
         }
-      
+
     )
     }
 
@@ -53,17 +53,17 @@ login(password: string, email: string)  {
     this.http.post(this.url + 'api/hr_person', creds, {
       headers: headers
       }).map(data => data.json()).subscribe(
-        data => 
+        data =>
           GoodJobService.hr_person = {
               email: data.email,
-              name: data.name, 
+              name: data.name,
               picture: data.picture,
               bio: data.bio,
-              permissions: data.permissions, 
+              permissions: data.permissions,
               role: data.role,
               company: data.company
           }
-        
+
       )
       if(GoodJobService.hr_person == null){return {email: "", picture: "", bio: "",  permissions: [], role: "",  name: "error!", company: ""}}
       return GoodJobService.hr_person;
@@ -78,17 +78,17 @@ login(password: string, email: string)  {
     this.http.post(this.url + 'api/company', creds, {
       headers: headers
       }).map(data => data.json()).subscribe(
-        data => 
+        data =>
           GoodJobService.company = {
-              name: data.name, 
+              name: data.name,
               logo: data.logo,
               bio: data.bio,
-              list_of_locations: data.list_of_locations, 
+              list_of_locations: data.list_of_locations,
               link_to_website: data.link_to_website,
               hr_manager_ids: data.manager_ids,
               jobs:[]
           }
-        
+
       )
       if(GoodJobService.company == null){this.fetch_null_company()}
       return GoodJobService.company;
@@ -119,10 +119,10 @@ login(password: string, email: string)  {
       let data = response.json();
       let user = <HrPerson>({
             email: data.email,
-            name: data.name, 
+            name: data.name,
             picture: data.picture,
             bio: data.bio,
-            permissions: data.permissions, 
+            permissions: data.permissions,
             role: data.role,
             company: data.company
         })
@@ -150,10 +150,10 @@ login(password: string, email: string)  {
       console.log("res::", response.json())
       let data = response.json();
       let company = <Company>({
-                name: data.name, 
+                name: data.name,
                 logo: data.logo,
                 bio: data.bio,
-                list_of_locations: data.list_of_locations, 
+                list_of_locations: data.list_of_locations,
                 link_to_website: data.link_to_website,
                 hr_manager_ids: data.manager_ids,
                 jobs: data.jobs
@@ -165,7 +165,7 @@ login(password: string, email: string)  {
 
     fetch_null_job() :Job {
        return { name: "no job found",
-                company: "", 
+                company: "",
                 likes: [],
                 active_chats: [],
                 description: "",
@@ -199,13 +199,13 @@ login(password: string, email: string)  {
         }).map(this.mapJob);
     }
 
-    
+
     mapJob(response:Response): Job{
       console.log("res::", response.json())
       let data = response.json();
       let company = <Job>({
                 name: data.name,
-                company: data.company, 
+                company: data.company,
                 likes: data.likes,
                 active_chats: data.active_chats,
                 description: data.description,
@@ -229,7 +229,7 @@ login(password: string, email: string)  {
     }
 
     fetch_null_message(): Message[]{
-      return [{sender: "GoodJob", timestamp:"", content:"no messages"}]
+      return [{sender: "GoodJob", sender_name:"", timestamp:"", content:"no messages"}]
     }
 
     private make_job_id(company: string, job: string): string {
@@ -273,10 +273,9 @@ login(password: string, email: string)  {
     private static map_messages(messages: any[]): Message[]{
       let msgs: Message[] = []
       for(let obj of messages){
-        
+
         msgs.push(JSON.parse(obj))
       }
       return msgs
     }
 }
-

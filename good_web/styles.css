@@ -1,40 +1,53 @@
 /* Master Styles */
+body{
+  background-color: #b1dfed;
+}
 h1 {
-  color: #369; 
-  font-family: Arial, Helvetica, sans-serif;   
+  color: #b3b3b3;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 250%;
 }
-h2, h3 { 
+h2, h3 {
   color: #444;
-  font-family: Arial, Helvetica, sans-serif;   
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: lighter;
 }
-body { 
-  margin: 2em; 
+body {
+  margin: 2em;
 }
-body, input[text], button { 
-  color: #888; 
-  font-family: Cambria, Georgia; 
+body, input[text], button {
+  color: #888;
+  font-family: Cambria, Georgia;
 }
 a {
   cursor: pointer;
   cursor: hand;
 }
-button {
+button{
   font-family: Arial;
-  background-color: #eee;
+  background-color: #cccccc;
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
   cursor: hand;
 }
+.createbutton {
+  font-family: Arial;
+  background-color: #ccebff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+}
+
 button:hover {
   background-color: #cfd8dc;
 }
 button:disabled {
   background-color: #eee;
-  color: #aaa; 
+  color: #aaa;
   cursor: auto;
 }
 
@@ -137,6 +150,6 @@ nav a.router-link-active {
 }
 
 /* everywhere else */
-* { 
-  font-family: Arial, Helvetica, sans-serif; 
+* {
+  font-family: Arial, Helvetica, sans-serif;
 }
