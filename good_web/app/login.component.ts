@@ -12,26 +12,33 @@ import { ActivatedRoute, Router} from '@angular/router';
 @Component({
   selector: 'login-page',
   template: `
+  <div align=center>{{user.name}}</div>
+  <br>
   <form [formGroup]="loginForm" (ngSubmit)="doLogin($event)">
-    <div><input formControlName="email" type="email" placeholder="Your email"></div>
-    <div><input formControlName="password" type="password" placeholder="Your password"></div>
-  <button type="submit">Log in</button>
+    <div align = center><input formControlName="email" type="email" placeholder="Enter Email"></div>
+    <div align = center><input formControlName="password" type="password" placeholder="Enter Password"></div>
+    <br>
+  <div align=center><button type="submit">Log In</button></div>
+  <div style="line-height:50%;">
+    <br>
+</div>
+  <div align=center><a href="create user" [routerLink]="['/create']"><button class="createbutton">Create User</button></a></div>
 </form>
-<div>{{user.name}}</div>
 
-<a href="create user" [routerLink]="['/create']">create user</a>
+
+
   `
 })
 
 export class LoginPage {
   user: HrPerson = this.goodJobService.fetch_null_hr_person()
- 
+
   public loginForm = this.fb.group({
     email: ["", Validators.required],
     password: ["", Validators.required]
   });
 
-  
+
   constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {}
 
   doLogin(event: any) {
@@ -39,10 +46,10 @@ export class LoginPage {
     //this.user = this.goodJobService.get_user()
     //console.log(this.user)
     //if(this.user.name !== "error!"){this.router.navigate(['/app'])}
-   
+
    this.goodJobService.test_login(this.loginForm.value.password, this.loginForm.value.email)
    .subscribe(p => this.router.navigate(['/app']), error=> this.user.name = "login error!")
     console.log(this.user)
   }
-    
+
 }

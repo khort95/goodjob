@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'my-app',
     template: `
-    <h1>Good Job</h1>
-  
+    <div align="center"><h1>GoodJob</h1></div>
+
     <router-outlet></router-outlet>
     `
 })
