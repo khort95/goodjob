@@ -12,8 +12,12 @@ import { ActivatedRoute, Router} from '@angular/router';
 @Component({
   selector: 'login-page',
   template: `
-  <div align=center>{{user.name}}</div>
-  <br>
+  <div class="error" align=center>
+  {{user.name}}
+  </div>
+  <div style="line-height:50%">"
+    <br>
+  </div>
   <form [formGroup]="loginForm" (ngSubmit)="doLogin($event)">
     <div align = center><input formControlName="email" type="email" placeholder="Enter Email"></div>
     <div align = center><input formControlName="password" type="password" placeholder="Enter Password"></div>
