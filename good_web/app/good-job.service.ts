@@ -100,7 +100,7 @@ login(password: string, email: string)  {
     }
 
     fetch_null_hr_person() :HrPerson {
-     return {email: "", picture: "", bio: "",  permissions: [], role: "", name: "please login", company: ""}
+     return {email: "", picture: "", bio: "",  permissions: [], role: "", name: "Please Login", company: ""}
     }
 
     test_login(password: string, email: string): Observable<HrPerson>{

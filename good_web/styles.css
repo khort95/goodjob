@@ -4,8 +4,8 @@ body{
 }
 h1 {
   color: #b3b3b3;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 40px;
 }
 h2, h3 {
   color: #444;
@@ -16,32 +16,37 @@ body {
   margin: 2em;
 }
 body, input[text], button {
-  color: #888;
-  font-family: Cambria, Georgia;
+  color: #595959;
+  font-family: 'Days One', sans-serif;
 }
 a {
   cursor: pointer;
   cursor: hand;
 }
 button{
-  font-family: Arial;
+  font-family: 'Boogaloo', cursive;
   background-color: #cccccc;
   border: none;
   padding: 5px 10px;
-  border-radius: 4px;
+  border-radius: 7px;
+  font-size: 20px;
   cursor: pointer;
   cursor: hand;
 }
 .createbutton {
-  font-family: Arial;
+  font-family: 'Boogaloo', cursive;
   background-color: #ccebff;
   border: none;
   padding: 5px 10px;
-  border-radius: 4px;
+  border-radius: 7px;
   cursor: pointer;
   cursor: hand;
 }
+.error{
+  font-family: 'Boogaloo', cursive;
+  font-size: 21px;
 
+}
 button:hover {
   background-color: #cfd8dc;
 }
@@ -49,6 +54,15 @@ button:disabled {
   background-color: #eee;
   color: #aaa;
   cursor: auto;
+}
+input {
+ background-color:#FFF;
+ min-height:30px;
+ min-width: 200px;
+ font-size: 20px;
+ font-family: 'Boogaloo', cursive;
+
+
 }
 
 /* Navigation link styles */
