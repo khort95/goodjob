@@ -16,32 +16,8 @@ export class GoodJobService{
 constructor (private http: Http) {}
 public static hr_person: HrPerson
 public static company: Company
-//url: string = "http://localhost:4000/"
-url: string = "http://sepract1.monmouth.edu:4000/"
-
-login(password: string, email: string)  {
-
-  let creds = JSON.stringify({ email: email, password: password });
-
-  let headers = new Headers();
-  headers.append('Content-Type', 'application/json');
-
-  this.http.post(this.url+ 'api/hr_person/login', creds, {
-    headers: headers
-    }).map(data => data.json()).subscribe(
-      data =>
-        GoodJobService.hr_person = {
-            email: data.email,
-            name: data.name,
-            picture: data.picture,
-            bio: data.bio,
-            permissions: data.permissions,
-            role: data.role,
-            company: data.company
-        }
-
-    )
-    }
+url: string = "http://localhost:4000/"
+//url: string = "http://sepract1.monmouth.edu:4000/"
 
 
   create_user(newPerson: any) :HrPerson {
@@ -103,7 +79,7 @@ login(password: string, email: string)  {
      return {email: "", picture: "", bio: "",  permissions: [], role: "", name: "Please Login", company: ""}
     }
 
-    test_login(password: string, email: string): Observable<HrPerson>{
+    login(password: string, email: string): Observable<HrPerson>{
        let creds = JSON.stringify({ email: email, password: password });
 
       let headers = new Headers();

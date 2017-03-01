@@ -81,7 +81,7 @@ curl -X POST -H "Content-Type: application/json" -d '
 ' "http://localhost:4000/api/job/show"
 
 curl -X POST -H "Content-Type: application/json" -d '
-{"job":"Evil Corp&paper boy", "user":"se.phildimarco@gmail.com", "choice":"like"}
+{"job":"Evil Corp&paper boy", "user":"se.phildimarco@gmail.com", "choice":"pass"}
 ' "http://localhost:4000/api/job/like"
 
 curl -X POST -H "Content-Type: application/json" -d '

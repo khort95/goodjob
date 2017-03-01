@@ -32,7 +32,7 @@ import { ActivatedRoute } from '@angular/router';
     likes
     <ul>
     <li *ngFor="let user of job.likes">
-      user
+      {{user}}
     </li>
     </ul>
     </div>

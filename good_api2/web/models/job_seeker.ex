@@ -35,8 +35,8 @@ end
 """
 curl -X POST -H "Content-Type: application/json" -d '
 {"create": 
-{"email": "se.phildimarco@gmail.com",
-"name": "Phil DiMarco",
+{"email": "jeff@gmail.com",
+"name": "Jeff DiMarco",
 "password": "123456",
 "bio": "I am a cool guy",
 "picture": "link-to-picture",

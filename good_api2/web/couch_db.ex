@@ -3,11 +3,47 @@ defmodule GoodApi2.CouchDb do
     alias Couchdb.Connector.Reader
     alias Couchdb.Connector
     
-    
+    #http://127.0.0.1:5984/_utils/index.html
     @goodjob_db %{protocol: "http", hostname: "localhost",database: "good_job", port: 5984}
 
     def init_db() do
         Couchdb.Connector.Storage.storage_up(@goodjob_db)
+    end
+
+    def update_document(old, field_name, new_field, success) do
+         case Connector.update(@goodjob_db, %{old | field_name => new_field}) do
+             {:ok, %{:headers => _h, :payload => _p}} -> {:ok, %{old | field_name => new_field}}
+             {:error, _} -> {:error, "failed to update document (error doing #{success})"}
+         end
+    end
+
+    defp valid_user?(email) do
+        case Reader.get(@goodjob_db, email) do
+            {:ok, data}      -> {:found, data}
+            {:error, _error} -> {:error, "user not valid"}
+        end
+    end
+
+    def valid_chat?(chat) do
+        case Reader.get(@goodjob_db, chat) do
+            {:ok, data}      -> {:found, data}
+            {:error, _error} -> {:error, "chat not found"}
+        end
+    end
+
+    def valid_chat?(job_seeker, job) do
+        chat = make_chat_id(job_seeker, job)
+        case Reader.get(@goodjob_db, chat) do
+            {:ok, data}      -> {:found, data}
+            {:error, _error} -> {:error, "chat not found"}
+        end
+    end
+
+    defp valid_job?(job) do
+        case Reader.get(@goodjob_db, job) do
+            {:ok, data}      -> {:found, data}
+            {:error, _error} -> {:error, "job not found"}
+        end
     end
 
     def new_user(user) do
@@ -31,13 +67,6 @@ defmodule GoodApi2.CouchDb do
                     _ -> {:error, "bad password"}
                 end
             {:error, _} -> {:error, "no match"}    
-        end
-    end
-
-    defp valid_user?(email) do
-        case Reader.get(@goodjob_db, email) do
-            {:ok, data}     -> {:found, data}
-            {:error, _error} -> :error
         end
     end
 
@@ -105,40 +134,42 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
-    defp valid_job?(job) do
-        case Reader.get(@goodjob_db, job) do
-            {:ok, data}      -> {:found, data}
-            {:error, _error} -> :error
+    def like(job_name, user_name, "pass") do
+        with {:found, user_result}   <- valid_user?(user_name),
+             {:found, job_result}    <- valid_job?(job_name),
+             {user, job}             <- decode_job_user(user_result, job_result),      
+             nil                     <- Enum.find(job["likes"], fn(user)->user==user_name end),
+             nil                     <- Enum.find(job["active_chats"], fn(user)->user==user_name end) do
+                 user = Poison.decode!(user_result)
+                 |>update_document("seen", add_to_list(user["seen"], job_name), "job added to seen")
+                 {:ok, "job passed"}
+        else
+            {:error, message}       -> {:error, message}
+            str when is_binary(str) -> {:error, "job in liked active chat cannot pass"}
+                                  _ -> {:error, "failed to pass"}       
         end
     end
 
     def like(job_name, user_name, "like") do
-        case valid_user?(user_name) do
-            {:found, user_result} -> case valid_job?(job_name) do
-                        {:found, result} ->
-                            job = Poison.decode!(result)
-                            user = Poison.decode!(user_result)
-                            {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job | "likes" => add_to_list(job["likes"], user_name)})
-                            {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{user | "seen" => add_to_list(user["seen"], job_name)})
-                            
-                            {:ok, "job liked"}
-                        :error -> {:error, "job not found"}
-                      end
-            :error -> {:error, "user not found"}
-        end 
+        with {:found, user_result}  <- valid_user?(user_name),
+             {:found, job_result}   <- valid_job?(job_name),
+             {user, job}            <- decode_job_user(user_result, job_result),              
+             nil                    <- Enum.find(job["likes"], fn(user)->user==user_name end),
+             nil                    <- Enum.find(job["active_chats"], fn(user)->user==user_name end) do 
+                update_document(job, "likes", add_to_list(job["likes"], user_name), "user added to liked jobs")
+                update_document(user, "seen", add_to_list(user["seen"], job_name), "job added to seen")
+                {:ok, "job liked"}
+        else
+            {:error, message}       -> {:error, message}
+            str when is_binary(str) -> {:error, "job in liked/active already"}
+                                  _ -> {:error, "error failed to like job"}
+        end
     end
 
-    def like(job_name, user_name, "pass") do
-        case valid_user?(user_name) do
-            {:found, result} -> case valid_job?(job_name) do
-                        {:found, _result} ->
-                            user = Poison.decode!(result)
-                            {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{user | "seen" => add_to_list(user["seen"], job_name)})
-                            {:ok, "job passed"}
-                        :error -> {:error, "job not found"}
-                      end
-            :error -> {:error, "user not found"}
-        end 
+    defp decode_job_user(raw_user, raw_job) do
+        job = Poison.decode!(raw_job)
+        user = Poison.decode!(raw_user)
+        {user, job}
     end
 
     def approve(job_name, user_name, "approve") do
@@ -147,7 +178,7 @@ defmodule GoodApi2.CouchDb do
                         {:found, result} ->
                             job = Poison.decode!(result)
                             user =  Poison.decode!(user_result)
-                            case find_in_listremove(job["likes"], user_name) do
+                            case test_and_remove(job["likes"], user_name, "user not found in job") do
                                 {:ok, list} -> 
                                     case new_chat(user, job_name) do
                                         {:ok, chat} ->
@@ -155,11 +186,11 @@ defmodule GoodApi2.CouchDb do
                                             {:ok, "user added to chat #{chat}"}
                                         {:error, msg} -> {:error, msg}
                                     end
-                                :error      -> {:error, "user not found in job"}
+                                {:error, msg}      -> {:error, msg}
                             end
-                        :error -> {:error, "job not found"}
+                        {:error, msg} -> {:error, msg}
                       end
-            :error -> {:error, "user not found"}
+            {:error, msg} -> {:error, msg}
         end 
     end
 
@@ -168,15 +199,15 @@ defmodule GoodApi2.CouchDb do
             {:found, _user_result} -> case valid_job?(job_name) do
                         {:found, result} ->
                             job = Poison.decode!(result)
-                            case find_in_listremove(job["likes"], user_name) do
+                            case test_and_remove(job["likes"], user_name, "user not found in job") do
                                 {:ok, list} -> 
                                     {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job | "likes" => list})
                                     {:ok, "user rejected"}
-                                :error      -> {:error, "user not found in job"}
+                                {:error, msg}      -> {:error, msg}
                             end
-                        :error -> {:error, "job not found"}
+                        {:error, msg} -> {:error, msg}
                       end
-            :error -> {:error, "user not found"}
+            {:error, msg} -> {:error, msg}
         end 
     end
 
@@ -195,21 +226,6 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
-    def valid_chat?(chat) do
-        case Reader.get(@goodjob_db, chat) do
-            {:ok, data}      -> {:found, data}
-            {:error, _error} -> {:error, "chat not found"}
-        end
-    end
-
-    def valid_chat?(job_seeker, job) do
-        chat = make_chat_id(job_seeker, job)
-        case Reader.get(@goodjob_db, chat) do
-            {:ok, data}      -> {:found, data}
-            {:error, _error} -> {:error, "chat not found"}
-        end
-    end
-
     defp make_chat_id(job_seeker, job) do
         "#{job_seeker}&&#{job}"
     end
@@ -224,35 +240,29 @@ defmodule GoodApi2.CouchDb do
                         user = Poison.decode!(user_raw)
                         message = %{message | "sender_name"=>user["name"]}
                         update_document(chat, "messages", add_to_list(chat["messages"], message), "message sent")
-                    :error -> {:error, "invalid hr_person"}
+                    {:error, msg} -> {:error, msg}
                 end
             {:error, msg} -> {:error, msg}
         end
     end
 
-    def update_document(old, field_name, new_field, success) do
-         case Connector.update(@goodjob_db, %{old | field_name => new_field}) do
-             {:ok, %{:headers => _h, :payload => _p}} -> {:ok, %{old | field_name => new_field}}
-             {:error, _} -> {:error, "failed to update document (error doing #{success})"}
-         end
-    end
-
     defp add_to_list(list, item) do
-        list++[item]
-        |>Enum.uniq()
+        case list do
+            list when list == nil -> [item]
+            _ ->
+                list++[item]
+                |>Enum.uniq()       
+        end
     end
 
-    defp find_in_listremove(list, item) do
+    defp test_and_remove(list, item, msg) do
         size = Enum.count(list)
         new_list = List.delete(list, item)
         size2 = Enum.count(new_list)
     
         case size - size2 == 0 do
-            true  -> :error
+            true  -> {:error, msg}
             false -> {:ok, new_list}
         end
     end
-
-    #make chat ids user.email-company.name !
-    #http://127.0.0.1:5984/_utils/index.html
 end
