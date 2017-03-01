@@ -20,7 +20,7 @@ defmodule GoodApi2.Chat do
 end
 """
 curl -X POST -H "Content-Type: application/json" -d '
-{"sender":"se.phildimarco@gmail.com", "job_seeker":"se.phildimarco@gmail.com", "job":"Evil Corp&paper boy", "content":"hello!"}
+{"sender":"se.phildimarco@gmail.com", "job_seeker":"se.phildimarco@gmail.com", "job":"Evil Corp&paper boy", "content":"hey 1!!"}
 ' "http://localhost:4000/api/chat"
 
 curl -X POST -H "Content-Type: application/json" -d '

@@ -32,7 +32,11 @@ import { ActivatedRoute } from '@angular/router';
     likes
     <ul>
     <li *ngFor="let user of job.likes">
-      {{user}}
+      <div>
+        {{user}}
+        <button (click)="approve(user)" id= "user" class="button">approve</button> 
+        <button (click)="reject(user)" class="button">reject</button>
+      </div>           
     </li>
     </ul>
     </div>
@@ -61,6 +65,35 @@ export class JobPanel implements OnInit{
    this.goodJobService.fetch_job(company, name)
    .subscribe(p => this.job = p)
     console.log(this.job)
+  }
+
+  approve(user: string){
+    let res: string
+    
+    this.goodJobService.approve_user(this.job.name, this.job.company, user, true)
+    .subscribe(p => res = p, error=>this.job.name = "action failed")
+    
+    var i = this.job.likes.indexOf(user)
+    if (i > -1) {
+      this.job.likes.splice(i, 1)
+      this.job.active_chats.push(user)
+    }
+
+    console.log(res)
+  }
+
+  reject(user: string){
+    let res: string
+    
+    this.goodJobService.approve_user(this.job.name, this.job.company, user, false)
+    .subscribe(p => res = p, error=>this.job.name = "action failed")
+    
+    var i = this.job.likes.indexOf(user)
+    if (i > -1) {
+      this.job.likes.splice(i, 1)
+    }
+
+    console.log(res)
   }
   
 }

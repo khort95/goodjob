@@ -91,7 +91,7 @@ url: string = "http://localhost:4000/"
     }
 
      mapHrPerson(response:Response): HrPerson{
-      console.log("res::", response.json())
+     // console.log("res::", response.json())
       let data = response.json();
       let user = <HrPerson>({
             email: data.email,
@@ -102,7 +102,7 @@ url: string = "http://localhost:4000/"
             role: data.role,
             company: data.company
         })
-        console.log("parsed company!", user)
+       // console.log("parsed company!", user)
         GoodJobService.hr_person = user
       return user
     }
@@ -123,7 +123,7 @@ url: string = "http://localhost:4000/"
     }
 
   mapCompany(response:Response): Company{
-      console.log("res::", response.json())
+     // console.log("res::", response.json())
       let data = response.json();
       let company = <Company>({
                 name: data.name,
@@ -134,7 +134,7 @@ url: string = "http://localhost:4000/"
                 hr_manager_ids: data.manager_ids,
                 jobs: data.jobs
         })
-        console.log("parsed company!", company)
+        //console.log("parsed company!", company)
 
       return company
     }
@@ -177,7 +177,7 @@ url: string = "http://localhost:4000/"
 
 
     mapJob(response:Response): Job{
-      console.log("res::", response.json())
+     // console.log("res::", response.json())
       let data = response.json();
       let company = <Job>({
                 name: data.name,
@@ -191,7 +191,7 @@ url: string = "http://localhost:4000/"
                 location: data.location,
                 tags: data.tags
         })
-        console.log("job company!", company)
+        //console.log("job company!", company)
 
       return company
     }
@@ -206,10 +206,6 @@ url: string = "http://localhost:4000/"
 
     fetch_null_message(): Message[]{
       return [{sender: "GoodJob", sender_name:"", timestamp:"", content:"no messages"}]
-    }
-
-    private make_job_id(company: string, job: string): string {
-      return company + '&' + job
     }
 
     fetch_chat(job_seeker_name: string, company_name: string, job_name: string) :Observable<Chat>{
@@ -235,7 +231,7 @@ url: string = "http://localhost:4000/"
     }
 
     map_chat(response:Response): Chat{
-      console.log("res::", response.json())
+      //console.log("res::", response.json())
       let data = response.json();
       let chat = <Chat>({
                job_seeker: data.job_seeker,
@@ -254,4 +250,40 @@ url: string = "http://localhost:4000/"
       }
       return msgs
     }
+
+    approve_user(job: string, company: string ,user: string, choice: boolean):Observable<any>{
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      let job_id = this.make_job_id(company, job)
+      
+      if(choice){
+        let body = JSON.stringify({job: job_id, user: user, choice: "approve"});
+        
+        return this.http.post(this.url + 'api/job/approve', body, {
+          headers: headers
+          }).map(this.map_message);
+        }
+      else{
+        let body = JSON.stringify({job: job_id, user: user, choice: "reject"});
+        
+        return this.http.post(this.url + 'api/job/approve', body, {
+          headers: headers
+          }).map(this.map_message);
+        }
+      }
+
+     map_message(response:Response): any{
+      //console.log("res::", response.json())
+      let data = response.json();
+      let chat = ({
+          data
+        })
+
+      return chat
+    }
+
+    private make_job_id(company: string, job: string): string {
+      return company + '&' + job
+    }
+
 }

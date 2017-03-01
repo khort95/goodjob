@@ -46,5 +46,4 @@ export class LoginPage {
    .subscribe(p => this.router.navigate(['/app']), error=> this.user.name = "login error!")
     console.log(this.user)
   }
-
 }

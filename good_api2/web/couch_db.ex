@@ -137,11 +137,11 @@ defmodule GoodApi2.CouchDb do
     def like(job_name, user_name, "pass") do
         with {:found, user_result}   <- valid_user?(user_name),
              {:found, job_result}    <- valid_job?(job_name),
-             {user, job}             <- decode_job_user(user_result, job_result),      
+             {user, job}             <- decode_user_job(user_result, job_result),      
              nil                     <- Enum.find(job["likes"], fn(user)->user==user_name end),
              nil                     <- Enum.find(job["active_chats"], fn(user)->user==user_name end) do
                  user = Poison.decode!(user_result)
-                 |>update_document("seen", add_to_list(user["seen"], job_name), "job added to seen")
+                 update_document(user, "seen", add_to_list(user["seen"], job_name), "job added to seen")
                  {:ok, "job passed"}
         else
             {:error, message}       -> {:error, message}
@@ -153,62 +153,51 @@ defmodule GoodApi2.CouchDb do
     def like(job_name, user_name, "like") do
         with {:found, user_result}  <- valid_user?(user_name),
              {:found, job_result}   <- valid_job?(job_name),
-             {user, job}            <- decode_job_user(user_result, job_result),              
+             {user, job}            <- decode_user_job(user_result, job_result),              
              nil                    <- Enum.find(job["likes"], fn(user)->user==user_name end),
+             nil                    <- Enum.find(user["seen"], fn(job)->job==job_name end),
              nil                    <- Enum.find(job["active_chats"], fn(user)->user==user_name end) do 
                 update_document(job, "likes", add_to_list(job["likes"], user_name), "user added to liked jobs")
                 update_document(user, "seen", add_to_list(user["seen"], job_name), "job added to seen")
                 {:ok, "job liked"}
         else
             {:error, message}       -> {:error, message}
-            str when is_binary(str) -> {:error, "job in liked/active already"}
+            str when is_binary(str) -> {:error, "job in liked/active/seen already"}
                                   _ -> {:error, "error failed to like job"}
         end
     end
 
-    defp decode_job_user(raw_user, raw_job) do
+    defp decode_user_job(raw_user, raw_job) do
         job = Poison.decode!(raw_job)
         user = Poison.decode!(raw_user)
         {user, job}
     end
 
     def approve(job_name, user_name, "approve") do
-        case valid_user?(user_name) do
-            {:found, user_result} -> case valid_job?(job_name) do
-                        {:found, result} ->
-                            job = Poison.decode!(result)
-                            user =  Poison.decode!(user_result)
-                            case test_and_remove(job["likes"], user_name, "user not found in job") do
-                                {:ok, list} -> 
-                                    case new_chat(user, job_name) do
-                                        {:ok, chat} ->
-                                            {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job | "likes" => list, "active_chats"=>add_to_list(job["active_chats"], user_name)}) 
-                                            {:ok, "user added to chat #{chat}"}
-                                        {:error, msg} -> {:error, msg}
-                                    end
-                                {:error, msg}      -> {:error, msg}
-                            end
-                        {:error, msg} -> {:error, msg}
-                      end
-            {:error, msg} -> {:error, msg}
-        end 
+        with {:found, user_result} <- valid_user?(user_name),
+             {:found, job_result} <- valid_job?(job_name),
+             {user, job} <- decode_user_job(user_result, job_result),
+             {:ok, list} <- test_and_remove(job["likes"], user_name, "user not found in the job likes'"),
+             {:ok, chat} <- new_chat(user, job_name) do
+                 {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job | "likes" => list, "active_chats"=>add_to_list(job["active_chats"], user_name)}) 
+                 {:ok, "user added to chat #{chat}"}
+             else 
+                 {:error, msg} -> {:error, msg}
+                  _            -> {:error, "failed to approve user"}
+             end
     end
 
     def approve(job_name, user_name, "reject") do
-        case valid_user?(user_name) do
-            {:found, _user_result} -> case valid_job?(job_name) do
-                        {:found, result} ->
-                            job = Poison.decode!(result)
-                            case test_and_remove(job["likes"], user_name, "user not found in job") do
-                                {:ok, list} -> 
-                                    {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job | "likes" => list})
-                                    {:ok, "user rejected"}
-                                {:error, msg}      -> {:error, msg}
-                            end
-                        {:error, msg} -> {:error, msg}
-                      end
-            {:error, msg} -> {:error, msg}
-        end 
+        with {:found, _user_result} <- valid_user?(user_name),
+             {:found, job_result} <- valid_job?(job_name),
+             job = Poison.decode!(job_result),
+             {:ok, list} <- test_and_remove(job["likes"], user_name, "user not found in job") do
+                 update_document(job, "likes", list, "rejected user")
+                 {:ok, "user rejected"}
+        else 
+           {:error, msg} -> {:error, msg}
+           _             -> {:error, "failed to reject user"}   
+        end         
     end
 
     #takes a user and a job name and creates a new chat document and adds the chat to the user
