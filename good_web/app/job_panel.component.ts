@@ -1,5 +1,5 @@
 import { Component, NgModule, OnInit} from '@angular/core';
-import { Job } from './job';
+import { Job } from './data-class';
 import { GoodJobService } from './good-job.service';
 import { CreateJob} from './create_job.component';
 import { Routes } from '@angular/router';
@@ -33,7 +33,9 @@ import { ActivatedRoute } from '@angular/router';
     <ul>
     <li *ngFor="let user of job.likes">
       <div>
-        {{user}}
+         <a href= "#" [routerLink]="['/app/job_seeker', user]">
+          {{user}}
+       </a>
         <button (click)="approve(user)" id= "user" class="button">approve</button> 
         <button (click)="reject(user)" class="button">reject</button>
       </div>           

@@ -1,7 +1,4 @@
-import { HrPerson } from './hr-person';
-import { Company } from './company';
-import { Job } from './job';
-import { Message, Chat } from './chat';
+import {HrPerson, Company, Job, Message, Chat, JobSeekerProfile} from './data-class'
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Injectable }     from '@angular/core';
 
@@ -13,11 +10,11 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class GoodJobService{
-constructor (private http: Http) {}
-public static hr_person: HrPerson
-public static company: Company
-url: string = "http://localhost:4000/"
-//url: string = "http://sepract1.monmouth.edu:4000/"
+  constructor (private http: Http) {}
+  public static hr_person: HrPerson
+  public static company: Company
+  url: string = "http://localhost:4000/"
+  //url: string = "http://sepract1.monmouth.edu:4000/"
 
 
   create_user(newPerson: any) :HrPerson {
@@ -242,15 +239,6 @@ url: string = "http://localhost:4000/"
       return chat
     }
 
-    private static map_messages(messages: any[]): Message[]{
-      let msgs: Message[] = []
-      for(let obj of messages){
-
-        msgs.push(JSON.parse(obj))
-      }
-      return msgs
-    }
-
     approve_user(job: string, company: string ,user: string, choice: boolean):Observable<any>{
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -274,16 +262,49 @@ url: string = "http://localhost:4000/"
 
      map_message(response:Response): any{
       //console.log("res::", response.json())
-      let data = response.json();
-      let chat = ({
-          data
-        })
-
-      return chat
+      return response.json();
     }
 
     private make_job_id(company: string, job: string): string {
       return company + '&' + job
     }
+
+  fetch_null_job_seeker_profile(): JobSeekerProfile{
+    return{
+      name: "user not found", 
+      picture: "",
+      bio: "",
+      resume: "", 
+      tags: ""
+    }
+  }
+
+
+    fetch_job_seeker_profile(email: string) :Observable<JobSeekerProfile>{
+      let creds = JSON.stringify({email: email});
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      return this.http.post(this.url + 'api/job_seeker/profile', creds, {
+        headers: headers
+        }).map(this.mapJobSeekerProfile);
+    }
+
+  mapJobSeekerProfile(response:Response): JobSeekerProfile{
+     // console.log("res::", response.json())
+      let data = response.json();
+      let company = <JobSeekerProfile>({
+                name: data.name,
+                picture: data.picture,
+                bio: data.bio,
+                resume: data.resume,
+                tags: data.tags
+        })
+        //console.log("job company!", company)
+
+      return company
+    }
+
 
 }

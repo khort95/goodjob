@@ -70,6 +70,13 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
+    def profile(email) do
+         case Reader.get(@goodjob_db, email) do
+            {:ok, data} -> {:ok, Poison.decode!(data)}
+            {:error, _} -> {:error, "no match"}    
+        end
+    end
+
     def user_update_company(email, company) do
         case Reader.get(@goodjob_db, email) do
             {:ok, data} -> 

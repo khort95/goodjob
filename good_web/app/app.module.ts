@@ -14,6 +14,7 @@ import { CreateJob } from './create_job.component';
 import { ChatWindow } from './chat.component';
 import { Temp } from './temp.component';
 import { JobPanel } from './job_panel.component';
+import { JobSeekerPanel } from './job_seeker.component';
 import { GoodJobService } from './good-job.service';
 
 import { routing } from './app.routes';
@@ -21,7 +22,7 @@ import { routing } from './app.routes';
 
 @NgModule({
   imports: [ BrowserModule, ReactiveFormsModule, HttpModule, routing ],
-  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Temp, JobPanel, ChatWindow ],
+  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Temp, JobPanel, ChatWindow, JobSeekerPanel ],
   bootstrap: [ AppComponent ],
   providers: [GoodJobService]
 })

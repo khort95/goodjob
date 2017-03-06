@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NgModule, OnInit}      from '@angular/core';
-import { HrPerson } from './hr-person';
-import { Company } from './company';
+import { HrPerson, Company } from './data-class';
 import { GoodJobService } from './good-job.service';
 import { CreateJob} from './create_job.component'
 

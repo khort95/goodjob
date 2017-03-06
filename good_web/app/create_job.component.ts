@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { GoodJobService } from './good-job.service';
-import { Job } from './job';
+import { Job } from './data-class';
 import { NgModule }      from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 

@@ -3,15 +3,18 @@ import { Component, NgModule, OnInit} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { GoodJobService } from './good-job.service';
-import { Company } from './company';
-import { Message, Chat } from './chat';
+import { Message, Chat, Company } from './data-class';
 import { ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'chat-window',
   template: `
   <h1>Chat</h1>
-  <div>{{chat.job_seeker}}</div>
+  <div>
+    <a href= "#" [routerLink]="['/app/job_seeker', chat.job_seeker]">
+      {{chat.job_seeker}}
+    </a>
+  </div>
   <div>
      <ul>
     <li *ngFor="let message of chat.messages">

@@ -25,4 +25,16 @@ defmodule GoodApi2.JobSeekerController do
                 |>json(%{error: msg})
         end  
     end
+
+    def profile(conn, %{"email" => email}) do
+        case JobSeeker.profile(email) do
+             {:ok, job_seeker} ->
+                conn
+                |>render("job_seeker_profile.json", %{job_seeker: job_seeker})
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end  
+    end
 end

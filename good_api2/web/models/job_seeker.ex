@@ -24,8 +24,15 @@ defmodule GoodApi2.JobSeeker do
       end
   end
 
-  def login(username, password) do
-      case Couch.validate(username, password) do
+  def login(email, password) do
+      case Couch.validate(email, password) do
+        {:ok, user} -> {:ok, user}
+        {:error, msg} -> {:error, msg}
+      end
+  end
+
+  def profile(email) do
+      case Couch.profile(email) do
         {:ok, user} -> {:ok, user}
         {:error, msg} -> {:error, msg}
       end
@@ -47,9 +54,14 @@ curl -X POST -H "Content-Type: application/json" -d '
 ' "http://localhost:4000/api/job_seeker"
 
 curl -X POST -H "Content-Type: application/json" -d '
-{"email":"hr_dimarco@gmail.com",
+{"email":"jeff@gmail.com",
 "password":"123456"
 }
 ' "http://localhost:4000/api/job_seeker/login"
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"email":"jeff@gmail.com"
+}
+' "http://localhost:4000/api/job_seeker/profile"
 
 """

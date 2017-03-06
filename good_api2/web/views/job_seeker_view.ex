@@ -14,6 +14,16 @@ defmodule GoodApi2.JobSeekerView do
         }
     end
 
+    def render("job_seeker_profile.json", %{job_seeker: job_seeker}) do
+        %{
+            name: job_seeker["name"], 
+            picture: job_seeker["picture"],
+            bio: job_seeker["bio"],
+            resume: job_seeker["resume"], 
+            tags: job_seeker["tags"]
+        }
+    end
+
     def render("job_seeker_couch.json", %{job_seeker: job_seeker}) do
         %{
             email: job_seeker["email"],
@@ -22,7 +32,7 @@ defmodule GoodApi2.JobSeekerView do
             bio: job_seeker["bio"],
             resume: job_seeker["resume"], 
             tags: job_seeker["tags"],
-            chat_ids: job_seeker["chat_ids"], 
+            chat_ids: job_seeker["chat_ids"]
         }
     end
 end
