@@ -9,19 +9,7 @@ import { ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'create-company',
-  template: `
-  <form [formGroup]="loginForm" (ngSubmit)="newUser($event)">
-    <input formControlName="name" type="name" placeholder="Your comapny name">
-    <input formControlName="logo" type="logo" placeholder="Your company logo">
-    <input formControlName="bio" type="bio" placeholder="Your company bio">
-    <input formControlName="link_to_website" type="link_to_website" placeholder="Your link to your website">
-    <input formControlName="list_of_locations" type="list_of_locations" placeholder="Your locations">
-  <button type="submit">create!</button>
-</form>
-<div>
-  <h4>{{user.name}} has been create!</h4>
-</div>
-  `
+  templateUrl:'app/template/create-company.html'
 })
 export class CreateCompany {
   company: Company = this.goodJobService.fetch_null_company();

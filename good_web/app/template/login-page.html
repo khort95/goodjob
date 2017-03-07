@@ -1,0 +1,17 @@
+<!-- login.component.ts -->
+<div class="error" align=center>
+  {{user.name}}
+</div>
+  <div style="line-height:50%">
+    <br>
+  </div>
+  <form [formGroup]="loginForm" (ngSubmit)="doLogin($event)">
+    <div align = center><input formControlName="email" type="email" placeholder="Enter Email"></div>
+    <div align = center><input formControlName="password" type="password" placeholder="Enter Password"></div>
+    <br>
+  <div align=center><button type="submit">Log In</button></div>
+  <div style="line-height:50%;">
+    <br>
+</div>
+  <div align=center><a href="create user" [routerLink]="['/create']"><button class="createbutton">Create User</button></a></div>
+</form>

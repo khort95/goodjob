@@ -8,31 +8,9 @@ import { ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'chat-window',
-  template: `
-  <h1>Chat</h1>
-  <div>
-    <a href= "#" [routerLink]="['/app/job_seeker', chat.job_seeker]">
-      {{chat.job_seeker}}
-    </a>
-  </div>
-  <div>
-     <ul>
-    <li *ngFor="let message of chat.messages">
-      <div><b> {{message.sender_name}}:</b></div>
-      <div>{{message.content}}</div>
-    </li>
-    </ul>
-  </div>
-  
-  <div>
-     <form [formGroup]="send_message" (ngSubmit)="sendMessage($event)">
-      <input formControlName="message" type="message" placeholder="new message">
-      <button type="submit">send</button>
-     </form>
-  </div>
-
-  `
+  templateUrl: 'app/template/chat-window.html' 
 })
+
 export class ChatWindow implements OnInit{
   chat: Chat 
   job_seeker: string

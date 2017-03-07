@@ -1,0 +1,22 @@
+ <!-- chat.component.ts -->
+ <h1>Chat</h1>
+  <div>
+    <a href= "#" [routerLink]="['/app/job_seeker', chat.job_seeker]">
+      {{chat.job_seeker}}
+    </a>
+  </div>
+  <div>
+     <ul>
+    <li *ngFor="let message of chat.messages">
+      <div><b> {{message.sender_name}}:</b></div>
+      <div>{{message.content}}</div>
+    </li>
+    </ul>
+  </div>
+  
+  <div>
+     <form [formGroup]="send_message" (ngSubmit)="sendMessage($event)">
+      <input formControlName="message" type="message" placeholder="new message">
+      <button type="submit">send</button>
+     </form>
+  </div>

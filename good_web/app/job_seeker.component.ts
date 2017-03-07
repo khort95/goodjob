@@ -8,13 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'job-seeker-profile',
-  template: `
-    <h3>{{user.name}}</h3>
-    <div>bio: {{user.bio}}</div>
-    <div>picture goes here <div>
-    <div>resume: {{user.resume}}</div>
-    <div>tags: {{user.tags}}</div>
-  `
+  templateUrl: 'app/template/job-seeker-profile.html'
 })
 
 export class JobSeekerPanel implements OnInit{

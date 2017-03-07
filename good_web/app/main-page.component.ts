@@ -7,29 +7,7 @@ import { CreateJob} from './create_job.component'
 
 @Component({
   selector: 'main-page',
-  template: `
-
-<div>
-  <h4>hello {{user.name}}</h4>
-  <h3>Company: {{company.name}}</h3>
-</div>
-
-  <h2>Jobs</h2>
-  <div>
-  <ul>
-    <li *ngFor="let job of company.jobs">
-      <a href= "#" [routerLink]="['/app/job', job, company.name]">
-      {{job}}
-      </a>
-    </li>
-  </ul>
-  </div>
-
-  <div>
-    <h3>Add Job</h3>
-    <create-job></create-job>
-  </div>
-  `
+  templateUrl: 'app/template/main-page.html'
 })
 
 export class MainPage implements OnInit{

@@ -9,19 +9,7 @@ import { ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'create-user',
-  template: `
-  <form [formGroup]="loginForm" (ngSubmit)="newUser($event)">
-    <input formControlName="email" type="email" placeholder="Your email">
-    <input formControlName="password" type="password" placeholder="Your password">
-    <input formControlName="name" type="name" placeholder="Your name">
-    <input formControlName="bio" type="bio" placeholder="A shot desciprtion of yourself">
-    <input formControlName="role" type="role" placeholder="Your role at your company">
-  <button type="submit">create!</button>
-</form>
-<div>
-  <h4>{{user.name}} has been create!</h4>
-</div>
-  `
+  templateUrl:'app/template/create-user.html'
 })
 export class CreateUser {
   user: HrPerson = {

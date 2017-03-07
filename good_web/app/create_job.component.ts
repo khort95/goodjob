@@ -9,19 +9,9 @@ import { ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'create-job',
-  template: `
-  <form [formGroup]="loginForm" (ngSubmit)="newJob($event)">
-    <input formControlName="name" type="name" placeholder="new job name">
-    <input formControlName="description" type="description" placeholder="job description">
-    <input formControlName="salary_range" type="salary_range" placeholder="job salary range">
-    <input formControlName="employment_type" type="employment_type" placeholder="employment_type(full-time, part-time ...)">
-    <input formControlName="location" type="employment_type" placeholder="location(location)">
-    <input formControlName="tags" type="tags" placeholder="location(job tags)">
-  <button type="submit">create!</button>
-</form>
-
-  `
+  templateUrl: 'app/template/create-job.html'
 })
+
 export class CreateJob {
   job: Job = this.goodJobService.fetch_null_job();
  
@@ -35,9 +25,11 @@ export class CreateJob {
   });
 
   
-  constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {}
+  constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {
+    this.job.name = "create a new job!"
+  }
   
-  newJob(event: any) :Job {
+  newJob(event: any) {
     this.job.name = this.loginForm.value.name
     this.job.company = GoodJobService.hr_person.company
     this.job.description = this.loginForm.value.description
@@ -48,8 +40,8 @@ export class CreateJob {
 
     this.goodJobService.new_job(this.create(this.job))
    .subscribe(p => this.job = p, error=> this.job.name = "error creating job!")
-    this.router.navigate(['/temp'])
-    return this.job
+    
+    this.job
   }
 
   create(job: Job) :any{
