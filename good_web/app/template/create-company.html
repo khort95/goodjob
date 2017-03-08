@@ -1,6 +1,6 @@
  <!-- create_company.ts -->
   <form [formGroup]="loginForm" (ngSubmit)="newUser($event)">
-    <input formControlName="name" type="name" placeholder="Your comapny name">
+    <input formControlName="name" type="name" placeholder="Your company name">
     <input formControlName="logo" type="logo" placeholder="Your company logo">
     <input formControlName="bio" type="bio" placeholder="Your company bio">
     <input formControlName="link_to_website" type="link_to_website" placeholder="Your link to your website">
@@ -8,5 +8,5 @@
   <button type="submit">create!</button>
 </form>
 <div>
-  <h4>{{user.name}} has been create!</h4>
+  <h4>{{user.name}} has been created!</h4>
 </div>

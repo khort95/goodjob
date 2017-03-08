@@ -3,9 +3,9 @@ body{
   background-color: #b1dfed;
 }
 h1 {
-  color: #b3b3b3;
+  color: #000000;
   font-family: 'Quicksand', sans-serif;
-  font-size: 40px;
+  font-size: 80px;
 }
 h2, h3 {
   color: #444;
@@ -47,6 +47,21 @@ button{
   font-size: 21px;
 
 }
+.company h4{
+  font-family: 'Boogaloo', cursive;
+  font-size: 24px;
+}
+.company h3{
+  font-family: 'Boogaloo', cursive;
+  font-size: 24px;
+}
+.addjob h3{
+  font-family: 'Boogaloo', cursive;
+  font-size: 24px;
+}
+.jobs h2{
+  font-family: 'Boogaloo', cursive;
+}
 button:hover {
   background-color: #cfd8dc;
 }
@@ -55,14 +70,13 @@ button:disabled {
   color: #aaa;
   cursor: auto;
 }
+
 input {
  background-color:#FFF;
  min-height:30px;
  min-width: 200px;
  font-size: 20px;
  font-family: 'Boogaloo', cursive;
-
-
 }
 
 /* Navigation link styles */
@@ -163,6 +177,23 @@ nav a.router-link-active {
   border-radius: 4px 0 0 4px;
 }
 
+.userform input {
+  align: center;
+        width: 40%;
+        display: inline-block;
+        background-color:
+        clear: both;
+       margin-left: 30%;
+      margin-right:30%;
+      border-width: 0.05px;
+    }
+.bigger{
+  height: 200px;
+  text-align: left;
+  padding:  0.0em;
+  padding-bottom:170px;
+  width: 20px;
+}
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
