@@ -187,6 +187,16 @@ nav a.router-link-active {
       margin-right:30%;
       border-width: 0.05px;
     }
+    .jobform input {
+      align: center;
+            width: 40%;
+            display: inline-block;
+            background-color:
+            clear: both;
+           margin-left: 30%;
+          margin-right:30%;
+          border-width: 0.05px;
+        }
 .bigger{
   height: 200px;
   text-align: left;
@@ -197,4 +207,33 @@ nav a.router-link-active {
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
+}
+/* The navigation bar */
+body{margin:0;}
+.navbar{
+    overflow: hidden;
+    background-color: #333;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    background-color: #a6a6a6;
+}
+
+/* Links inside the navbar */
+.navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+    font-family: 'Quicksand', sans-serif;
+}
+
+
+
+
+/* Main content */
+.main {
+    margin-top: 30px; /* Add a top margin to avoid content overlay */
 }
