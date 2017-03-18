@@ -291,7 +291,7 @@ export class GoodJobService{
       picture: "",
       bio: "",
       resume: "", 
-      tags: ""
+      tags: []
     }
   }
 

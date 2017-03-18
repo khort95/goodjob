@@ -39,7 +39,7 @@ export interface JobSeekerProfile{
     picture: string,
     bio: string,
     resume: string, 
-    tags: string
+    tags: string[]
 }
 
 export interface HrPerson{

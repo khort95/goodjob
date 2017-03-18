@@ -1,6 +1,5 @@
 defmodule GoodApi2.CompanyView do
     use GoodApi2.Web, :view
-    alias GoodApi2.Company
 
     def render("company.json", %{company: company}) do
         %{

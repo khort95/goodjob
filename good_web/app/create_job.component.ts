@@ -31,12 +31,12 @@ export class CreateJob {
   
   newJob(event: any) {
     this.job.name = this.loginForm.value.name
-    this.job.company = GoodJobService.hr_person.company
+    this.job.company = this.goodJobService.get_user().company
     this.job.description = this.loginForm.value.description
     this.job.salary_range = this.loginForm.value.salary_range
     this.job.employment_type = this.loginForm.value.employment_type
     this.job.location = this.loginForm.value.location
-    this.job.tags = this.loginForm.value.tags
+    this.job.tags = []
 
     this.goodJobService.new_job(this.create(this.job))
    .subscribe(p => this.job = p, error=> this.job.name = "error creating job!")
@@ -54,11 +54,15 @@ export class CreateJob {
             "salary_range": job.salary_range,
             "employment_type": job.employment_type,
             "location":job.location,
-            "tags": job.tags
+            "tags": this.make_tag_list(this.loginForm.value.tags)
            }
         }
 
         return comp
+  }
+
+  make_tag_list(str: string) :string[] {
+    return str.split(", ")
   }
 }
 

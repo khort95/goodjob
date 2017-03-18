@@ -2,6 +2,7 @@ defmodule GoodApi2.Job do
     use GoodApi2.Web, :model
     alias GoodApi2.CouchDb, as: Couch
     alias GoodApi2.Util
+    alias GoodApi2.Tag, as: Tag
 
     @derive [Poison.Encoder]
     defstruct [:name, :company, :likes, :active_chats, :description, 
@@ -27,7 +28,9 @@ defmodule GoodApi2.Job do
 
                 case Couch.new_job(add) do
                     {:ok, _, _} -> 
-                        add_job_to_company(job["company"], job["name"]) 
+                        add_job_to_company(job["company"], job["name"])
+                        Tag.add(job["tags"])
+                        add_ets(job["company"], job["name"], job["tags"]) 
                         {:ok, add}
                     {:error, _, _} -> {:error, "cannot fit inside"}
                     {:error, msg}  -> {:error, msg} 
@@ -62,6 +65,23 @@ defmodule GoodApi2.Job do
             _         -> {:error, "invalid choice"}
         end
     end
+        
+    def init_ets do
+         :ets.new(:jobs, [:named_table, :set, :public])    
+    end
+
+    defp add_ets(company, job, tags) do
+        :ets.insert(:jobs, {"#{company}&#{job}", {tags, 0}})
+    end
+
+    def job_feed(seen) do
+        :ets.tab2list(:jobs)
+        |>Enum.take(5)
+        |>Enum.map(fn({job, _other}) -> job end)
+        |>Enum.filter(fn(job) -> 
+            Enum.all?(seen, fn(seen_job) -> job != seen_job end) 
+        end)
+    end
 end
 """
 curl -X POST -H "Content-Type: application/json" -d '
@@ -81,10 +101,14 @@ curl -X POST -H "Content-Type: application/json" -d '
 ' "http://localhost:4000/api/job/show"
 
 curl -X POST -H "Content-Type: application/json" -d '
-{"job":"Evil Corp&paper boy2", "user":"jeff@gmail.com", "choice":"like"}
+{"job":"some cup&job2", "user":"se.phildimarco@gmail.com", "choice":"like"}
 ' "http://localhost:4000/api/job/like"
 
 curl -X POST -H "Content-Type: application/json" -d '
 {"job":"Evil Corp&paper boy", "user":"se.phildimarco@gmail.com", "choice":"approve"}
 ' "http://localhost:4000/api/job/approve"
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"email":"se.phildimarco@gmail.com"}
+' "http://localhost:4000/api/job/job_feed"
 """

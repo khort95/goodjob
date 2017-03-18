@@ -1,6 +1,5 @@
 defmodule GoodApi2.ChatView do
     use GoodApi2.Web, :view
-    alias GoodApi2.Company
 
     def render("chat.json", %{chat: chat}) do
         %{

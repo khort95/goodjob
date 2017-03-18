@@ -1,6 +1,5 @@
 defmodule GoodApi2.HrPersonView do
     use GoodApi2.Web, :view
-    alias GoodApi2.HrPerson
 
     def render("hr_person.json", %{hr_person: hr_person}) do
         %{

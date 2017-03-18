@@ -1,6 +1,7 @@
 defmodule GoodApi2.JobController do
     use GoodApi2.Web, :controller
     alias GoodApi2.Job
+    alias GoodApi2.CouchDb, as: Couch
     
     def create(conn, %{"new" => inputs}) do
         case Job.new(inputs) do
@@ -43,6 +44,19 @@ defmodule GoodApi2.JobController do
             {:ok, job} ->
                 conn
                 |>json(%{ok: job})
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end
+    end
+
+    def job_feed(conn, %{"email" => email}) do
+         case Couch.profile(email) do
+            {:ok, job_seeker} ->
+                jobs = Job.job_feed(job_seeker["seen"])
+                conn
+                |>json(%{ok: jobs})
             {:error, msg} ->
                 conn
                 |>put_status(:not_found)

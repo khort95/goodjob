@@ -28,7 +28,7 @@ defmodule GoodApi2.JobSeekerController do
 
     def profile(conn, %{"email" => email}) do
         case JobSeeker.profile(email) do
-             {:ok, job_seeker} ->
+            {:ok, job_seeker} ->
                 conn
                 |>render("job_seeker_profile.json", %{job_seeker: job_seeker})
             {:error, msg} ->

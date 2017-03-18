@@ -1,6 +1,5 @@
 defmodule GoodApi2.JobSeekerView do
     use GoodApi2.Web, :view
-    alias GoodApi2.JobSeeker
 
     def render("job_seeker.json", %{job_seeker: job_seeker}) do
         %{
