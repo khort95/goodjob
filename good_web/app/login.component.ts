@@ -7,7 +7,7 @@ import { HrPerson } from './data-class';
 import { NgModule }      from '@angular/core';
 
 import { ActivatedRoute, Router} from '@angular/router';
-
+import { CookieService } from 'angular2-cookie/services/cookies.service'
 
 @Component({
   selector: 'login-page',
@@ -22,11 +22,15 @@ export class LoginPage {
     password: ["", Validators.required]
   });
 
-  constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {}
+  constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router, private cookie: CookieService) {
+    if(this.goodJobService.get_user().role !== undefined){
+      this.router.navigate(['/app'])
+    }
+  }
 
   doLogin(event: any) {
    this.goodJobService.login(this.loginForm.value.password, this.loginForm.value.email)
-   .subscribe(p => this.router.navigate(['/app']), error=> this.user.name = "login error!")
-    console.log(this.user)
-  }
+   .subscribe(p => this.router.navigate(['/app']), error=> this.user.name = "login error!") 
+ }
+ 
 }

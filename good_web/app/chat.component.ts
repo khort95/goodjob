@@ -38,7 +38,7 @@ export class ChatWindow implements OnInit{
           this.job_seeker = params['job_seeker']
           this.company = params['company']
           this.job = params['job']
-          this.sender = GoodJobService.hr_person.email
+          this.sender = this.goodJobService.get_user().email
         });
     
   

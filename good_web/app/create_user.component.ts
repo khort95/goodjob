@@ -33,6 +33,7 @@ export class CreateUser {
   
   constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {}
   newUser(event: any) {
+    console.log("new user event")
     this.user = {email: this.loginForm.value.email, picture: "link-to-picture", bio: this.loginForm.value.bio,  permissions: [], role: this.loginForm.value.role, name: this.loginForm.value.name, company: ""}
     var response = this.goodJobService.create_user(this.create(this.user, this.loginForm.value.password))
     this.router.navigate(['/company'])

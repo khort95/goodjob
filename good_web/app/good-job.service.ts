@@ -1,6 +1,7 @@
 import {HrPerson, Company, Job, Message, Chat, JobSeekerProfile} from './data-class'
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Injectable }     from '@angular/core';
+import { CookieService } from 'angular2-cookie/services/cookies.service'
 
 import {Observable} from 'rxjs/Rx';
 
@@ -10,7 +11,7 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class GoodJobService{
-  constructor (private http: Http) {}
+  constructor (private http: Http, private cookie: CookieService) {}
   public static hr_person: HrPerson
   public static company: Company
   url: string = "http://localhost:4000/"
@@ -68,16 +69,22 @@ export class GoodJobService{
     }
 
     get_user() :HrPerson {
-     if(GoodJobService.hr_person == null){return this.fetch_null_hr_person()}
-     return GoodJobService.hr_person;
+     let user = this.cookie.get("user")
+     if(user === undefined){return this.fetch_null_hr_person()}
+     return <HrPerson>JSON.parse(user);
+    }
+
+    get_temp_user() :HrPerson {
+     if(GoodJobService.hr_person === undefined){return this.fetch_null_hr_person()}
+     return GoodJobService.hr_person
     }
 
     fetch_null_hr_person() :HrPerson {
-     return {email: "", picture: "", bio: "",  permissions: [], role: "", name: "Please Login", company: ""}
+     return {email: "", picture: "", bio: "",  permissions: [], role: undefined, name: "Please Login", company: ""}
     }
 
     login(password: string, email: string): Observable<HrPerson>{
-       let creds = JSON.stringify({ email: email, password: password });
+      let creds = JSON.stringify({ email: email, password: password });
 
       let headers = new Headers();
       headers.append('Content-Type', 'application/json');
@@ -85,6 +92,15 @@ export class GoodJobService{
       return this.http.post(this.url + 'api/hr_person/login', creds, {
         headers: headers
         }).map(this.mapHrPerson)
+    }
+
+    setUserCookie(){
+      this.cookie.putObject("user", GoodJobService.hr_person)
+      console.log("set cookie to " +  GoodJobService.hr_person)
+    }
+
+    logout(){
+      this.cookie.removeAll()
     }
 
      mapHrPerson(response:Response): HrPerson{
