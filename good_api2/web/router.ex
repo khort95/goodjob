@@ -10,6 +10,7 @@ defmodule GoodApi2.Router do
 
     post "/hr_person", HrPersonController, :create
     post "/hr_person/login", HrPersonController, :login
+    post "/hr_person/update_picture", HrPersonController, :update_picture
 
     post "/job_seeker", JobSeekerController, :create
     post "/job_seeker/login", JobSeekerController, :login

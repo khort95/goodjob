@@ -5,8 +5,8 @@ import { CreateUser } from './create_user.component';
 import { CreateCompany } from './create_company.component';
 import { ChatWindow } from './chat.component';
 import { JobSeekerPanel } from './job_seeker.component';
-import { Temp } from './temp.component';
 import { JobPanel } from './job_panel.component';
+import { Settings } from './settings.component';
 
 // Route config let's you map routes to components
 const routes: Routes = [
@@ -28,8 +28,8 @@ const routes: Routes = [
     component: MainPage
   },
   {
-    path: 'temp',
-    component: Temp
+    path: 'app/settings',
+    component: Settings
   },
   {
     path: 'app/job/:name/:company',

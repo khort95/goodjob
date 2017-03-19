@@ -40,8 +40,6 @@ export class CreateJob {
 
     this.goodJobService.new_job(this.create(this.job))
    .subscribe(p => this.job = p, error=> this.job.name = "error creating job!")
-    
-    this.job
   }
 
   create(job: Job) :any{

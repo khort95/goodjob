@@ -12,7 +12,7 @@ import { CreateUser } from './create_user.component';
 import { CreateCompany } from './create_company.component';
 import { CreateJob } from './create_job.component';
 import { ChatWindow } from './chat.component';
-import { Temp } from './temp.component';
+import { Settings } from './settings.component';
 import { JobPanel } from './job_panel.component';
 import { JobSeekerPanel } from './job_seeker.component';
 import { GoodJobService } from './good-job.service';
@@ -23,7 +23,7 @@ import { CookieService } from 'angular2-cookie/services/cookies.service'
 
 @NgModule({
   imports: [ BrowserModule, ReactiveFormsModule, HttpModule, routing ],
-  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Temp, JobPanel, ChatWindow, JobSeekerPanel ],
+  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Settings, JobPanel, ChatWindow, JobSeekerPanel ],
   bootstrap: [ AppComponent ],
   providers: [GoodJobService, CookieService]
 })

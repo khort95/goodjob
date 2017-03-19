@@ -3,8 +3,6 @@ import { NgModule, OnInit}      from '@angular/core';
 import { HrPerson, Company } from './data-class';
 import { GoodJobService } from './good-job.service';
 import { CreateJob} from './create_job.component'
-import { CookieService } from 'angular2-cookie/services/cookies.service'
-
 
 @Component({
   selector: 'main-page',
@@ -17,7 +15,7 @@ export class MainPage implements OnInit{
  
  
   
-  constructor(private goodJobService: GoodJobService, private cookie: CookieService) {
+  constructor(private goodJobService: GoodJobService) {
     this.company = goodJobService.fetch_null_company();
   }
   
@@ -36,8 +34,5 @@ export class MainPage implements OnInit{
 
    this.goodJobService.fetch_company(this.user.company)
    .subscribe(p => this.company = p)
-    console.log(this.cookie.getAll())
   }
-
-  
 }

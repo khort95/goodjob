@@ -11,7 +11,7 @@ defmodule GoodApi2.HrPerson do
       IO.inspect inputs
       case Util.check_keys(keys, inputs) do
         {:ok, user} -> 
-            temp = %__MODULE__{name: user["name"], email: user["email"], password: user["password"], bio: user["bio"], role: user["role"], picture: user["picture"]}
+            temp = %__MODULE__{name: user["name"], email: user["email"], password: user["password"], bio: user["bio"], role: user["role"], picture: "default"}
             add = %__MODULE__{temp |  company: "nil", is_head?: false, permissions: ["nil"]}
             case Couch.new_user(add) do
               {:ok, _, _} -> {:ok, add}
@@ -27,6 +27,15 @@ defmodule GoodApi2.HrPerson do
         {:ok, user} -> {:ok, user}
         {:error, msg} -> {:error, msg}
       end
+  end
+
+  def update_picture(email, picture) do
+    with {:ok, user} <- Couch.profile(email),
+         {:ok, updated} <- Couch.update_document(user, "picture", picture, "picture added successfully!") do
+           {:ok, updated}
+    else
+      {:error, message} -> {:error, message}
+    end
   end
 end
 
@@ -47,5 +56,11 @@ curl -X POST -H "Content-Type: application/json" -d '
 "password":"123456"
 }
 ' "http://localhost:4000/api/hr_person/login"
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"email":"hr_dimarco@gmail.com",
+"picture":"testing this somehtings s..s..ssfsds"
+}
+' "http://localhost:4000/api/hr_person/update_picture"
 
 """

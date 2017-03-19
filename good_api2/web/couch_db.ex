@@ -10,6 +10,14 @@ defmodule GoodApi2.CouchDb do
         Couchdb.Connector.Storage.storage_up(@goodjob_db)
     end
 
+    
+    @doc"""
+    updates a the couch db docuement.
+    Takes the old document, the field name, the new field,
+    and a success message
+
+    returns {:ok, new_document}
+    """
     def update_document(old, field_name, new_field, success) do
          case Connector.update(@goodjob_db, %{old | field_name => new_field}) do
              {:ok, %{:headers => _h, :payload => _p}} -> {:ok, %{old | field_name => new_field}}

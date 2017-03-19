@@ -1,0 +1,7 @@
+<h3>Settings Page</h3>
+ <div>{{user.name}}'s settings page</div>
+ <div>
+     add picture
+     <input type="file" accept="image/*" (change)="changeListener($event)">
+ </div>
+ <div><img height="200" alt="Embedded Image" src={{user.picture}}><div>
