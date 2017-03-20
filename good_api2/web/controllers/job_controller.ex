@@ -56,7 +56,7 @@ defmodule GoodApi2.JobController do
             {:ok, job_seeker} ->
                 jobs = Job.job_feed(job_seeker["seen"])
                 conn
-                |>json(%{ok: jobs})
+                |>json(jobs)
             {:error, msg} ->
                 conn
                 |>put_status(:not_found)
