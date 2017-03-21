@@ -23,7 +23,7 @@ a {
   cursor: pointer;
   cursor: hand;
 }
-button{
+.loginbutton{
   font-family: 'Boogaloo', cursive;
   background-color: #cccccc;
   border: none;
@@ -39,6 +39,7 @@ button{
   border: none;
   padding: 5px 10px;
   border-radius: 7px;
+  font-size: 20px;
   cursor: pointer;
   cursor: hand;
 }
@@ -188,15 +189,28 @@ nav a.router-link-active {
       border-width: 0.05px;
     }
     .jobform input {
-      align: center;
+
             width: 40%;
             display: inline-block;
             background-color:
             clear: both;
-           margin-left: 30%;
-          margin-right:30%;
+           margin-left: 5%;
+          margin-right:55%;
           border-width: 0.05px;
         }
+.jobbutton{
+  margin-left: 21%;
+ margin-right:55%;
+ font-family: 'Boogaloo', cursive;
+ background-color: #cccccc;
+ border: none;
+ padding: 5px 10px;
+ border-radius: 7px;
+ font-size: 20px;
+ cursor: pointer;
+ cursor: hand;
+
+}
 .bigger{
   height: 200px;
   text-align: left;
@@ -217,6 +231,7 @@ body{margin:0;}
     top: 0; /* Position the navbar at the top of the page */
     width: 100%; /* Full width */
     background-color: #a6a6a6;
+    height: 65px;
 }
 
 /* Links inside the navbar */
@@ -225,14 +240,28 @@ body{margin:0;}
     display: block;
     color: #f2f2f2;
     text-align: center;
-    padding: 16px;
+    padding: 20px;
     text-decoration: none;
     font-family: 'Quicksand', sans-serif;
 }
+.logonav{
+  text-align: center;
+  width:68%;
+  padding-top: 10px;
+}
+.logout{
+  background-color: #ccebff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 15px;
+  cursor: pointer;
+  cursor: hand;
+  font-family: 'Quicksand', sans-serif;
+  margin-left: 1350%;
 
-
-
-
+}
+}
 /* Main content */
 .main {
     margin-top: 30px; /* Add a top margin to avoid content overlay */
