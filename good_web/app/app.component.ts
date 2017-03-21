@@ -6,16 +6,18 @@ import { HrPerson } from './data-class';
 @Component({
     selector: 'my-app',
     template: `
-    <button (click)="logout()">logout</button>
-    <button (click)="settings()">settings</button>
-    <button (click)="home()">home</button> 
-    <div align="center"><h1>GoodJob</h1></div>
+    <br>
 
+<div class="navbar">
+    <button (click)="logout()">Logout</button>
+    <button (click)="settings()">Settings</button>
+    <img class ="Glogo" src="GoodjobJustG.png" width="50" height="38" (click)="home()" />
+</div>
     <router-outlet></router-outlet>
-     
+
     `
 })
-export class AppComponent { 
+export class AppComponent {
     user: HrPerson
     constructor(private goodJobService: GoodJobService, private router: Router) {
         this.user = this.goodJobService.get_user()
