@@ -23,7 +23,7 @@ a {
   cursor: pointer;
   cursor: hand;
 }
-button{
+.loginbutton{
   font-family: 'Boogaloo', cursive;
   background-color: #cccccc;
   border: none;
@@ -39,6 +39,7 @@ button{
   border: none;
   padding: 5px 10px;
   border-radius: 7px;
+  font-size: 20px;
   cursor: pointer;
   cursor: hand;
 }
@@ -145,11 +146,6 @@ nav a.router-link-active {
   height: 1.6em;
   border-radius: 4px;
 }
-.items li:hover {
-  color: #607D8B;
-  background-color: #DDD;
-  left: .1em;
-}
 .items li.selected {
   background-color: #CFD8DC;
   color: white;
@@ -187,6 +183,29 @@ nav a.router-link-active {
       margin-right:30%;
       border-width: 0.05px;
     }
+    .jobform input {
+
+            width: 40%;
+            display: inline-block;
+            background-color:
+            clear: both;
+           margin-left: 5%;
+          margin-right:55%;
+          border-width: 0.05px;
+        }
+.jobbutton{
+  margin-left: 21%;
+ margin-right:55%;
+ font-family: 'Boogaloo', cursive;
+ background-color: #cccccc;
+ border: none;
+ padding: 5px 10px;
+ border-radius: 7px;
+ font-size: 20px;
+ cursor: pointer;
+ cursor: hand;
+
+}
 .bigger{
   height: 200px;
   text-align: left;
@@ -197,4 +216,59 @@ nav a.router-link-active {
 /* everywhere else */
 * {
   font-family: Arial, Helvetica, sans-serif;
+}
+/* The navigation bar */
+body{margin:0;}
+.navbar{
+    overflow: hidden;
+    background-color: #b1dfed;
+    position: absolute; /* Set the navbar to fixed position */
+    top: 5; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    background-color: #b1dfed;
+    height: 65px;
+}
+
+/* Links inside the navbar */
+.navbar button{
+
+  font-family: 'Boogaloo', cursive;
+  background-color: #ccebff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+  cursor: hand;
+}
+.Glogo{
+  cursor: pointer;
+  cursor: hand;
+  position: absolute;
+  padding-left: 5px;
+}
+.logonav{
+  text-align: center;
+
+}
+.logo{
+
+  padding: 0px;
+}
+.logout{
+  background-color: #ccebff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 15px;
+  cursor: pointer;
+  cursor: hand;
+  font-family: 'Quicksand', sans-serif;
+  margin-left: 130%;
+
+}
+}
+/* Main content */
+.main {
+    margin-top: 30px; /* Add a top margin to avoid content overlay */
 }

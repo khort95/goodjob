@@ -1,11 +1,16 @@
 <!-- create_job.component.ts -->
+<div class="jobform">
 <form [formGroup]="loginForm" (ngSubmit)="newJob($event)">
-    <input formControlName="name" type="name" placeholder="new job name">
-    <input formControlName="description" type="description" placeholder="job description">
-    <input formControlName="salary_range" type="salary_range" placeholder="job salary range">
-    <input formControlName="employment_type" type="employment_type" placeholder="employment_type(full-time, part-time ...)">
-    <input formControlName="location" type="employment_type" placeholder="location(location)">
-    <input formControlName="tags" type="tags" placeholder="location(job tags)">
-  <button type="submit">create!</button>
+    <input formControlName="name" type="name" placeholder="Job Name">
+    <input class="bigger" formControlName="description" type="description" placeholder="Job Description">
+    <input formControlName="salary_range" type="salary_range" placeholder="Salary Range">
+    <input formControlName="employment_type" type="employment_type" placeholder="Employment Type(Full-time, Part-time, etc.)">
+    <input formControlName="location" type="employment_type" placeholder="Job Location (City, State)">
+    <input formControlName="tags" type="tags" placeholder="Job Tags (For Users to Search)">
+    <br>
+    <br>
+    <button class="jobbutton" type="submit">Add Job!</button>
+  </form>
+</div>
+
   <div>{{this.job.name}}</div>
-</form>
