@@ -24,6 +24,14 @@ defmodule GoodApi2.CompanyView do
             jobs: company["jobs"]
         }
     end
-end
 
-# defstruct [:name, :link_to_website, :logo, :bio, :list_of_locations, :manager_ids]
+    def render("company_view_couch.json", %{company: company}) do
+        %{
+            name: company["name"], 
+            bio: company["bio"], 
+            logo: company["logo"],  
+            link_to_website: company["link_to_website"],
+            list_of_locations: company["list_of_locations"]
+        }
+    end
+end

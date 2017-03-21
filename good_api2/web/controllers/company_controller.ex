@@ -25,4 +25,16 @@ defmodule GoodApi2.CompanyController do
                 |>json(%{error: msg})
         end
     end
+
+      def view(conn, %{"name" => name}) do
+        case Company.show(name) do
+            {:ok, company} ->
+                conn
+                |>render("company_view_couch.json", %{company: company})
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end
+    end
 end

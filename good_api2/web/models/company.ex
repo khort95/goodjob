@@ -59,4 +59,8 @@ curl -X POST -H "Content-Type: application/json" -d '
 curl -X POST -H "Content-Type: application/json" -d '
 {"name":"Evil Corp"}
 ' "http://localhost:4000/api/company/show"
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"name":"Evil Corp"}
+' "http://localhost:4000/api/company/show"
 """

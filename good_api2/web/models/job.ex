@@ -93,6 +93,10 @@ defmodule GoodApi2.Job do
     def add_test_jobs do
         Enum.each(1..7, fn(x)->:ets.insert(:jobs,{"some cup&job#{x}", {["software"], 0}}) end)
     end
+    
+    def add_test_jobs(first, last) do
+        Enum.each(first..last, fn(x)->:ets.insert(:jobs,{"some cup&job#{x}", {["software"], 0}}) end)
+    end
 end
 """
 curl -X POST -H "Content-Type: application/json" -d '
