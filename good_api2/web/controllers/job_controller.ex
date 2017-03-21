@@ -27,6 +27,18 @@ defmodule GoodApi2.JobController do
         end
     end
 
+    def view(conn, %{"job" => name}) do
+        case Job.show(name) do
+            {:ok, job} ->
+                conn
+                |>render("job_view_couch.json", %{job: job})
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end
+    end
+
     def like(conn, %{"job"=>job, "user"=>user, "choice"=>choice}) do
             case Job.like(job, user, choice) do
             {:ok, job} ->

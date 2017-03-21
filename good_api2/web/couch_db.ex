@@ -142,8 +142,14 @@ defmodule GoodApi2.CouchDb do
     end
 
     def get_job(company, job) do
-        IO.puts "#{company}&#{job}"
         case Reader.get(@goodjob_db, "#{company}&#{job}") do
+            {:ok, data} -> {:ok, Poison.decode!(data)}
+            {:error, _} -> {:error, "company not found"}  
+        end
+    end
+
+     def get_job(job) do
+        case Reader.get(@goodjob_db, job) do
             {:ok, data} -> {:ok, Poison.decode!(data)}
             {:error, _} -> {:error, "company not found"}  
         end

@@ -21,6 +21,7 @@ defmodule GoodApi2.Router do
 
     post "/job", JobController, :create
     post "/job/show", JobController, :show
+    post "/job/view", JobController, :view
     post "/job/like", JobController, :like
     post "/job/approve", JobController, :approve
     post "/job/job_feed", JobController, :job_feed

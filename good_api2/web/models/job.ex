@@ -46,6 +46,13 @@ defmodule GoodApi2.Job do
         end
     end
 
+    def show(job) do
+        case Couch.get_job(job) do
+            {:ok, job} -> {:ok, job}
+            {:error, msg} -> {:error, msg}
+        end
+    end
+
     defp add_job_to_company(company, job) do
         Couch.company_new_job(company, job)
     end
@@ -103,6 +110,10 @@ curl -X POST -H "Content-Type: application/json" -d '
 curl -X POST -H "Content-Type: application/json" -d '
 {"company":"Evil Corp", "job":"paper boy"}
 ' "http://localhost:4000/api/job/show"
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"job":"Evil Corp&paper boy"}
+' "http://localhost:4000/api/job/view"
 
 curl -X POST -H "Content-Type: application/json" -d '
 {"job":"some cup&job2", "user":"se.phildimarco@gmail.com", "choice":"like"}
