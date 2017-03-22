@@ -65,4 +65,5 @@ export class JobPanel implements OnInit{
       this.job.likes.splice(i, 1)
     }
   }
+  
 }
