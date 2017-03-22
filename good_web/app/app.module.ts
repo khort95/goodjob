@@ -19,12 +19,13 @@ import { GoodJobService } from './good-job.service';
 
 import { routing } from './app.routes';
 import { CookieService } from 'angular2-cookie/services/cookies.service'
+import { MessageService } from "./message-service";
 
 
 @NgModule({
   imports: [ BrowserModule, ReactiveFormsModule, HttpModule, routing ],
-  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Settings, JobPanel, ChatWindow, JobSeekerPanel ],
+  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Settings, JobPanel, ChatWindow, JobSeekerPanel],
   bootstrap: [ AppComponent ],
-  providers: [GoodJobService, CookieService]
+  providers: [GoodJobService, CookieService, MessageService]
 })
 export class AppModule { }

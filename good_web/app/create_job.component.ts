@@ -5,7 +5,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { GoodJobService } from './good-job.service';
 import { Job } from './data-class';
 import { NgModule }      from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MessageService } from "./message-service";
 
 @Component({
   selector: 'create-job',
@@ -25,7 +26,7 @@ export class CreateJob {
   });
 
   
-  constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {
+  constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router, private messageService: MessageService) {
     this.job.name = "create a new job!"
   }
   
@@ -39,7 +40,7 @@ export class CreateJob {
     this.job.tags = []
 
     this.goodJobService.new_job(this.create(this.job))
-   .subscribe(p => this.job = p, error=> this.job.name = "error creating job!")
+   .subscribe(job => this.push_new_job(job), error=> this.job.name = "error creating job!")
   }
 
   create(job: Job) :any{
@@ -61,6 +62,13 @@ export class CreateJob {
 
   make_tag_list(str: string) :string[] {
     return str.split(", ")
+  }
+
+  //sends a job so main panel can add it
+  push_new_job(job: Job){
+    this.loginForm.reset()
+    console.log("sending job")
+    this.messageService.sendJob(job)
   }
 }
 
