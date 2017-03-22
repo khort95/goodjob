@@ -22,9 +22,9 @@ export class JobPanel implements OnInit{
   strIdH: string;
   static counter: number = 0;
 
-  
-  job: Job 
- 
+
+  job: Job
+
   constructor(private goodJobService: GoodJobService, private route: ActivatedRoute) {
     this.job = goodJobService.fetch_null_job()
     JobPanel.counter++;
@@ -32,9 +32,9 @@ export class JobPanel implements OnInit{
     this.strId = "collapse"+id;
     this.strIdH = "#collapse"+id;
   }
-  
 
-  ngOnInit(){ 
+
+  ngOnInit(){
    this.goodJobService.fetch_job(this.company, this.name)
    .subscribe(p => this.job = p)
     console.log(this.job)
@@ -42,10 +42,10 @@ export class JobPanel implements OnInit{
 
   approve(user: string){
     let res: string
-    
+
     this.goodJobService.approve_user(this.job.name, this.job.company, user, true)
     .subscribe(p => res = p, error=>this.job.name = "action failed")
-    
+
     var i = this.job.likes.indexOf(user)
     if (i > -1) {
       this.job.likes.splice(i, 1)
@@ -57,15 +57,14 @@ export class JobPanel implements OnInit{
 
   reject(user: string){
     let res: string
-    
+
     this.goodJobService.approve_user(this.job.name, this.job.company, user, false)
     .subscribe(p => res = p, error=>this.job.name = "action failed")
-    
+
     var i = this.job.likes.indexOf(user)
     if (i > -1) {
       this.job.likes.splice(i, 1)
     }
-
   }
   
 }

@@ -264,7 +264,7 @@ nav a.router-link-active {
 
 a {
     color:black !important;
-}  
+}
 
 a:hover, a:visited, a:link, a:active
 {
@@ -279,5 +279,42 @@ li.joblist{
 .main {
     margin-top: 30px; /* Add a top margin to avoid content overlay */
 }
+.welcomeheader{
+  background-color: #f2f2f2;
+  text-align: center;
+  font-size: 50px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: lighter;
+  font-style: oblique;
+}
 
 
+.companyhead{
+  text-align: center;
+  font-size: 30px;
+  background-color: #f2f2f2;
+}
+.jobheader{
+  font-size: 30px;
+    font-family:  'Quicksand', sans-serif;
+    font-weight: bold;
+    margin-left: 16%;
+}
+.addjobhead{
+  font-size: 30px;
+    font-family:  'Quicksand', sans-serif;
+    margin-left: 13%;
+}
+.jobform input{ /*form inside of add job*/
+  width: 90%;
+  display: inline-block;
+  background-color: clear;
+ margin-left: 5%;
+margin-right:55%;
+border-width: 0.05px;
+}
+.jobbutton{
+  margin-left: 39%;
+}
+
+}
