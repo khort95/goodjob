@@ -4,6 +4,11 @@
   <h3>Company: {{company.name}}</h3>
 </div>
 
+  <h3>Add Job</h3>
+  <ul><li class="joblist">
+  <create-job></create-job>
+  </li></ul>
+
   <h2>Jobs</h2>
   <div>
   <ul>
@@ -11,9 +16,4 @@
       <job-panel [name]=job [company]="company_name"></job-panel>
     </li>
   </ul>
-  </div>
-
-  <div>
-    <h3>Add Job</h3>
-    <create-job></create-job>
   </div>

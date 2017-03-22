@@ -20,16 +20,17 @@ export class JobPanel implements OnInit{
 
   strId: string;
   strIdH: string;
+  static counter: number = 0;
 
   
   job: Job 
  
   constructor(private goodJobService: GoodJobService, private route: ActivatedRoute) {
     this.job = goodJobService.fetch_null_job()
-    let id = Math.floor(Math.random()*10000)
+    JobPanel.counter++;
+    let id = JobPanel.counter;
     this.strId = "collapse"+id;
     this.strIdH = "#collapse"+id;
-    console.log(this.strId);
   }
   
 
@@ -65,7 +66,6 @@ export class JobPanel implements OnInit{
       this.job.likes.splice(i, 1)
     }
 
-    console.log(this.id)
   }
   
 }
