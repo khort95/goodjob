@@ -184,7 +184,7 @@ nav a.router-link-active {
       border-width: 0.05px;
     }
     .jobform input {
-
+            margin-top: 50%;
             width: 40%;
             display: inline-block;
             background-color:
@@ -240,7 +240,8 @@ body{margin:0;}
   font-size: 20px;
   cursor: pointer;
   cursor: hand;
-}
+  }
+  
 .Glogo{
   cursor: pointer;
   cursor: hand;
@@ -265,9 +266,11 @@ body{margin:0;}
   cursor: hand;
   font-family: 'Quicksand', sans-serif;
   margin-left: 130%;
+}
+h2{
+  font-family: 'Boogaloo', cursive;
+}
 
-}
-}
 /* Main content */
 .main {
     margin-top: 30px; /* Add a top margin to avoid content overlay */
