@@ -21,9 +21,9 @@ export class JobPanel implements OnInit{
   strId: string;
   strIdH: string;
 
-  
-  job: Job 
- 
+
+  job: Job
+
   constructor(private goodJobService: GoodJobService, private route: ActivatedRoute) {
     this.job = goodJobService.fetch_null_job()
     let id = Math.floor(Math.random()*10000)
@@ -31,9 +31,9 @@ export class JobPanel implements OnInit{
     this.strIdH = "#collapse"+id;
     console.log(this.strId);
   }
-  
 
-  ngOnInit(){ 
+
+  ngOnInit(){
    this.goodJobService.fetch_job(this.company, this.name)
    .subscribe(p => this.job = p)
     console.log(this.job)
@@ -41,10 +41,10 @@ export class JobPanel implements OnInit{
 
   approve(user: string){
     let res: string
-    
+
     this.goodJobService.approve_user(this.job.name, this.job.company, user, true)
     .subscribe(p => res = p, error=>this.job.name = "action failed")
-    
+
     var i = this.job.likes.indexOf(user)
     if (i > -1) {
       this.job.likes.splice(i, 1)
@@ -56,16 +56,13 @@ export class JobPanel implements OnInit{
 
   reject(user: string){
     let res: string
-    
+
     this.goodJobService.approve_user(this.job.name, this.job.company, user, false)
     .subscribe(p => res = p, error=>this.job.name = "action failed")
-    
+
     var i = this.job.likes.indexOf(user)
     if (i > -1) {
       this.job.likes.splice(i, 1)
     }
-
-    console.log(this.id)
   }
-  
 }

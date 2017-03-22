@@ -4,16 +4,18 @@
 <div class="companyhead">Company: {{company.name}}</div>
 
 <br>
-  <div class="jobheader">Jobs</div>
+<!-- main-page.component.ts -->
+
+  <h3>Add Job</h3>
+  <ul><li class="joblist">
+  <create-job></create-job>
+  </li></ul>
+
+  <h2>Jobs</h2>
   <div>
   <ul>
     <li class="joblist" *ngFor="let job of company.jobs">
       <job-panel [name]=job [company]="company_name"></job-panel>
     </li>
   </ul>
-  </div>
-
-  <div>
-    <div class="addjobhead">Add Job</div>
-      <create-job></create-job>
   </div>
