@@ -1,10 +1,10 @@
 <!-- main-page.component.ts -->
-<div>
-  <h4>hello {{user.name}}</h4>
-  <h3>Company: {{company.name}}</h3>
-</div>
 
-  <h2>Jobs</h2>
+<div class="welcomeheader">Welcome {{user.name}}!</div>
+<div class="companyhead">Company: {{company.name}}</div>
+
+<br>
+  <div class="jobheader">Jobs</div>
   <div>
   <ul>
     <li class="joblist" *ngFor="let job of company.jobs">
@@ -14,6 +14,6 @@
   </div>
 
   <div>
-    <h3>Add Job</h3>
-    <create-job></create-job>
+    <div class="addjobhead">Add Job</div>
+      <create-job></create-job>
   </div>
