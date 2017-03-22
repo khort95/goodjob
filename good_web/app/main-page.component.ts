@@ -12,9 +12,9 @@ import { CreateJob} from './create_job.component'
 export class MainPage implements OnInit{
   user: HrPerson = null
   company: Company 
+  company_name: string
+  current_job_name: string = "empty"
  
- 
-  
   constructor(private goodJobService: GoodJobService) {
     this.company = goodJobService.fetch_null_company();
   }
@@ -33,6 +33,12 @@ export class MainPage implements OnInit{
     }
 
    this.goodJobService.fetch_company(this.user.company)
-   .subscribe(p => this.company = p)
+   .subscribe(p => this.setCompany(p))
+
+  }
+
+  private setCompany(p: Company){
+    this.company = p;
+    this.company_name = this.company.name
   }
 }

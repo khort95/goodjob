@@ -1,16 +1,28 @@
 <!-- create_job.component.ts -->
-<div class="jobform">
-<form [formGroup]="loginForm" (ngSubmit)="newJob($event)">
-    <input formControlName="name" type="name" placeholder="Job Name">
-    <input class="bigger" formControlName="description" type="description" placeholder="Job Description">
-    <input formControlName="salary_range" type="salary_range" placeholder="Salary Range">
-    <input formControlName="employment_type" type="employment_type" placeholder="Employment Type(Full-time, Part-time, etc.)">
-    <input formControlName="location" type="employment_type" placeholder="Job Location (City, State)">
-    <input formControlName="tags" type="tags" placeholder="Job Tags (For Users to Search)">
-    <br>
-    <br>
-    <button class="jobbutton" type="submit">Add Job!</button>
-  </form>
-</div>
 
-  <div>{{this.job.name}}</div>
+  <div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1">Add Job</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <div class="jobform">
+          <form [formGroup]="loginForm" (ngSubmit)="newJob($event)">
+          <input formControlName="name" type="name" placeholder="Job Name">
+          <input class="bigger" formControlName="description" type="description" placeholder="Job Description">
+          <input formControlName="salary_range" type="salary_range" placeholder="Salary Range">
+          <input formControlName="employment_type" type="employment_type" placeholder="Employment Type(Full-time, Part-time, etc.)">
+          <input formControlName="location" type="employment_type" placeholder="Job Location (City, State)">
+          <input formControlName="tags" type="tags" placeholder="Job Tags (For Users to Search)">
+          <button class="jobbutton" type="submit">Create</button>
+          </form>
+          </div>
+          </li>
+          <li class="list-group-item"><div>{{this.job.name}}</div></li>
+       </ul>
+     </div>
+  </div>

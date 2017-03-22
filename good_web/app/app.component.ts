@@ -5,17 +5,7 @@ import { HrPerson } from './data-class';
 
 @Component({
     selector: 'my-app',
-    template: `
-    <br>
-
-<div class="navbar">
-    <button (click)="logout()">Logout</button>
-    <button (click)="settings()">Settings</button>
-    <img class ="Glogo" src="GoodjobJustG.png" width="50" height="38" (click)="home()" />
-</div>
-    <router-outlet></router-outlet>
-
-    `
+    templateUrl:'app/template/header.html'
 })
 export class AppComponent {
     user: HrPerson

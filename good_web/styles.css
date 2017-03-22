@@ -1,30 +1,27 @@
 /* Master Styles */
 body{
-  background-color: #b1dfed;
+  background-color: #b1dfed !important;
 }
 h1 {
   color: #000000;
-  font-family: 'Quicksand', sans-serif;
+  font-family: 'Quicksand', sans-serif !important;
   font-size: 80px;
 }
 h2, h3 {
   color: #444;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif !important;
   font-weight: lighter;
 }
 body {
-  margin: 2em;
+  margin: 2em !important;
 }
-body, input[text], button {
-  color: #595959;
-  font-family: 'Days One', sans-serif;
-}
+
 a {
   cursor: pointer;
   cursor: hand;
 }
 .loginbutton{
-  font-family: 'Boogaloo', cursive;
+  font-family: 'Boogaloo', cursive !important;
   background-color: #cccccc;
   border: none;
   padding: 5px 10px;
@@ -34,7 +31,7 @@ a {
   cursor: hand;
 }
 .createbutton {
-  font-family: 'Boogaloo', cursive;
+  font-family: 'Boogaloo', cursive  !important;
   background-color: #ccebff;
   border: none;
   padding: 5px 10px;
@@ -73,11 +70,11 @@ button:disabled {
 }
 
 input {
- background-color:#FFF;
- min-height:30px;
- min-width: 200px;
- font-size: 20px;
- font-family: 'Boogaloo', cursive;
+ background-color:#FFF !important;
+ min-height:30px !important;
+ min-width: 200px !important;
+ font-size: 20px !important;
+ font-family: 'Boogaloo', cursive !important;
 }
 
 /* Navigation link styles */
@@ -174,38 +171,34 @@ nav a.router-link-active {
 }
 
 .userform input {
-  align: center;
-        width: 40%;
-        display: inline-block;
-        background-color:
-        clear: both;
-       margin-left: 30%;
-      margin-right:30%;
-      border-width: 0.05px;
+     width: 40%;
+     display: inline-block;
+     background-color: clear;
+     margin-left: 30%;
+     margin-right:30%;
+     border-width: 0.05px;
     }
     .jobform input {
 
             width: 40%;
             display: inline-block;
-            background-color:
-            clear: both;
+            background-color: clear;
            margin-left: 5%;
           margin-right:55%;
           border-width: 0.05px;
         }
 .jobbutton{
-  margin-left: 21%;
- margin-right:55%;
- font-family: 'Boogaloo', cursive;
- background-color: #cccccc;
- border: none;
- padding: 5px 10px;
- border-radius: 7px;
- font-size: 20px;
- cursor: pointer;
- cursor: hand;
-
+  margin-top: 5%;
+  margin-left: 5%;
+  font-family: 'Boogaloo', cursive;
+  background-color: #cccccc;
+  border: none;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+  cursor: hand;
 }
+
 .bigger{
   height: 200px;
   text-align: left;
@@ -217,30 +210,12 @@ nav a.router-link-active {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
-/* The navigation bar */
-body{margin:0;}
-.navbar{
-    overflow: hidden;
-    background-color: #b1dfed;
-    position: absolute; /* Set the navbar to fixed position */
-    top: 5; /* Position the navbar at the top of the page */
-    width: 100%; /* Full width */
-    background-color: #b1dfed;
-    height: 65px;
+
+.topbar{
+  margin-left: 74%;
+  padding-bottom: 1em;
 }
 
-/* Links inside the navbar */
-.navbar button{
-
-  font-family: 'Boogaloo', cursive;
-  background-color: #ccebff;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 7px;
-  font-size: 20px;
-  cursor: pointer;
-  cursor: hand;
-}
 .Glogo{
   cursor: pointer;
   cursor: hand;
@@ -265,10 +240,44 @@ body{margin:0;}
   cursor: hand;
   font-family: 'Quicksand', sans-serif;
   margin-left: 130%;
-
 }
+
+/* Panel stuff */
+.panel-heading {
+    background-color:lightgray;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: darkgray;
+    text-align: center;
+}
+
+.panel-group{
+  background-color:lightgray;
+  width: 420px
+}
+
+.list-group-item{
+  background:lightblue !important;
+}
+
+
+a {
+    color:black !important;
+}  
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none !important;
+}
+/* Panel stuff end*/
+
+li.joblist{
+  list-style-type:none;
 }
 /* Main content */
 .main {
     margin-top: 30px; /* Add a top margin to avoid content overlay */
 }
+
+

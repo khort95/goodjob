@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit} from '@angular/core';
+import { Component, NgModule, OnInit, Input} from '@angular/core';
 import { Job } from './data-class';
 import { GoodJobService } from './good-job.service';
 import { CreateJob} from './create_job.component';
@@ -12,24 +12,29 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class JobPanel implements OnInit{
+  @Input()
+  name: string;
+
+  @Input()
+  company: string;
+
+  strId: string;
+  strIdH: string;
+
+  
   job: Job 
  
   constructor(private goodJobService: GoodJobService, private route: ActivatedRoute) {
-    this.job = goodJobService.fetch_null_job();
+    this.job = goodJobService.fetch_null_job()
+    let id = Math.floor(Math.random()*10000)
+    this.strId = "collapse"+id;
+    this.strIdH = "#collapse"+id;
+    console.log(this.strId);
   }
   
 
-  ngOnInit(){
-   let name: string;
-   let company: string; 
-
-   this.route.params.subscribe(params => {
-          name = params['name'];
-          company = params['company']
-        });
-    
-  
-   this.goodJobService.fetch_job(company, name)
+  ngOnInit(){ 
+   this.goodJobService.fetch_job(this.company, this.name)
    .subscribe(p => this.job = p)
     console.log(this.job)
   }
@@ -60,7 +65,7 @@ export class JobPanel implements OnInit{
       this.job.likes.splice(i, 1)
     }
 
-    console.log(res)
+    console.log(this.id)
   }
   
 }

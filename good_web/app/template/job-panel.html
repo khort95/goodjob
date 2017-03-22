@@ -1,34 +1,51 @@
  <!-- job_panel.component.ts -->  
-    <h3>Job Details</h3>
-    <div>name: {{job.name}}</div>
-    <div>description: {{job.description}}</div>
-    <div>post date: {{job.post_date}}</div>
-    <div>location: {{job.location}}</div>
-    <div>salary: {{job.salary_range}}</div>
-    <div>employment type: {{job.employment_type}}</div>
-    
-    <div>
-    chats
-    <ul>
-    <li *ngFor="let user of job.active_chats">
-      <a href= "#" [routerLink]="['/app/job/chat', user, job.company, job.name]">
-      {{user}}
-      </a>
-    </li>
-    </ul>
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href={{strIdH}}>{{job.name}}</a>
+      </h4>
     </div>
+    <div id="{{strId}}" class="panel-collapse collapse">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <ul class="list-group">
+            <li class="list-group-item"><b>Details</b></li>
+            <li class="list-group-item">name: {{job.name}}</li>
+            <li class="list-group-item">description: {{job.description}}</li>
+            <li class="list-group-item">post date: {{job.post_date}}</li>
+            <li class="list-group-item">location: {{job.location}}</li>
+            <li class="list-group-item">salary: {{job.salary_range}}</li>
+            <li class="list-group-item">employment type: {{job.employment_type}}</li>
+          </ul>
+        </li>
+      
+      <li class="list-group-item">
+        <ul class="list-group">
+        <li class="list-group-item">chats</li>
+        <li class="list-group-item" *ngFor="let user of job.active_chats">
+        <a href= "#" [routerLink]="['/app/job/chat', user, job.company, job.name]">
+        {{user}}
+        </a>
+        </li>
+        </ul>
+      </li>
+   
+      <li class="list-group-item">
+            <ul class="list-group">
+              <li class="list-group-item"><b>likes</b></li>
+              <li class="list-group-item" *ngFor="let user of job.likes">
+                <div>
+                <a href= "#" [routerLink]="['/app/job_seeker', user]">
+                {{user}}
+                </a>
+                <button (click)="approve(user)" id= "user" class="createbutton">approve</button> 
+                <button (click)="reject(user)" class="createbutton">reject</button>
+                </div>           
+              </li>
+            </ul>
+        </li>
     
-    <div>
-    likes
-    <ul>
-    <li *ngFor="let user of job.likes">
-      <div>
-         <a href= "#" [routerLink]="['/app/job_seeker', user]">
-          {{user}}
-       </a>
-        <button (click)="approve(user)" id= "user" class="button">approve</button> 
-        <button (click)="reject(user)" class="button">reject</button>
-      </div>           
-    </li>
-    </ul>
-    </div>
+       </ul>
+     </div>
+  </div>

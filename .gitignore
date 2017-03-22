@@ -29,3 +29,5 @@ erl_crash.dump
 /config/prod.secret.exs
 
 test.html
+
+.DS_Store
