@@ -21,10 +21,6 @@ a {
   cursor: hand;
 }
 
-/*to hide scroll bar*/
-
-
-
 .loginbutton{
   font-family: 'Boogaloo', cursive !important;
   background-color: #cccccc;
@@ -276,18 +272,11 @@ nav a.router-link-active {
     border-width: 3px;
     text-align: left;
     padding-top: 5px;
-    margin-bottom: 2%;
-    
-}
-
-.panel-group{
-  background-color:clear;
-  width: 90%;
-  padding-left: 1px;
+    margin-bottom: 1%;
 }
 
 .list-group-item{
-  background-color:#f2f2f2 !important;
+  background-color: #f2f2f2 !important;
   border: none !important;
 }
 
@@ -295,7 +284,16 @@ div.user-in-panel a{
   color: black !important; 
 }
 
+.panel-group{
+  background-color:clear;
+  width: 85%;
+  padding-left: 1px;
+  margin-bottom: 2%;
+}
+
 .panel-group a{
+    display: inline-block;
+    width:100%;
     color:white !important;
 }
 
@@ -328,6 +326,10 @@ li.joblist{
 .main {
     margin-top: 30px; /* Add a top margin to avoid content overlay */
 }
+
+/* to make scroll bar always on */
+html {height: 101%;}
+
 .welcomeheader{
   background-color: #f2f2f2;
   text-align: center;

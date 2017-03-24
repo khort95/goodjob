@@ -1,10 +1,10 @@
  <!-- create_company.ts -->
-  <form [formGroup]="loginForm" (ngSubmit)="newUser($event)">
-    <input formControlName="name" type="name" placeholder="Your company name">
-    <input formControlName="logo" type="logo" placeholder="Your company logo">
-    <input formControlName="bio" type="bio" placeholder="Your company bio">
-    <input formControlName="link_to_website" type="link_to_website" placeholder="Your link to your website">
-    <input formControlName="list_of_locations" type="list_of_locations" placeholder="Your locations">
+  <form [formGroup]="loginForm" (ngSubmit)="newUser($event)" required>
+    <input formControlName="name" type="name" placeholder="Your company name" required>
+    <input formControlName="logo" type="logo" placeholder="Your company logo" required>
+    <input formControlName="bio" type="bio" placeholder="Your company bio" required>
+    <input formControlName="link_to_website" type="link_to_website" placeholder="Your link to your website" required>
+    <input formControlName="list_of_locations" type="list_of_locations" placeholder="Your locations" required>
   <button type="submit">create!</button>
 </form>
 <div>

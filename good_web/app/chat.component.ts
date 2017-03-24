@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { GoodJobService } from './good-job.service';
 import { Message, Chat, Company } from './data-class';
 import { MessageService } from "./message-service";
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'chat-window',
@@ -19,9 +20,11 @@ export class ChatWindow implements OnInit{
   company: string
   job: string
   sender: string
+  chat_click_sub: Subscription
  
   constructor(private goodJobService: GoodJobService, public fb: FormBuilder, private messageService: MessageService) {
     this.chat = goodJobService.fetch_null_chat();
+    this.chat_click_sub = this.messageService.getChatClick().subscribe(chat=>this.update_chat_window(chat));
   }
 
   sendMessage(event: any) {
@@ -51,4 +54,14 @@ export class ChatWindow implements OnInit{
    public send_message = this.fb.group({
     message: ["", Validators.required]   
   });
+
+  public update_chat_window(chat: any){
+    this.job_seeker = chat.job_seeker
+    this.company = chat.company
+    this.job = chat.job
+    this.sender = this.goodJobService.get_user().email
+
+    this.goodJobService.fetch_chat(this.job_seeker, this.company, this.job)
+     .subscribe(p => this.chat = p)
+  }
 }

@@ -68,11 +68,11 @@ export class JobPanel implements OnInit{
   }
 
   profileClick(email: string){
-    console.log(email)
     this.messageService.sendProfileClick(email)
   }
 
   chatClick(job_seeker: string, company: string, job: string){
+    this.messageService.sendProfileClick(job_seeker)
     this.messageService.sendChatClick(job_seeker, company,job)
   }
   

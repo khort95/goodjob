@@ -70,7 +70,6 @@ export class MainPage implements OnInit{
   }
 
   private drawProfile(email: string){
-    console.log(email + "profile")
     this.current_profile = email
     this.chat_click = false
     this.profile_click = true
