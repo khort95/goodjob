@@ -1,13 +1,13 @@
 defmodule GoodApi2 do
   use Application
   alias GoodApi2.Tag, as: Tag
-  alias GoodApi2.Job, as: Job
+  alias GoodApi2.JobServer, as: Job
 
   # See http://elixir-lang.org/docs/stable/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
     Tag.init
-    Job.init_ets
+    Job.start_link
     import Supervisor.Spec
 
     # Define workers and child supervisors to be supervised

@@ -2,8 +2,7 @@ defmodule GoodApi2.JobSeeker do
   use GoodApi2.Web, :model
   alias GoodApi2.CouchDb, as: Couch
   alias GoodApi2.Util
-  
-  @derive [Poison.Encoder]
+
   defstruct [:name, :email, :password, :bio, :resume, 
             :picture, :distance_range, :tags, 
             :chat_ids, :seen]

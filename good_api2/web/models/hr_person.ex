@@ -2,8 +2,7 @@ defmodule GoodApi2.HrPerson do
   use GoodApi2.Web, :model
   alias GoodApi2.CouchDb, as: Couch
   alias GoodApi2.Util
-  
-  @derive [Poison.Encoder]
+
   defstruct [:name, :email, :password, :bio, :role, :picture, :company, :is_head?, :permissions]
   
   def create(inputs) do
