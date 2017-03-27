@@ -11,6 +11,6 @@
 </div>
 
 
-<div align=center>
-  <h4>{{user.name}} has been create!</h4>
+<div *ngIf="user.name" align=center>
+  <h4>{{user.name}}</h4>
 </div>
