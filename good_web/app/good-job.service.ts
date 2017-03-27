@@ -14,7 +14,7 @@ export class GoodJobService{
   constructor (private http: Http, private cookie: CookieService) {}
   public static hr_person: HrPerson
   public static company: Company
-  url: string = "http://localhost:4000/"
+  url: string = "http://ec2-34-207-144-227.compute-1.amazonaws.com:4000/"
   //url: string = "http://sepract1.monmouth.edu:4000/"
 
   //base64 encoded
