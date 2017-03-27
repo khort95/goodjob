@@ -66,7 +66,7 @@ export class JobPanel implements OnInit{
       this.job.likes.splice(i, 1)
     }
   }
-
+   
   profileClick(email: string){
     this.messageService.sendProfileClick(email)
   }
@@ -74,6 +74,5 @@ export class JobPanel implements OnInit{
   chatClick(job_seeker: string, company: string, job: string){
     this.messageService.sendProfileClick(job_seeker)
     this.messageService.sendChatClick(job_seeker, company,job)
-  }
-  
+  } 
 }
