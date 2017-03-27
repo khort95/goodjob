@@ -317,4 +317,10 @@ border-width: 0.05px;
   margin-left: 39%;
 }
 
+.create_your_profile{
+  font-size: 50px;
+    font-family:  'Quicksand', sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
 }
