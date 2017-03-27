@@ -2,14 +2,14 @@
 <div class="Create_Your_Profile">Create Your Profile</div>
  <div class="userform">
  <form [formGroup]="loginForm" (ngSubmit)="newUser($event)">
-    <input formControlName="email" type="email" placeholder="Your Email">
-    <input formControlName="password" type="password" placeholder="Your Password">
-    <input formControlName="name" type="name" placeholder="Your Name">
-    <input class ="bigger" formControlName="bio" type="bio" placeholder="A Short Description of Yourself">
-    <input formControlName="role" type="role" placeholder="Your Position">
-    <br>
-    <br>
-<div align = "center"><button class ="createbutton" type="submit">Create!</button></div>
+
+    <input formControlName="email" type="email" placeholder="Your Email" required>
+    <input formControlName="password" type="password" placeholder="Your Password" required>
+    <input formControlName="name" type="name" placeholder="Your Name" required>
+    <input class ="bigger" formControlName="bio" type="bio" placeholder="A Short Description of Yourself" required>
+    <input formControlName="role" type="role" placeholder="Your Position" required> 
+<div align = center><button class ="createbutton" type="submit">Create!</button></div>
+   
 </form>
 </div>
 

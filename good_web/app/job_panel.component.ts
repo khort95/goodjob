@@ -3,7 +3,7 @@ import { Job } from './data-class';
 import { GoodJobService } from './good-job.service';
 import { CreateJob} from './create_job.component';
 import { Routes } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { MessageService } from "./message-service";
 
 
 @Component({
@@ -25,7 +25,7 @@ export class JobPanel implements OnInit{
 
   job: Job
 
-  constructor(private goodJobService: GoodJobService, private route: ActivatedRoute) {
+  constructor(private goodJobService: GoodJobService, private messageService: MessageService) {
     this.job = goodJobService.fetch_null_job()
     JobPanel.counter++;
     let id = JobPanel.counter;
@@ -35,9 +35,9 @@ export class JobPanel implements OnInit{
 
 
   ngOnInit(){
-   this.goodJobService.fetch_job(this.company, this.name)
-   .subscribe(p => this.job = p)
-    console.log(this.job)
+   if(this.company != undefined && this.name != undefined){
+    this.goodJobService.fetch_job(this.company, this.name).subscribe(p => this.job = p)
+  }
   }
 
   approve(user: string){
@@ -66,5 +66,13 @@ export class JobPanel implements OnInit{
       this.job.likes.splice(i, 1)
     }
   }
+   
+  profileClick(email: string){
+    this.messageService.sendProfileClick(email)
+  }
 
+  chatClick(job_seeker: string, company: string, job: string){
+    this.messageService.sendProfileClick(job_seeker)
+    this.messageService.sendChatClick(job_seeker, company,job)
+  } 
 }

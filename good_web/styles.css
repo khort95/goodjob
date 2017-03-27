@@ -20,6 +20,7 @@ a {
   cursor: pointer;
   cursor: hand;
 }
+
 .loginbutton{
   font-family: 'Boogaloo', cursive !important;
   background-color: #cccccc;
@@ -33,6 +34,26 @@ a {
 .createbutton {
   font-family: 'Boogaloo', cursive  !important;
   background-color: #ccebff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+  cursor: hand;
+}
+.reject-button {
+  font-family: 'Boogaloo', cursive  !important;
+  background-color: #d15025;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+  cursor: hand;
+}
+.approve-button {
+  font-family: 'Boogaloo', cursive  !important;
+  background-color: #59c10f;
   border: none;
   padding: 5px 10px;
   border-radius: 7px;
@@ -212,7 +233,7 @@ nav a.router-link-active {
 }
 
 .topbar{
-  margin-left: 74%;
+  margin-left: 87%;
   padding-bottom: 1em;
 }
 
@@ -244,41 +265,71 @@ nav a.router-link-active {
 
 /* Panel stuff */
 .panel-heading {
-    background-color:lightgray;
+    background-color:#686d75;
+    border-color: #686d75;
     border-radius: 5px;
     border-style: solid;
     border-width: 3px;
-    border-color: darkgray;
-    text-align: center;
-}
-
-.panel-group{
-  background-color:lightgray;
-  width: 420px
+    text-align: left;
+    padding-top: 5px;
+    margin-bottom: 1%;
 }
 
 .list-group-item{
-  background:lightblue !important;
+  background-color: #f2f2f2 !important;
+  border: none !important;
 }
 
+div.user-in-panel a{
+  color: black !important; 
+}
 
-a {
-    color:black !important;
+.panel-group{
+  background-color:clear;
+  width: 85%;
+  padding-left: 1px;
+  margin-bottom: 2%;
+}
+
+.panel-group a{
+    display: inline-block;
+    width:100%;
+    color:white !important;
 }
 
 a:hover, a:visited, a:link, a:active
 {
     text-decoration: none !important;
 }
-/* Panel stuff end*/
 
 li.joblist{
   list-style-type:none;
+}
+/* Panel stuff end*/
+
+.display-panel{
+  background-color: #9b81e2;
+  border-radius: 5px;
+  left:50%;
+  width: 45%;
+  height: 60%;
+  margin-top: 2%; 
+  position: fixed;
+  padding: 2%;
+}
+.chat-class{
+  overflow-y: scroll;
+  width: 100%;
+  height: 42%;
 }
 /* Main content */
 .main {
     margin-top: 30px; /* Add a top margin to avoid content overlay */
 }
+
+/* to make scroll bar always on */
+html {height: 101%;}
+
 .welcomeheader{
   background-color: #f2f2f2;
   text-align: center;
@@ -287,7 +338,6 @@ li.joblist{
   font-weight: lighter;
   font-style: oblique;
 }
-
 
 .companyhead{
   text-align: center;
@@ -309,14 +359,13 @@ li.joblist{
   width: 90%;
   display: inline-block;
   background-color: clear;
- margin-left: 5%;
-margin-right:55%;
-border-width: 0.05px;
+  margin-left: 5%;
+  margin-right:55%;
+  border-width: 0.05px;
 }
 .jobbutton{
   margin-left: 39%;
 }
-
 .create_your_profile{
   font-size: 50px;
     font-family:  'Quicksand', sans-serif;
@@ -324,3 +373,4 @@ border-width: 0.05px;
     text-align: center;
 }
 }
+

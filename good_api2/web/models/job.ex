@@ -3,8 +3,8 @@ defmodule GoodApi2.Job do
     alias GoodApi2.CouchDb, as: Couch
     alias GoodApi2.Util
     alias GoodApi2.Tag, as: Tag
+    alias GoodApi2.JobServer, as: JobServer
 
-    @derive [Poison.Encoder]
     defstruct [:name, :company, :likes, :active_chats, :description, 
         :post_date, :salary_range, :employment_type, 
         :location, :tags]
@@ -30,7 +30,7 @@ defmodule GoodApi2.Job do
                     {:ok, _, _} -> 
                         add_job_to_company(job["company"], job["name"])
                         Tag.add(job["tags"])
-                        add_ets(job["company"], job["name"], job["tags"]) 
+                        JobServer.add(job["company"], job["name"], job["description"], job["tags"]) 
                         {:ok, add}
                     {:error, _, _} -> {:error, "cannot fit inside"}
                     {:error, msg}  -> {:error, msg} 
@@ -73,29 +73,13 @@ defmodule GoodApi2.Job do
         end
     end
         
-    def init_ets do
-         :ets.new(:jobs, [:named_table, :set, :public])    
-    end
-
-    defp add_ets(company, job, tags) do
-        :ets.insert(:jobs, {"#{company}&#{job}", {tags, 0}})
-    end
-
     def job_feed(seen) do
-        :ets.tab2list(:jobs)
+        JobServer.get()
         |>Enum.take(5)
-        |>Enum.map(fn({job, _other}) -> job end)
-        |>Enum.filter(fn(job) -> 
+        |>Enum.map(fn({company, job, des, tags}) -> %{id: "#{company}&#{job}", name: job, company: company, description: des, tags: tags} end)
+        |>Enum.filter(fn(%{id: job}) -> 
             Enum.all?(seen, fn(seen_job) -> job != seen_job end) 
         end)
-    end
-
-    def add_test_jobs do
-        Enum.each(1..7, fn(x)->:ets.insert(:jobs,{"some cup&job#{x}", {["software"], 0}}) end)
-    end
-    
-    def add_test_jobs(first, last) do
-        Enum.each(first..last, fn(x)->:ets.insert(:jobs,{"some cup&job#{x}", {["software"], 0}}) end)
     end
 end
 """
@@ -120,7 +104,7 @@ curl -X POST -H "Content-Type: application/json" -d '
 ' "http://localhost:4000/api/job/view"
 
 curl -X POST -H "Content-Type: application/json" -d '
-{"job":"some cup&job2", "user":"se.phildimarco@gmail.com", "choice":"like"}
+{"job":"Evil Corp&newJon", "user":"se.phildimarco@gmail.com", "choice":"like"}
 ' "http://localhost:4000/api/job/like"
 
 curl -X POST -H "Content-Type: application/json" -d '
@@ -130,4 +114,7 @@ curl -X POST -H "Content-Type: application/json" -d '
 curl -X POST -H "Content-Type: application/json" -d '
 {"email":"se.phildimarco@gmail.com"}
 ' "http://localhost:4000/api/job/job_feed"
+
+    returns a list [{id: company&job, name: job, company: company, description: des, tags: tags} ..]
+    with the last 5 jobs created
 """

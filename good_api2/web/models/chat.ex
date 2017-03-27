@@ -5,6 +5,7 @@ defmodule GoodApi2.Chat do
 
     def new_message(sender, job_seeker, job, content) do
         message = %{"sender"=>sender,"sender_name"=>"", "content"=>content, "timestamp"=>DateTime.to_string(DateTime.utc_now())}
+        
         case Couch.send_message(job_seeker, job, message) do
             {:ok, msg} -> {:ok, msg}
             {:error, msg} -> {:error, msg}

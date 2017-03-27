@@ -1,11 +1,9 @@
  <!-- chat.component.ts -->
- <h1>Chat</h1>
+ <h2>Chat</h2>
   <div>
-    <a href= "#" [routerLink]="['/app/job_seeker', chat.job_seeker]">
       {{chat.job_seeker}}
-    </a>
   </div>
-  <div>
+  <div class="chat-class">
      <ul>
     <li *ngFor="let message of chat.messages">
       <div><b> {{message.sender_name}}:</b></div>
