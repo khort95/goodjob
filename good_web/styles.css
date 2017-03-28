@@ -198,6 +198,7 @@ nav a.router-link-active {
      margin-left: 30%;
      margin-right:30%;
      border-width: 0.05px;
+     opacity: 0.8;
     }
     .jobform input {
 
@@ -281,7 +282,7 @@ nav a.router-link-active {
 }
 
 div.user-in-panel a{
-  color: black !important; 
+  color: black !important;
 }
 
 .panel-group{
@@ -313,7 +314,7 @@ li.joblist{
   left:50%;
   width: 45%;
   height: 60%;
-  margin-top: 2%; 
+  margin-top: 2%;
   position: fixed;
   padding: 2%;
 }
@@ -337,18 +338,38 @@ html {height: 101%;}
   font-family: 'Quicksand', sans-serif;
   font-weight: lighter;
   font-style: oblique;
+  margin-left: auto;
+  margin-right: auto;
+
 }
 
 .companyhead{
   text-align: center;
+  font-family:  'Quicksand', sans-serif;
   font-size: 30px;
   background-color: #f2f2f2;
+  width: 100%;
 }
 .jobheader{
   font-size: 30px;
     font-family:  'Quicksand', sans-serif;
     font-weight: bold;
     margin-left: 16%;
+}
+.settings{
+    font-size: 40px;
+    font-family:  'Quicksand', sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+.chats{
+  font-family:  'Quicksand', sans-serif;
+  font-weight: bold;
+}
+.addpicture{
+  font-size: 20px;
+  font-family:  'Quicksand', sans-serif;
+  font-weight: bold;
 }
 .addjobhead{
   font-size: 30px;
@@ -372,5 +393,34 @@ html {height: 101%;}
     font-weight: bold;
     text-align: center;
 }
+#dg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity:0.25;
+  z-index: -1;
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
 }
-
+#cg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity:0.25;
+  z-index: -1;
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+#bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity:0.25;
+  z-index: -1;
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+}

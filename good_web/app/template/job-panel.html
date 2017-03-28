@@ -1,4 +1,4 @@
- <!-- job_panel.component.ts -->  
+ <!-- job_panel.component.ts -->
 <div class="panel-group">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -8,47 +8,49 @@
     </div>
     <div id="{{strId}}" class="panel-collapse collapse">
       <ul class="list-group">
-      
+
       <li class="list-group-item">
         <ul class="list-group">
-          <b>Chats</b>
+          <div class="chats">Chats</div>
           <li class="list-group-item" *ngFor="let user of job.active_chats">
           <div class="user-in-panel">
-          <button (click)= "chatClick(user, job.company, job.name)">
+
+          <button class="createbutton"(click)= "chatClick(user, job.company, job.name)">
           {{user}}
           </button>
+
           </div>
         </li>
         </ul>
       </li>
-   
+
       <li class="list-group-item">
             <ul class="list-group">
-              <b>Likes</b>
+              <div class="chats">Likes</div>
                 <li class="list-group-item" *ngFor="let user of job.likes">
                 <div class="user-in-panel">
-                <button (click)="profileClick(user)">
+                <button class="createbutton"(click)="profileClick(user)">
                 {{user}}
                 </button>
-                <button (click)="approve(user)" id= "user" class="approve-button">approve</button> 
-                <button (click)="reject(user)" class="reject-button">reject</button>
-                </div>           
+                <button (click)="approve(user)" id= "user" class="approve-button">Approve</button>
+                <button (click)="reject(user)" class="reject-button">Reject</button>
+                </div>
               </li>
             </ul>
         </li>
 
          <li class="list-group-item">
           <ul class="list-group">
-            <b>Details</b>
-            <li class="list-group-item">name: {{job.name}}</li>
-            <li class="list-group-item">description: {{job.description}}</li>
-            <li class="list-group-item">post date: {{job.post_date}}</li>
-            <li class="list-group-item">location: {{job.location}}</li>
-            <li class="list-group-item">salary: {{job.salary_range}}</li>
-            <li class="list-group-item">employment type: {{job.employment_type}}</li>
+            <div class="chats">Details</div>
+            <li class="list-group-item">Name of Job: {{job.name}}</li>
+            <li class="list-group-item">Job Description: {{job.description}}</li>
+            <li class="list-group-item">Date Posted: {{job.post_date}}</li>
+            <li class="list-group-item">Job Location: {{job.location}}</li>
+            <li class="list-group-item">Salary: {{job.salary_range}}</li>
+            <li class="list-group-item">Employment Type: {{job.employment_type}}</li>
           </ul>
         </li>
-    
+
        </ul>
      </div>
   </div>

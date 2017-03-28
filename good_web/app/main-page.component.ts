@@ -14,27 +14,27 @@ import {Job} from "./data-class";
 
 export class MainPage implements OnInit{
   user: HrPerson = null
-  company: Company 
+  company: Company
   company_name: string
   current_job_name: string = "empty"
   profile_click: boolean = false;
   chat_click: boolean = false;
 
   current_chat: string
-  current_profile: string 
+  current_profile: string
 
   message: any;
   add_job: Subscription;
   profile_click_sub: Subscription;
   chat_click_sub: Subscription;
- 
+
   constructor(private goodJobService: GoodJobService, private messageService: MessageService) {
     this.company = goodJobService.fetch_null_company();
     this.add_job = this.messageService.getJob().subscribe(job => this.addJob(job));
     this.profile_click_sub = this.messageService.getProfileClick().subscribe(email=>this.drawProfile(email));
     this.chat_click_sub = this.messageService.getChatClick().subscribe(chat=>this.drawChat(chat));
   }
-  
+
   ngOnInit(){
     this.user = this.goodJobService.get_temp_user()
 
