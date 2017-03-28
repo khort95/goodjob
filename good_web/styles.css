@@ -332,7 +332,7 @@ li.joblist{
 html {height: 101%;}
 
 .welcomeheader{
-  background-color: #f2f2f2;
+
   text-align: center;
   font-size: 50px;
   font-family: 'Quicksand', sans-serif;
@@ -365,6 +365,7 @@ html {height: 101%;}
 .chats{
   font-family:  'Quicksand', sans-serif;
   font-weight: bold;
+  font-size: 20px;
 }
 .addpicture{
   font-size: 20px;
