@@ -22,7 +22,6 @@ export class JobPanel implements OnInit{
   strIdH: string;
   static counter: number = 0;
 
-
   job: Job
 
   constructor(private goodJobService: GoodJobService, private messageService: MessageService) {
@@ -75,4 +74,6 @@ export class JobPanel implements OnInit{
     this.messageService.sendProfileClick(job_seeker)
     this.messageService.sendChatClick(job_seeker, company,job)
   } 
+
+
 }
