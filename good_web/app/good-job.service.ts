@@ -29,7 +29,7 @@ export class GoodJobService{
     return this.http.post(this.url + 'api/hr_person', creds, {
       headers: headers
        }).map(data => this.mapHrPerson(data))
- 
+
     }
 
     create_company(newPerson: any) :Company {

@@ -15,9 +15,15 @@
           <input formControlName="name" type="name" placeholder="Job Name" required>
           <input class="bigger" formControlName="description" type="description" placeholder="Job Description" required>
           <input formControlName="salary_range" type="salary_range" placeholder="Salary Range" required>
-          <input formControlName="employment_type" type="employment_type" placeholder="Employment Type(Full-time, Part-time, etc.)" required>
+          <input list="browsers" name="browser" placeholder="Employment Type">
+            <datalist id="browsers">
+              <option value="Part-time">
+                <option value="Full-time">
+                  <option value="Seasonal">
+                    <option value="Salary">
+                      </datalist>
           <input formControlName="location" type="employment_type" placeholder="Job Location (City, State)" required>
-          <input formControlName="tags" type="tags" placeholder="Job Tags (For Users to Search)" required>
+          <input formControlName="tags" type="tags" placeholder="Job Tags (For Users to Search, Separate by ,)" required>
           <button class="jobbutton" type="submit">Create Job!</button>
           </form>
           </div>
