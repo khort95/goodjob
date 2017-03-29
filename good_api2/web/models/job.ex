@@ -40,15 +40,15 @@ defmodule GoodApi2.Job do
     end
 
     def show(company, job) do
-        case Couch.get_job(company, job) do
-            {:ok, job} -> {:ok, job}
+        case Couch.valid_document?("#{company}&#{job}", "job not found") do
+            {:found, job} -> {:ok, Poison.decode!(job)}
             {:error, msg} -> {:error, msg}
         end
     end
 
     def show(job) do
-        case Couch.get_job(job) do
-            {:ok, job} -> {:ok, job}
+        case Couch.valid_document?(job, "job not found") do
+            {:found, job} -> {:ok, Poison.decode!(job)}
             {:error, msg} -> {:error, msg}
         end
     end

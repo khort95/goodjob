@@ -1,3 +1,4 @@
+#do no resume thing
 defmodule GoodApi2.Chat do
     use GoodApi2.Web, :model
     alias GoodApi2.CouchDb, as: Couch
@@ -13,7 +14,8 @@ defmodule GoodApi2.Chat do
     end
 
     def get_chat(job_seeker, job) do
-        case Couch.valid_chat?(job_seeker, job) do
+        chat = Couch.make_chat_id(job_seeker, job)
+        case Couch.valid_document?(chat, "chat not found") do
             {:found, chat} -> {:ok, chat}
             {:error, msg} -> {:error, msg}
         end

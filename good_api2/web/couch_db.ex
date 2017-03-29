@@ -25,32 +25,15 @@ defmodule GoodApi2.CouchDb do
          end
     end
 
-    defp valid_user?(email) do
-        case Reader.get(@goodjob_db, email) do
-            {:ok, data}      -> {:found, data}
-            {:error, _error} -> {:error, "user not valid"}
-        end
-    end
+    @doc"""
+    returns a document if found (not decoded from JSON)
 
-    def valid_chat?(chat) do
-        case Reader.get(@goodjob_db, chat) do
+    returns {:ok, document}
+    """    
+    def valid_document?(key, error) do
+        case Reader.get(@goodjob_db, key) do
             {:ok, data}      -> {:found, data}
-            {:error, _error} -> {:error, "chat not found"}
-        end
-    end
-
-    def valid_chat?(job_seeker, job) do
-        chat = make_chat_id(job_seeker, job)
-        case Reader.get(@goodjob_db, chat) do
-            {:ok, data}      -> {:found, data}
-            {:error, _error} -> {:error, "chat not found"}
-        end
-    end
-
-    defp valid_job?(job) do
-        case Reader.get(@goodjob_db, job) do
-            {:ok, data}      -> {:found, data}
-            {:error, _error} -> {:error, "job not found"}
+            {:error, _error} -> {:error, error}
         end
     end
 
@@ -141,23 +124,9 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
-    def get_job(company, job) do
-        case Reader.get(@goodjob_db, "#{company}&#{job}") do
-            {:ok, data} -> {:ok, Poison.decode!(data)}
-            {:error, _} -> {:error, "company not found"}  
-        end
-    end
-
-     def get_job(job) do
-        case Reader.get(@goodjob_db, job) do
-            {:ok, data} -> {:ok, Poison.decode!(data)}
-            {:error, _} -> {:error, "company not found"}  
-        end
-    end
-
     def like(job_name, user_name, "pass") do
-        with {:found, user_result}   <- valid_user?(user_name),
-             {:found, job_result}    <- valid_job?(job_name),
+        with {:found, user_result}   <- valid_document?(user_name, "job seeker not found"),
+             {:found, job_result}    <- valid_document?(job_name, "job not found"),
              {user, job}             <- decode_user_job(user_result, job_result),      
              nil                     <- Enum.find(job["likes"], fn(user)->user==user_name end),
              nil                     <- Enum.find(job["active_chats"], fn(user)->user==user_name end) do
@@ -172,8 +141,8 @@ defmodule GoodApi2.CouchDb do
     end
 
     def like(job_name, user_name, "like") do
-        with {:found, user_result}  <- valid_user?(user_name),
-             {:found, job_result}   <- valid_job?(job_name),
+        with {:found, user_result}  <- valid_document?(user_name, "job seeker not found"),
+             {:found, job_result}   <- valid_document?(job_name, "job not found"),
              {user, job}            <- decode_user_job(user_result, job_result),              
              nil                    <- Enum.find(job["likes"], fn(user)->user==user_name end),
              nil                    <- Enum.find(user["seen"], fn(job)->job==job_name end),
@@ -195,8 +164,8 @@ defmodule GoodApi2.CouchDb do
     end
 
     def approve(job_name, user_name, "approve") do
-        with {:found, user_result} <- valid_user?(user_name),
-             {:found, job_result} <- valid_job?(job_name),
+        with {:found, user_result} <- valid_document?(user_name, "job seeker not found"),
+             {:found, job_result} <- valid_document?(job_name, "job not found"),
              {user, job} <- decode_user_job(user_result, job_result),
              {:ok, list} <- test_and_remove(job["likes"], user_name, "user not found in the job likes'"),
              {:ok, chat} <- new_chat(user, job_name) do
@@ -209,8 +178,8 @@ defmodule GoodApi2.CouchDb do
     end
 
     def approve(job_name, user_name, "reject") do
-        with {:found, _user_result} <- valid_user?(user_name),
-             {:found, job_result} <- valid_job?(job_name),
+        with {:found, _user_result} <- valid_document?(user_name, "job seeker not found"),
+             {:found, job_result} <- valid_document?(job_name, "job not found"),
              job = Poison.decode!(job_result),
              {:ok, list} <- test_and_remove(job["likes"], user_name, "user not found in job") do
                  update_document(job, "likes", list, "rejected user")
@@ -236,15 +205,15 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
-    defp make_chat_id(job_seeker, job) do
+    def make_chat_id(job_seeker, job) do
         "#{job_seeker}&&#{job}"
     end
 
     def send_message(job_seeker, job, message) do
         chat_id = make_chat_id(job_seeker, job)
-        case valid_chat?(chat_id) do
+        case valid_document?(chat_id, "chat not found") do
             {:found, raw} ->
-                case valid_user?(message["sender"]) do
+                case valid_document?(message["sender"], "user not found to send message") do
                     {:found, user_raw} ->
                         chat = Poison.decode!(raw)
                         user = Poison.decode!(user_raw)

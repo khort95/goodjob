@@ -31,7 +31,12 @@ export class ViewResume{
 
 draw_window(pdf: string){
   try{
-    window.location.href = pdf
+    if(pdf == "no-resume"){
+      this.resume = "resume not found"
+    }
+    else{
+      window.location.href = pdf
+    }
   }
   catch(err){
     this.email = "error loading resume"

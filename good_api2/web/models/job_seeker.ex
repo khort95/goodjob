@@ -8,12 +8,12 @@ defmodule GoodApi2.JobSeeker do
             :chat_ids, :seen]
   
   def create(inputs) do
-      keys = ["name", "email", "password", "bio", "resume", "picture", "distance_range", "tags"]
+      keys = ["name", "email", "password", "bio", "distance_range", "tags"]
       IO.inspect inputs
       case Util.check_keys(keys, inputs) do
         {:ok, user} -> 
-            temp = %__MODULE__{name: user["name"], email: user["email"], password: user["password"], bio: user["bio"], tags: user["tags"], resume: user["resume"], picture: user["picture"], distance_range: user["distance_range"]}
-            add = %__MODULE__{temp | chat_ids: [], seen: []}
+            temp = %__MODULE__{name: user["name"], email: user["email"], password: user["password"], bio: user["bio"], tags: user["tags"], distance_range: user["distance_range"]}
+            add = %__MODULE__{temp | chat_ids: [], seen: [],  resume: "no-resume", picture: "no-picture"}
             case Couch.new_user(add) do
               {:ok, _, _} -> {:ok, add}
               {:error, _, _} -> {:error, "cant fit inside"}
@@ -31,14 +31,15 @@ defmodule GoodApi2.JobSeeker do
   end
 
   def profile(email) do
-      case Couch.profile(email) do
-        {:ok, user} -> {:ok, user}
+      case Couch.valid_document?(email, "job seeker profile not found") do
+        {:found, user} -> {:ok, Poison.decode!(user)}
         {:error, msg} -> {:error, msg}
       end
   end
 
   def update_resume(email, password, resume) do
-    with {:ok, user} <- Couch.validate(email, password),
+    with  :ok <- is_pdf?(resume),
+         {:ok, user} <- Couch.validate(email, password),
          {:ok, _updated} <- Couch.update_document(user, "resume", resume, "resume added successfully!") do
               {:ok, "updated resume"}
     else
@@ -46,8 +47,12 @@ defmodule GoodApi2.JobSeeker do
     end
   end
 
+  defp is_pdf?("data:application/pdf" <> _rest), do: :ok
+  defp is_pdf?(_something), do: {:error, "not in pdf format"}
+
+
   def get_resume(email) do
-    case Couch.profile(email) do
+    case profile(email) do
         {:ok, user} -> {:ok, user["resume"]}
         {:error, msg} -> {:error, msg}
       end
@@ -61,8 +66,6 @@ curl -X POST -H "Content-Type: application/json" -d '
 "name": "Phil DiMarco",
 "password": "123456",
 "bio": "I am a cool guy",
-"picture": "link-to-picture",
-"resume":"I am good at my job",
 "distance_range": 15,
 "tags":["software", "coding", "bullshiting"]}
 }
