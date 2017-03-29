@@ -1,0 +1,10 @@
+<div class="settings">upload resume</div>
+
+  <h3>please upload resume for <b>{{email}}</b></h3>
+
+<div>
+     <input type="password" [(ngModel)]="password">
+     <div class="addpicture">Resume (pdf only):</div>
+     <input type="file" accept="application/pdf" (change)="changeListener($event)">
+ </div>
+

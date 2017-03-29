@@ -36,6 +36,22 @@ defmodule GoodApi2.JobSeeker do
         {:error, msg} -> {:error, msg}
       end
   end
+
+  def update_resume(email, password, resume) do
+    with {:ok, user} <- Couch.validate(email, password),
+         {:ok, _updated} <- Couch.update_document(user, "resume", resume, "resume added successfully!") do
+              {:ok, "updated resume"}
+    else
+      {:error, message} -> {:error, message}
+    end
+  end
+
+  def get_resume(email) do
+    case Couch.profile(email) do
+        {:ok, user} -> {:ok, user["resume"]}
+        {:error, msg} -> {:error, msg}
+      end
+  end
 end
 
 """
@@ -62,5 +78,15 @@ curl -X POST -H "Content-Type: application/json" -d '
 {"email":"jeff@gmail.com"
 }
 ' "http://localhost:4000/api/job_seeker/profile"
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"email":"jeff@gmail.com", "password":"123456", "resume":"test(base64encoded resume here!)"
+}
+' "http://localhost:4000/api/job_seeker/profile/add_resume"
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"email":"se.phildimarco@gmail.com"
+}
+' "http://localhost:4000/api/job_seeker/profile/view_resume"
 
 """

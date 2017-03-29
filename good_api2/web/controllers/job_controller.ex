@@ -59,7 +59,7 @@ defmodule GoodApi2.JobController do
     end
 
      def approve(conn, %{"job"=>job, "user"=>user, "choice"=>choice}) do
-            case Job.approve(job, user, choice) do
+        case Job.approve(job, user, choice) do
             {:ok, job} ->
                 conn
                 |>json(%{ok: job})

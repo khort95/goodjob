@@ -38,7 +38,7 @@ export class CreateJob {
     this.job.location = this.loginForm.value.location
     this.job.tags = []
 
-    var e = document.getElementById("employment_type");
+    var e: any = document.getElementById("employment_type");
     var val = e.options[e.selectedIndex].value;
     this.job.employment_type = val
 

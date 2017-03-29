@@ -14,7 +14,8 @@ import { Subscription } from 'rxjs/Subscription';
 
 export class JobSeekerPanel{
   user: JobSeekerProfile
-  profile_click_sub: Subscription;
+  profile_click_sub: Subscription
+  emailURL: string
   
   @Input()
   email: string; 
@@ -24,17 +25,17 @@ export class JobSeekerPanel{
     this.profile_click_sub = this.messageService.getProfileClick().subscribe(email=>this.fetch_profile(email));
   }
 
-    ngOnInit(){
-      console.log(this.email + "  email")
-    
+    ngOnInit(){ 
       if(this.email != undefined){
         this.fetch_profile(this.email)
+        this.emailURL = this.email.split('.').join('!');
       }
     }
 
   
   fetch_profile(email: string){
     console.log("click" + email)
+    this.emailURL = email.split('.').join('!');
     this.goodJobService.fetch_job_seeker_profile(email)
       .subscribe(p => this.user = p)
   }

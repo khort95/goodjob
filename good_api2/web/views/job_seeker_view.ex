@@ -18,7 +18,6 @@ defmodule GoodApi2.JobSeekerView do
             name: job_seeker["name"], 
             picture: job_seeker["picture"],
             bio: job_seeker["bio"],
-            resume: job_seeker["resume"], 
             tags: job_seeker["tags"]
         }
     end

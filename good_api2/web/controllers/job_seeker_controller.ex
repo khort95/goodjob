@@ -37,4 +37,28 @@ defmodule GoodApi2.JobSeekerController do
                 |>json(%{error: msg})
         end  
     end
+
+     def update_resume(conn, %{"email" => email, "password"=>password, "resume" => resume}) do
+        case JobSeeker.update_resume(email, password, resume) do
+            {:ok, msg} -> 
+                conn
+                |>json(%{ok: msg})
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end
+    end
+
+    def view_resume(conn, %{"email" => email}) do
+        case JobSeeker.get_resume(email) do
+            {:ok, resume} ->
+                conn
+                |>json(%{resume: resume})
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end
+    end
 end

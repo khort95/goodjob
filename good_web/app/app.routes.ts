@@ -7,6 +7,8 @@ import { ChatWindow } from './chat.component';
 import { JobSeekerPanel } from './job_seeker.component';
 import { JobPanel } from './job_panel.component';
 import { Settings } from './settings.component';
+import { UploadResume } from './upload-resume.component';
+import { ViewResume } from './view-resume.component';
 
 // Route config let's you map routes to components
 const routes: Routes = [
@@ -32,16 +34,12 @@ const routes: Routes = [
     component: Settings
   },
   {
-    path: 'app/job/:name/:company',
-    component: JobPanel
-  },
-  {
-    path: 'app/job/chat/:job_seeker/:company/:job',
-    component: ChatWindow
-  },
-  {
     path: 'app/job_seeker/:email',
-    component: JobSeekerPanel
+    component: UploadResume
+  },
+  {
+    path: 'app/job_seeker/resume/:email',
+    component: ViewResume
   },
   // map '/' to '/persons' as our default route
   {

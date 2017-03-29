@@ -15,6 +15,8 @@ defmodule GoodApi2.Router do
     post "/job_seeker", JobSeekerController, :create
     post "/job_seeker/login", JobSeekerController, :login
     post "/job_seeker/profile", JobSeekerController, :profile
+    post "/job_seeker/profile/add_resume", JobSeekerController, :update_resume
+    post "/job_seeker/profile/view_resume", JobSeekerController, :view_resume
 
     post "/company", CompanyController, :create
     post "/company/show", CompanyController, :show
