@@ -1,4 +1,4 @@
-import {HrPerson, Company, Job, Message, Chat, JobSeekerProfile} from './data-class'
+import {HrPerson, Company, Job, Message, Chat, JobSeekerProfile, CompanyView} from './data-class'
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Injectable }     from '@angular/core';
 import { CookieService } from 'angular2-cookie/services/cookies.service'
@@ -145,6 +145,17 @@ export class GoodJobService{
         .map(this.mapCompany);
     }
 
+    fetch_company_view(name: string): Observable<CompanyView>{
+      let body = JSON.stringify({ name: name});
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      return this.http.post(this.url + 'api/company/view', body, {
+        headers: headers})
+        .map(this.mapCompany);
+    }
+
   mapCompany(response:Response): Company{
      // console.log("res::", response.json())
       let data = response.json();
@@ -160,6 +171,41 @@ export class GoodJobService{
         //console.log("parsed company!", company)
 
       return company
+    }
+
+    mapCompanyView(response:Response): CompanyView{
+     // console.log("res::", response.json())
+      let data = response.json();
+      let company = <CompanyView>({
+                name: data.name,
+                logo: data.logo,
+                bio: data.bio,
+                list_of_locations: data.list_of_locations,
+                link_to_website: data.link_to_website,
+        })
+        //console.log("parsed company!", company)
+
+      return company
+    }
+
+    add_user_to_company(company: string, user: string){
+        let body = JSON.stringify({company: company, email: user});
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        return this.http.post(this.url + 'api/company/add_user', body, {
+          headers: headers
+          }).map(this.map_message);
+    }
+
+    approve_user_to_company(sender: string, company: string, user: string){
+        let body = JSON.stringify({sender: sender, company: company, email: user});
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        return this.http.post(this.url + 'api/company/approve_user', body, {
+          headers: headers
+          }).map(this.map_message);
     }
 
     fetch_null_job() :Job {

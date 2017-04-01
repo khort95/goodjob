@@ -19,6 +19,7 @@ export class MainPage implements OnInit{
   current_job_name: string = "empty"
   profile_click: boolean = false;
   chat_click: boolean = false;
+  show_page: boolean;
 
   current_chat: string
   current_profile: string
@@ -47,8 +48,14 @@ export class MainPage implements OnInit{
       this.goodJobService.setUserCookie()
     }
 
+   if(this.user.company != "nil"){
+   this.show_page = true
    this.goodJobService.fetch_company(this.user.company)
    .subscribe(p => this.setCompany(p))
+  }
+  else{
+    this.show_page = false
+  }
 
   }
 

@@ -21,6 +21,14 @@ export interface Company{
     jobs: string[]
 }
 
+export interface CompanyView{
+    name: string, 
+    logo: string,
+    bio: string,
+    link_to_website: string,
+    list_of_locations: string[]
+}
+
 export interface Job{
     name: string,
     company: string, 

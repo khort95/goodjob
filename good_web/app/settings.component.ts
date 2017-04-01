@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgModule, OnInit}      from '@angular/core';
+import { NgModule, OnInit, Input}      from '@angular/core';
 import { HrPerson, Company } from './data-class';
 import { GoodJobService } from './good-job.service';
 import { CreateJob} from './create_job.component'
@@ -11,6 +11,7 @@ import { CreateJob} from './create_job.component'
 
 export class Settings implements OnInit{
   user: HrPerson = null
+  @Input()
   company: Company
   image: any 
  

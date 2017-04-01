@@ -1,5 +1,14 @@
  <!-- create_company.ts -->
 <img src="app/template/images/background_bridge.jpg" id="cg" alt="">
+<div>does your company already have page?</div>
+  <div>
+    <button (click)="yes_company()">yes</button>
+    <button (click)="no_company()">no</button>
+  </div>
+<br>
+
+
+<div *ngIf="new_company==false">
 <div class="create_your_profile">Add Your Company's Information</div>
 <div class="userform">
   <form [formGroup]="loginForm" (ngSubmit)="newUser($event)" required>
@@ -15,4 +24,21 @@
 </div>
 <div align="center">
   <h4>{{company.name}} has been created!</h4>
+</div>
+</div>
+
+<div *ngIf="new_company==true">
+    <div>enter your company's name</div>
+    <input [(ngModel)]="company_entered" type="name" placeholder="Company Name">
+    <button (click)="search_company()">find</button>
+
+    <div *ngIf="companyView">
+      <div>{{companyView.name}}</div>
+      <div>{{companyView.bio}}</div>
+      <div><img src={{companyView.logo}}></div>
+      <div>{{status_msg}}</div>
+      <button (click)="send_user_to_company()">confirm</button>
+    </div>
+
+    <div *ngIf="company_found_ == false">company not found try again</div>
 </div>

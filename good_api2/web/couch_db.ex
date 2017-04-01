@@ -18,9 +18,9 @@ defmodule GoodApi2.CouchDb do
 
     returns {:ok, new_document}
     """
-    def update_document(old, field_name, new_field, success) do
-         case Connector.update(@goodjob_db, %{old | field_name => new_field}) do
-             {:ok, %{:headers => _h, :payload => _p}} -> {:ok, %{old | field_name => new_field}}
+    def update_document(old, field_name, new_field_data, success) do
+         case Connector.update(@goodjob_db, %{old | field_name => new_field_data}) do
+             {:ok, %{:headers => _h, :payload => _p}} -> {:ok, %{old | field_name => new_field_data}}
              {:error, _} -> {:error, "failed to update document (error doing #{success})"}
          end
     end
@@ -34,6 +34,13 @@ defmodule GoodApi2.CouchDb do
         case Reader.get(@goodjob_db, key) do
             {:ok, data}      -> {:found, data}
             {:error, _error} -> {:error, error}
+        end
+    end
+
+     def get_document(key, error) do
+        case Reader.get(@goodjob_db, key) do
+            {:ok, data} -> {:ok, Poison.decode!(data)}
+            {:error, _} -> {:error, error}  
         end
     end
 
@@ -225,7 +232,7 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
-    defp add_to_list(list, item) do
+    def add_to_list(list, item) do
         case list do
             list when list == nil -> [item]
             _ ->
@@ -234,7 +241,7 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
-    defp test_and_remove(list, item, msg) do
+    def test_and_remove(list, item, msg) do
         size = Enum.count(list)
         new_list = List.delete(list, item)
         size2 = Enum.count(new_list)
