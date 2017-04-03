@@ -103,14 +103,18 @@ export class MainPage implements OnInit{
   }
 
   updateHeader(evt: any) {
+        let tracker = evt.target;
+        let limit = tracker.scrollHeight - tracker.clientHeight;
+        
         this.currPos = (window.pageYOffset || evt.target.scrollTop) - (evt.target.clientTop || 0);
         if(this.currPos >= this.changePos + 75 ) {
             //this.is_scrolled = true;
             //console.log("scrolled " + this.font_size)
-            this.font_size = this.font_size - 2;
-        } 
+            if(this.font_size > 0){this.font_size = this.font_size - 2;}
+        }
+        else if(this.currPos > this.changePos + 70 && this.currPos < this.changePos + 140){} 
         else {
-            this.font_size = 60;
+            if(this.font_size < 60){this.font_size = this.font_size + 2;}
         }
     }
 
