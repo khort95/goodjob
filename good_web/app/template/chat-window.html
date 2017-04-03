@@ -2,13 +2,15 @@
  <div class="chathead" align=center>You're Now Chatting With {{chat.job_seeker}}!</div>
 
   <div class="chat-class">
-     <ul>
+     <ul class="chatlist">
+
     <li *ngFor="let message of chat.messages">
+
       <div *ngIf="message.sender==sender">
         <div class="message">{{message.sender_name}}:</div>
         <div class="messagecontent">{{message.content}}</div>
       </div>
-      
+
       <div *ngIf="message.sender!=sender" class="right-chat">
         <div class="messageOther">{{message.sender_name}}:</div>
         <div class="messagecontentOther">{{message.content}}</div>
@@ -22,6 +24,6 @@
   <div class="chatbox">
      <form [formGroup]="send_message" (ngSubmit)="sendMessage($event)">
       <input formControlName="message" type="message" placeholder="New Message">
-      <button class ="createbutton" type="submit">Send</button>
+      <button class ="sendbutton" type="submit">Send</button>
      </form>
-  </div>
+</div>

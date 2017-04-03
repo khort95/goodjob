@@ -199,6 +199,16 @@ nav a.router-link-active {
      margin-right:30%;
      border-width: 0.05px;
      opacity: 0.8;
+     font-family:  'Quicksand', sans-serif;
+    }
+    .mainlogin input{
+      display: inline-block;
+      background-color: clear;
+      margin-left: 30%;
+      margin-right:30%;
+      border-width: 0.05px;
+      opacity: 0.8;
+      font-family:  'Quicksand', sans-serif;
     }
     .jobform input {
 
@@ -275,6 +285,10 @@ nav a.router-link-active {
     padding-top: 5px;
     margin-bottom: 1%;
 }
+.panel-title{
+  font-family:  'Quicksand', sans-serif;
+}
+
 
 .list-group-item{
   background-color: #f2f2f2 !important;
@@ -462,38 +476,70 @@ html {height: 101%;}
 .message{
     font-family:  'Quicksand', sans-serif;
     font-size: 14px;
-    background-color: #99ffff;
-    width: 100px;;
+    font-weight: bold;
 }
+
 .messagecontent{
   font-family:  'Quicksand', sans-serif;
   font-size: 14px;
-  width: 50%;
+  margin-right: 52%;
   text-align: justify;
+  background-color: #99ebff;
+  border-radius: 7px;
+  display: inline-flex;
+  padding-left: 5px;
+  padding-right: 5px;
+
+}
+.sendbutton{
+  font-family: 'Quicksand', sans-serif;  !important;
+  background-color: #99ebff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 15px;
+  cursor: pointer;
+  cursor: hand;
 }
 .messageOther{
     font-family:  'Quicksand', sans-serif;
     font-size: 14px;
-    background-color: green;
-    text-align: right;
-}
+    margin-left: 50%;
+    margin-right: 5%;
+    font-weight: bold;
+  }
 .messagecontentOther{
   font-family:  'Quicksand', sans-serif;
   font-size: 14px;
-  width: 100%;
+  margin-left: 50%;
+  margin-right: 6%;
   text-align: justify;
-  text-align: right;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: #b3ffb3;
+  border-radius: 7px;
+  display: inline-flex;
+}
+.chatlist{
+  list-style-type: none;
 }
 .right-chat{
   width: 100%;
   align-content: right;
 }
-.panelhead{
-    font-family:  'Quicksand', sans-serif;
+.panel-title{
+    font-family: 'Quicksand', sans-serif;
     text-align: center;
+    font-size: 25px;
 }
 .chatbox{
   margin-left: 6%;
+
+}
+.chatbox input{
+font-family: 'Quicksand', sans-serif;
+font-size: 10px;
+
 }
 .jobbutton{
   margin-left: 39%;
@@ -503,6 +549,13 @@ html {height: 101%;}
     font-family:  'Quicksand', sans-serif;
     font-weight: bold;
     text-align: center;
+}
+.list-group-item{
+  font-family:  'Quicksand', sans-serif;
+}
+.panelhead{
+  font-family:  'Quicksand', sans-serif;
+  text-align: center;
 }
 #dg {
   position: fixed;
@@ -545,5 +598,4 @@ html {height: 101%;}
   min-height: 100%;
   /* Preserve aspet ratio */
 
-}
 }

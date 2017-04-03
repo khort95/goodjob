@@ -91,4 +91,6 @@ export class MainPage implements OnInit{
     console.log(this.current_profile)
     console.log(this.current_chat)
   }
+
 }
+// Close the dropdown menu if the user clicks outside of it
