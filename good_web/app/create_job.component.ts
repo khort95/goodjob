@@ -38,9 +38,7 @@ export class CreateJob {
     this.job.location = this.loginForm.value.location
     this.job.tags = []
 
-    var e: any = document.getElementById("employment_type");
-    var val = e.options[e.selectedIndex].value;
-    this.job.employment_type = val
+  
 
 
     this.goodJobService.new_job(this.create(this.job))
@@ -73,6 +71,13 @@ export class CreateJob {
     this.loginForm.reset()
     console.log("sending job")
     this.messageService.sendJob(job)
+  }
+
+  seeVal(){
+      var e: any = document.getElementById("test");
+      var val = e.options[e.selectedIndex].value;
+      this.job.employment_type = val
+      console.log(val)
   }
 }
 

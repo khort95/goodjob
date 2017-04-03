@@ -2,11 +2,11 @@ defmodule GoodApi2.JobSeeker do
   use GoodApi2.Web, :model
   alias GoodApi2.CouchDb, as: Couch
   alias GoodApi2.Util
-  alias GoodApi2.Stats, as: Stats
+  alias GoodApi2.EventServer, as: Events
 
   defstruct [:name, :email, :password, :bio, :resume, 
             :picture, :distance_range, :tags, 
-            :chat_ids, :seen]
+            :chat_ids, :seen, :notifications]
   
   def create(inputs) do
       keys = ["name", "email", "password", "bio", "distance_range", "tags"]
@@ -14,10 +14,10 @@ defmodule GoodApi2.JobSeeker do
       case Util.check_keys(keys, inputs) do
         {:ok, user} -> 
             temp = %__MODULE__{name: user["name"], email: user["email"], password: user["password"], bio: user["bio"], tags: user["tags"], distance_range: user["distance_range"]}
-            add = %__MODULE__{temp | chat_ids: [], seen: [],  resume: "no-resume", picture: "no-picture"}
+            add = %__MODULE__{temp | chat_ids: [], seen: [],  resume: "no-resume", picture: "no-picture", notifications: []}
             case Couch.new_user(add) do
               {:ok, _, _} -> 
-                Stats.add_user(user["email"])
+                Events.add_user(user["email"])
                 {:ok, add}
               {:error, _, _} -> {:error, "cant fit inside"}
             end

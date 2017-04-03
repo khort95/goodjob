@@ -29,7 +29,9 @@ export class CreateCompany {
   });
 
   
-  constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {}
+  constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {
+      this.company.name = undefined
+  }
   newUser(event: any) {
     this.company = {name: this.loginForm.value.name, logo: "link-to-picture", bio: this.loginForm.value.bio,  list_of_locations: this.loginForm.value.list_of_locations,  link_to_website: this.loginForm.value.link_to_website, hr_manager_ids:[], jobs:[]}
     var response = this.goodJobService.create_company(this.create(this.company, this.goodJobService.get_temp_user().email)) 

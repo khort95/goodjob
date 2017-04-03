@@ -9,7 +9,10 @@ import {Job} from "./data-class";
 
 @Component({
   selector: 'main-page',
-  templateUrl: 'app/template/main-page.html'
+  templateUrl: 'app/template/main-page.html',
+  host: {
+        '(window:scroll)': 'updateHeader($event)'
+    }
 })
 
 export class MainPage implements OnInit{
@@ -28,6 +31,12 @@ export class MainPage implements OnInit{
   add_job: Subscription;
   profile_click_sub: Subscription;
   chat_click_sub: Subscription;
+
+  is_scrolled = false;
+  currPos: number = 0;
+  startPos: number = 0;
+  changePos: number = 100;
+  font_size: number = 60;
 
   constructor(private goodJobService: GoodJobService, private messageService: MessageService) {
     this.company = goodJobService.fetch_null_company();
@@ -91,4 +100,16 @@ export class MainPage implements OnInit{
     console.log(this.current_profile)
     console.log(this.current_chat)
   }
+
+  updateHeader(evt: any) {
+        this.currPos = (window.pageYOffset || evt.target.scrollTop) - (evt.target.clientTop || 0);
+        if(this.currPos >= this.changePos + 75 ) {
+            //this.is_scrolled = true;
+            //console.log("scrolled " + this.font_size)
+            this.font_size = this.font_size - 2;
+        } 
+        else {
+            this.font_size = 60;
+        }
+    }
 }

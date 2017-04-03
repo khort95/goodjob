@@ -1,6 +1,6 @@
 defmodule GoodApi2.StatsChannel do
     use Phoenix.Channel
-    alias GoodApi2.Stats, as: Stats
+    alias GoodApi2.EventServer, as: Events
 
     intercept(["stats_view"])
 
@@ -13,7 +13,7 @@ defmodule GoodApi2.StatsChannel do
 
 #GoodApi2.Endpoint.broadcast("stats_channel:phils_secret_stats_page_pls_dont_look", "stats_view", %{msg: "temp"})
     def handle_out("stats_view", _payload, socket) do
-        push socket, "update", Stats.view
+        push socket, "update", Events.view
         {:noreply, socket}
     end
 end

@@ -1,4 +1,4 @@
-defmodule GoodApi2.Stats do
+defmodule GoodApi2.EventServer do
     use GenServer
     
     defmodule GoodState do defstruct [:users, :companies, :jobs, :chats, :active_count, :total_requests] end

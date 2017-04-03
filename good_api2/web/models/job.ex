@@ -4,7 +4,7 @@ defmodule GoodApi2.Job do
     alias GoodApi2.Util
     alias GoodApi2.Tag, as: Tag
     alias GoodApi2.JobServer, as: JobServer
-    alias GoodApi2.Stats, as: Stats
+    alias GoodApi2.EventServer, as: Events
 
     defstruct [:name, :company, :likes, :active_chats, :description, 
         :post_date, :salary_range, :employment_type, 
@@ -31,7 +31,7 @@ defmodule GoodApi2.Job do
                     {:ok, _, _} -> 
                         add_job_to_company(job["company"], job["name"])
                         Tag.add(job["tags"])
-                        Stats.add_job(job["name"])
+                        Events.add_job(job["name"])
                         JobServer.add(job["company"], job["name"], job["description"], job["tags"]) 
                         {:ok, add}
                     {:error, _, _} -> {:error, "cannot fit inside"}
