@@ -15,14 +15,12 @@
           <input formControlName="name" type="name" placeholder="Job Name" required>
           <input class="bigger" formControlName="description" type="description" placeholder="Job Description" required>
           <input formControlName="salary_range" type="salary_range" placeholder="Salary Range" required>
-
-          <input list="browsers" name="browser" placeholder="Employment Type">
-            <datalist id="browsers">
-              <select id="employment_type">
+                     
+           
+              <select class="drop-down-bar" id="test" (change)="seeVal()">
                 <option *ngFor="let c of choices">{{c}}</option>
               </select>
-           </datalist>
-
+         
           <input formControlName="location" type="employment_type" placeholder="Job Location (City, State)" required>
           <input formControlName="tags" type="tags" placeholder="Job Tags (For Users to Search, Separate by ,)" required>
           <button class="jobbutton" type="submit">Create Job!</button>

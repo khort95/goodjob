@@ -6,7 +6,7 @@ defmodule GoodApi2.JobController do
     import GoodApi2.GoodPlug
     plug :log_request
 
-    alias GoodApi2.Stats, as: Stats
+    alias GoodApi2.EventServer, as: Events
     
     def create(conn, %{"new" => inputs}) do
         case Job.new(inputs) do
@@ -66,7 +66,7 @@ defmodule GoodApi2.JobController do
      def approve(conn, %{"job"=>job, "user"=>user, "choice"=>choice}) do
         case Job.approve(job, user, choice) do
             {:ok, job} ->
-                Stats.add_chat(job)
+                Events.add_chat(job)
                 conn
                 |>json(%{ok: job})
             {:error, msg} ->

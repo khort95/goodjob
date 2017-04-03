@@ -22,7 +22,7 @@ a {
 }
 
 .loginbutton{
-  font-family: 'Quicksand', sans-serif; !important;
+  font-family: 'Quicksand', sans-serif !important;
   background-color: #cccccc;
   border: none;
   padding: 5px 10px;
@@ -32,7 +32,7 @@ a {
   cursor: hand;
 }
 .createbutton {
-  font-family: 'Quicksand', sans-serif;  !important;
+  font-family: 'Quicksand', sans-serif  !important;
   background-color: #ccebff;
   border: none;
   padding: 5px 10px;
@@ -42,7 +42,7 @@ a {
   cursor: hand;
 }
 .reject-button {
-  font-family: 'Quicksand', sans-serif;  !important;
+  font-family: 'Quicksand', sans-serif  !important;
   background-color: #d15025;
   border: none;
   padding: 5px 10px;
@@ -52,7 +52,7 @@ a {
   cursor: hand;
 }
 .approve-button {
-  font-family: 'Quicksand', sans-serif;  !important;
+  font-family: 'Quicksand', sans-serif  !important;
   background-color: #59c10f;
   border: none;
   padding: 5px 10px;
@@ -95,7 +95,7 @@ input {
  min-height:30px !important;
  min-width: 200px !important;
  font-size: 20px !important;
- font-family: 'Quicksand', sans-serif; !important;
+ font-family: 'Quicksand', sans-serif !important;
 }
 
 /* Navigation link styles */
@@ -231,6 +231,14 @@ nav a.router-link-active {
   cursor: hand;
 }
 
+.drop-down-bar{
+  width: 90%;
+  margin-left: 5%; 
+  font-size: 20px;
+  font-family: 'Quicksand', sans-serif;
+  background-color:#FFF !important;
+}
+
 .bigger{
   height: 200px;
   text-align: left;
@@ -349,12 +357,10 @@ html {height: 101%;}
 .welcomeheader{
 
   text-align: center;
-  font-size: 50px;
+  font-size: 45px;
   font-family: 'Quicksand', sans-serif;
   font-weight: lighter;
   font-style: oblique;
-  margin-left: auto;
-  margin-right: auto;
   -webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
        -moz-animation: fadein 5s; /* Firefox < 16 */
         -ms-animation: fadein 5s; /* Internet Explorer */

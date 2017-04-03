@@ -23,7 +23,7 @@
 </form>
 </div>
 <div align="center">
-  <h4>{{company.name}} has been created!</h4>
+  <h4 *ngIf="company.name != undefined">{{company.name}}</h4>
 </div>
 </div>
 

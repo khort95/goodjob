@@ -2,7 +2,7 @@ defmodule GoodApi2.HrPerson do
   use GoodApi2.Web, :model
   alias GoodApi2.CouchDb, as: Couch
   alias GoodApi2.Util
-  alias GoodApi2.Stats, as: Stats
+  alias GoodApi2.EventServer, as: Events
 
   defstruct [:name, :email, :password, :bio, :role, :picture, :company, :is_head?, :permissions]
   
@@ -15,7 +15,7 @@ defmodule GoodApi2.HrPerson do
             add = %__MODULE__{temp |  company: "nil", is_head?: false, permissions: ["nil"]}
             case Couch.new_user(add) do
               {:ok, _, _} -> 
-                Stats.add_user(user["email"])
+                Events.add_user(user["email"])
                 {:ok, add}
               {:error, _, _} -> {:error, "cant fit inside"}
             end
