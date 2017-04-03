@@ -13,6 +13,8 @@
   {{user.name}}
 </div>
   <div style="height:5px;"><br></div>
+
+   <div class="mainlogin">
   <form [formGroup]="loginForm" (ngSubmit)="doLogin($event)">
     <div align = center><input formControlName="email" type="email" placeholder="Enter Email"></div>
     <div align = center><input formControlName="password" type="password" placeholder="Enter Password"></div>
@@ -21,3 +23,4 @@
   <div style="height:5px;"><br></div>
   <div align=center><a href="create user" [routerLink]="['/create']"><button class="createbutton">Create User</button></a></div>
 </form>
+</div>

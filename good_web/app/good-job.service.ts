@@ -14,6 +14,7 @@ export class GoodJobService{
   constructor (private http: Http, private cookie: CookieService) {}
   public static hr_person: HrPerson
   public static company: Company
+
   public base_url: string = "ec2-34-207-144-227.compute-1.amazonaws.com:4000/"
   //public static base_url: string = "localhost:4000/"
   
@@ -375,7 +376,7 @@ export class GoodJobService{
       return job_seeker
     }
 
-  
+
   upload_resume(email: string, password: string, resume: string): Observable<any>{
       let body = JSON.stringify({ email: email, password: password ,resume: resume });
 
