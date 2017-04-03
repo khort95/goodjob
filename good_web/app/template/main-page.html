@@ -1,16 +1,17 @@
 <!-- main-page.component.ts -->
-<img src="IMG_92738.jpg" id="dg" alt="">
+
+<img src="IMG_276267.jpg" id="dg" alt="">
 <div class="welcomeheader">Welcome {{user.name}}!</div>
 <div class="companyhead">Company: {{company.name}}</div>
 <br>
 
 <div style="float:left; width:50%;">
-  <h3>Add Job</h3>
+  <div class="addjob">Add Job</div>
   <ul><li class="joblist">
   <create-job></create-job>
   </li></ul>
 
-    <h3>Jobs</h3>
+    <div class="addjob">Jobs</div>
     <div>
     <ul>
       <li class="joblist" *ngFor="let job of company.jobs">
