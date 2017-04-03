@@ -2,8 +2,7 @@ defmodule GoodApi2.Company do
   use GoodApi2.Web, :model
   alias GoodApi2.CouchDb, as: Couch
   alias GoodApi2.Util
-  
-  @derive [Poison.Encoder]
+
   defstruct [:name, :link_to_website, :logo, :bio, :list_of_locations, :jobs, :manager_ids]
   
   def create(inputs) do

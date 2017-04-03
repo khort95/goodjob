@@ -1,20 +1,32 @@
 <!-- main-page.component.ts -->
 
+<img src="IMG_276267.jpg" id="dg" alt="">
 <div class="welcomeheader">Welcome {{user.name}}!</div>
 <div class="companyhead">Company: {{company.name}}</div>
-
 <br>
-<!-- main-page.component.ts -->
-  <h3>Add Job</h3>
+
+<div style="float:left; width:50%;">
+  <div class="addjob">Add Job</div>
   <ul><li class="joblist">
   <create-job></create-job>
   </li></ul>
 
-  <h2>Jobs</h2>
-  <div>
-  <ul>
-    <li class="joblist" *ngFor="let job of company.jobs">
-      <job-panel [name]=job [company]="company_name"></job-panel>
-    </li>
-  </ul>
+    <div class="addjob">Jobs</div>
+    <div>
+    <ul>
+      <li class="joblist" *ngFor="let job of company.jobs">
+        <job-panel [name]=job [company]="company_name"></job-panel>
+      </li>
+    </ul>
+    </div>
+</div>
+
+<div class = "display-panel">
+  <div *ngIf="chat_click">
+    <chat-window [chat_data]="current_chat"></chat-window>
   </div>
+
+  <div *ngIf="profile_click">
+    <job-seeker-profile [email]="current_profile"></job-seeker-profile>
+  </div>
+</div>

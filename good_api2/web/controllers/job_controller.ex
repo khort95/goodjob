@@ -27,6 +27,13 @@ defmodule GoodApi2.JobController do
         end
     end
 
+     def show(conn, _something) do
+        conn
+        |>put_status(:not_found)
+        |>json(%{error: "bad request"})
+        
+    end
+
     def view(conn, %{"job" => name}) do
         case Job.show(name) do
             {:ok, job} ->

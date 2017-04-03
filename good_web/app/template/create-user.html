@@ -1,16 +1,22 @@
  <!-- create_user.component.ts -->
+ <img src="IMG_92738.jpg" id="cg" alt="">
+<div class="Create_Your_Profile">Create Your Profile</div>
  <div class="userform">
  <form [formGroup]="loginForm" (ngSubmit)="newUser($event)">
-    <input formControlName="email" type="email" placeholder="Your Email">
-    <input formControlName="password" type="password" placeholder="Your Password">
-    <input formControlName="name" type="name" placeholder="Your Name">
-    <input class ="bigger" formControlName="bio" type="bio" placeholder="A Short Description of Yourself">
-    <input formControlName="role" type="role" placeholder="Your Position">
-<div align = center><button type="submit">Create!</button></div>
+
+    <input formControlName="email" type="email" placeholder="Your Email" required>
+    <input formControlName="password" type="password" placeholder="Your Password" required>
+    <input formControlName="name" type="name" placeholder="Your Name" required>
+    <input class ="bigger" formControlName="bio" type="bio" placeholder="A Short Description of Yourself" required>
+    <input formControlName="role" type="role" placeholder="Your Position" required>
+    <br>
+    <br>
+<div align = center><button class ="createbutton" type="submit">Create!</button></div>
+
 </form>
 </div>
 
 
-<div align=center>
-  <h4>{{user.name}} has been create!</h4>
+<div *ngIf="user.name" align=center>
+  <h4>{{user.name}}</h4>
 </div>

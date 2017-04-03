@@ -4,7 +4,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
-        <a data-toggle="collapse" href="#collapse1">Job Form</a>
+        <a data-toggle="collapse" href="#collapse1">New Job</a>
       </h4>
     </div>
     <div id="collapse1" class="panel-collapse collapse">
@@ -12,12 +12,18 @@
         <li class="list-group-item">
           <div class="jobform">
           <form [formGroup]="loginForm" (ngSubmit)="newJob($event)">
-          <input formControlName="name" type="name" placeholder="Job Name">
-          <input class="bigger" formControlName="description" type="description" placeholder="Job Description">
-          <input formControlName="salary_range" type="salary_range" placeholder="Salary Range">
-          <input formControlName="employment_type" type="employment_type" placeholder="Employment Type(Full-time, Part-time, etc.)">
-          <input formControlName="location" type="employment_type" placeholder="Job Location (City, State)">
-          <input formControlName="tags" type="tags" placeholder="Job Tags (For Users to Search)">
+          <input formControlName="name" type="name" placeholder="Job Name" required>
+          <input class="bigger" formControlName="description" type="description" placeholder="Job Description" required>
+          <input formControlName="salary_range" type="salary_range" placeholder="Salary Range" required>
+          <input list="browsers" name="browser" placeholder="Employment Type">
+            <datalist id="browsers">
+              <option value="Part-time">
+                <option value="Full-time">
+                  <option value="Seasonal">
+                    <option value="Salary">
+                      </datalist>
+          <input formControlName="location" type="employment_type" placeholder="Job Location (City, State)" required>
+          <input formControlName="tags" type="tags" placeholder="Job Tags (For Users to Search, Separate by ,)" required>
           <button class="jobbutton" type="submit">Create Job!</button>
           </form>
           </div>
