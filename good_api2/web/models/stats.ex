@@ -44,7 +44,7 @@ defmodule GoodApi2.Stats do
     end
 
     def init([]) do
-        state = %GoodState{users: [], companies: [], jobs: [], active_count: 0, total_requests: {0, []}}
+        state = %GoodState{users: [], companies: [], jobs: [], chats: [], active_count: 0, total_requests: {0, []}}
         {:ok, state}
     end
 

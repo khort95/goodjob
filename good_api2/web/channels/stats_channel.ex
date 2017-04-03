@@ -7,13 +7,13 @@ defmodule GoodApi2.StatsChannel do
     def join("stats_channel:"<> room_code, _message, socket) do
         cond do
             room_code == "phils_secret_stats_page_pls_dont_look" ->  {:ok, socket}
-            true -> {:error, "failed to connect"}
+            false -> {:error, "failed to connect"}
         end
     end
 
-#GoodApi2.Endpoint.broadcast("phils_secret_stats_page_pls_dont_look", "stats_view", %{msg: "temp"})
+#GoodApi2.Endpoint.broadcast("stats_channel:phils_secret_stats_page_pls_dont_look", "stats_view", %{msg: "temp"})
     def handle_out("stats_view", _payload, socket) do
-        push socket, "update", Poison.encode!(Stats.view)
+        push socket, "update", Stats.view
         {:noreply, socket}
     end
 end

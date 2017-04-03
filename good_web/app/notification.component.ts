@@ -5,31 +5,35 @@ import { GoodJobService } from './good-job.service';
 import { PhoenixChannelService } from './phoenix.channels.service'
 
 @Component({
-  selector: 'live-stats',
-  templateUrl: 'app/template/stats.html'
+  selector: 'live-notifications',
+  templateUrl: 'app/template/notification.html'
 })
 
 @Injectable()
-export class GoodStats{
-  stats: StatsData = {active_count: 0, requests: 0, users: 0, jobs: 0, companies: 0} 
+export class GoodNotification{
+  notifications: string[] = []
   socket: any
-  channel_name: string = "stats_channel:phils_secret_stats_page_pls_dont_look"
  
   constructor(private goodJobService: GoodJobService, phoenixChannel: PhoenixChannelService) {
      phoenixChannel.socket.connect();
      console.log('Constructed');
-
-     let channel = phoenixChannel.socket.channel(this.channel_name)
+     let channel_name: string = "notifications:" + goodJobService.get_user().email
+     console.log(channel_name)
+     let channel = phoenixChannel.socket.channel(channel_name)
+     
      channel.on("update", (msg: any) => this.update(msg) )
 
      channel.join()
      .receive("ok", (messages: any) => console.log("catching up", messages) )      .receive("error", ({reason}) => console.log("failed join", reason) )
      .receive("timeout", () => console.log("Networking issue. Still waiting...") )
+
+     this.notifications.push("test1")
+     this.notifications.push("test2")
   }
 
-  update(statsRaw: any){
-    this.stats = statsRaw
-    console.log(this.stats)
+  update(notification: any){
+    this.notifications.push(notification.message)
+    console.log(notification)
   }
 
 }

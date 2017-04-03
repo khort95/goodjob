@@ -9,6 +9,8 @@ import { JobPanel } from './job_panel.component';
 import { Settings } from './settings.component';
 import { UploadResume } from './upload-resume.component';
 import { ViewResume } from './view-resume.component';
+import { GoodStats } from './good_stats.component';
+import { GoodNotification } from './notification.component';
 
 // Route config let's you map routes to components
 const routes: Routes = [
@@ -40,6 +42,14 @@ const routes: Routes = [
   {
     path: 'app/job_seeker/resume/:email',
     component: ViewResume
+  },
+  {
+    path: 'app/stats',
+    component: GoodStats
+  },
+  {
+    path: 'app/notifications',
+    component: GoodNotification
   },
   // map '/' to '/persons' as our default route
   {

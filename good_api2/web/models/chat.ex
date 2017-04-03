@@ -2,13 +2,16 @@
 defmodule GoodApi2.Chat do
     use GoodApi2.Web, :model
     alias GoodApi2.CouchDb, as: Couch
-    alias GoodApi2.Util
+    alias GoodApi2.NotificationChannel, as: NC
 
+    ##NOTIFICATIONS NEED TO BE HANDLED IN A SMARTER WAY!!
     def new_message(sender, job_seeker, job, content) do
         message = %{"sender"=>sender,"sender_name"=>"", "content"=>content, "timestamp"=>DateTime.to_string(DateTime.utc_now())}
         
         case Couch.send_message(job_seeker, job, message) do
-            {:ok, msg} -> {:ok, msg}
+            {:ok, msg} -> 
+                NC.send_notifcation(sender, content<>" new message")
+                {:ok, msg}
             {:error, msg} -> {:error, msg}
         end
     end
