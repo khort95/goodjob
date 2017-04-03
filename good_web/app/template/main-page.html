@@ -1,4 +1,5 @@
 <!-- main-page.component.ts -->
+
 <img src="app/template/images/background_nyc.jpg" id="dg" alt="">
 <div class="welcomeheader">Welcome {{user.name}}!</div>
 
@@ -10,12 +11,12 @@
 <br>
 
 <div style="float:left; width:50%;">
-  <h3>Add Job</h3>
+  <div class="addjob">Add Job</div>
   <ul><li class="joblist">
   <create-job></create-job>
   </li></ul>
 
-    <h3>Jobs</h3>
+    <div class="addjob">Jobs</div>
     <div>
     <ul>
       <li class="joblist" *ngFor="let job of company.jobs">

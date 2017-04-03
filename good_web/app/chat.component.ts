@@ -3,7 +3,7 @@ import { Component, NgModule, OnInit, Input} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { GoodJobService } from './good-job.service';
-import { Message, Chat, Company } from './data-class';
+import { Message, Chat, Company, HrPerson } from './data-class';
 import { MessageService } from "./message-service";
 import { Subscription } from 'rxjs/Subscription';
 
