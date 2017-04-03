@@ -1,6 +1,9 @@
 defmodule GoodApi2.CompanyController do
     use GoodApi2.Web, :controller
     alias GoodApi2.Company
+
+    import GoodApi2.GoodPlug
+    plug :log_request
     
     def create(conn, %{"create" => inputs}) do
         case Company.create(inputs) do

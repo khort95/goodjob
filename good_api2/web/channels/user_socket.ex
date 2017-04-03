@@ -3,6 +3,7 @@ defmodule GoodApi2.UserSocket do
 
   ## Channels
   # channel "room:*", GoodApi2.RoomChannel
+  channel "stats_channel", GoodApi2.StatsChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

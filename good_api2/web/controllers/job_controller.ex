@@ -2,6 +2,11 @@ defmodule GoodApi2.JobController do
     use GoodApi2.Web, :controller
     alias GoodApi2.Job
     alias GoodApi2.CouchDb, as: Couch
+
+    import GoodApi2.GoodPlug
+    plug :log_request
+
+    alias GoodApi2.Stats, as: Stats
     
     def create(conn, %{"new" => inputs}) do
         case Job.new(inputs) do
@@ -61,6 +66,7 @@ defmodule GoodApi2.JobController do
      def approve(conn, %{"job"=>job, "user"=>user, "choice"=>choice}) do
         case Job.approve(job, user, choice) do
             {:ok, job} ->
+                Stats.add_chat(job)
                 conn
                 |>json(%{ok: job})
             {:error, msg} ->

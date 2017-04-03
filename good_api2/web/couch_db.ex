@@ -170,6 +170,7 @@ defmodule GoodApi2.CouchDb do
         {user, job}
     end
 
+    #makes a new chat with the company and user, returns the new chat id
     def approve(job_name, user_name, "approve") do
         with {:found, user_result} <- valid_document?(user_name, "job seeker not found"),
              {:found, job_result} <- valid_document?(job_name, "job not found"),
@@ -177,7 +178,7 @@ defmodule GoodApi2.CouchDb do
              {:ok, list} <- test_and_remove(job["likes"], user_name, "user not found in the job likes'"),
              {:ok, chat} <- new_chat(user, job_name) do
                  {:ok, %{:headers => _h, :payload => _p}} = Connector.update(@goodjob_db, %{job | "likes" => list, "active_chats"=>add_to_list(job["active_chats"], user_name)}) 
-                 {:ok, "user added to chat #{chat}"}
+                 {:ok, chat}
              else 
                  {:error, msg} -> {:error, msg}
                   _            -> {:error, "failed to approve user"}

@@ -1,6 +1,9 @@
 defmodule GoodApi2.HrPersonController do
     use GoodApi2.Web, :controller
     alias GoodApi2.HrPerson
+
+    import GoodApi2.GoodPlug
+    plug :log_request
     
     def create(conn, %{"create" => inputs}) do
         case HrPerson.create(inputs) do

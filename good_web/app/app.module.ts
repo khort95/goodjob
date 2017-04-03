@@ -19,6 +19,7 @@ import { JobSeekerPanel } from './job_seeker.component';
 import { UploadResume } from './upload-resume.component';
 import { ViewResume } from './view-resume.component';
 import { GoodJobService } from './good-job.service';
+import { GoodStats } from './good_stats.component';
 
 import { routing } from './app.routes';
 import { CookieService } from 'angular2-cookie/services/cookies.service'
@@ -26,8 +27,8 @@ import { MessageService } from "./message-service";
 
 
 @NgModule({
-  imports: [ BrowserModule, ReactiveFormsModule, HttpModule, routing, FormsModule ],
-  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Settings, JobPanel, ChatWindow, JobSeekerPanel, UploadResume, ViewResume],
+  imports: [ BrowserModule, ReactiveFormsModule, HttpModule, routing, FormsModule],
+  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Settings, JobPanel, ChatWindow, JobSeekerPanel, UploadResume, ViewResume, GoodStats],
   bootstrap: [ AppComponent ],
   providers: [GoodJobService, CookieService, MessageService]
 })

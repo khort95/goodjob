@@ -59,3 +59,11 @@ export interface HrPerson{
     role: string,
     company: string
 }
+
+export interface StatsData{
+    active_count: number,
+    companies: number,
+    jobs: number,
+    requests: number,
+    users: number
+}

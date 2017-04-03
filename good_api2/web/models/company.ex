@@ -2,6 +2,7 @@ defmodule GoodApi2.Company do
   use GoodApi2.Web, :model
   alias GoodApi2.CouchDb, as: Couch
   alias GoodApi2.Util
+  alias GoodApi2.Stats, as: Stats
 
   defstruct [:name, :link_to_website, :logo, :bio, :list_of_locations, :jobs, :manager_ids]
   
@@ -22,6 +23,7 @@ defmodule GoodApi2.Company do
             
             case Couch.new_company(add) do
               {:ok, _, _} -> 
+                  Stats.add_company(add.name)
                   add_company_to_user(inputs["email"], add.name)
                   {:ok, add}
               {:error, _, _} -> {:error, "cant fit inside"}

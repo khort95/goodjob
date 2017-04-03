@@ -1,6 +1,9 @@
 defmodule GoodApi2.JobSeekerController do
     use GoodApi2.Web, :controller
     alias GoodApi2.JobSeeker
+
+    import GoodApi2.GoodPlug
+    plug :log_request
     
     def create(conn, %{"create" => inputs}) do
         case JobSeeker.create(inputs) do
