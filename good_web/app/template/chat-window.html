@@ -1,20 +1,27 @@
  <!-- chat.component.ts -->
- <h2>Chat</h2>
-  <div>
-      {{chat.job_seeker}}
-  </div>
+ <div class="chathead" align=center>You're Now Chatting With {{chat.job_seeker}}!</div>
+
   <div class="chat-class">
      <ul>
     <li *ngFor="let message of chat.messages">
-      <div><b> {{message.sender_name}}:</b></div>
-      <div>{{message.content}}</div>
+      <div *ngIf="message.sender==sender">
+        <div class="message">{{message.sender_name}}:</div>
+        <div class="messagecontent">{{message.content}}</div>
+      </div>
+      
+      <div *ngIf="message.sender!=sender" class="right-chat">
+        <div class="messageOther">{{message.sender_name}}:</div>
+        <div class="messagecontentOther">{{message.content}}</div>
+      </div>
+
+      <br>
     </li>
     </ul>
   </div>
-  
-  <div>
+
+  <div class="chatbox">
      <form [formGroup]="send_message" (ngSubmit)="sendMessage($event)">
-      <input formControlName="message" type="message" placeholder="new message">
-      <button type="submit">send</button>
+      <input formControlName="message" type="message" placeholder="New Message">
+      <button class ="createbutton" type="submit">Send</button>
      </form>
   </div>
