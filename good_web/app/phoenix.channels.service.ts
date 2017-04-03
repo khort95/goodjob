@@ -12,7 +12,7 @@ export class PhoenixChannelService {
  
   constructor(private goodJobService: GoodJobService) {
       
-      this.socket = new Phoenix.Socket("ws://localhost:4000/socket", {
+      this.socket = new Phoenix.Socket("ws://"+this.goodJobService.base_url+"socket", {
           //logger: ((kind: any, msg: any, data: any) => { console.log(`${kind}: ${msg}`, data) }),
           transport: WebSocket
   });
