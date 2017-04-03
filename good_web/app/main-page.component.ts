@@ -89,6 +89,7 @@ export class MainPage implements OnInit{
     this.current_profile = email
     this.chat_click = false
     this.profile_click = true
+    
   }
 
    private drawChat(chat: any){
@@ -112,4 +113,6 @@ export class MainPage implements OnInit{
             this.font_size = 60;
         }
     }
+
 }
+// Close the dropdown menu if the user clicks outside of it

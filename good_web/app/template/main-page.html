@@ -1,11 +1,10 @@
 <!-- main-page.component.ts -->
 
 <img src="app/template/images/background_nyc.jpg" id="dg" alt="">
-<div *ngIf="is_scrolled==false">
+
 <div class="welcomeheader" [style.font-size]="font_size">Welcome {{user.name}}!</div>
 
-<div *ngIf="show_page==false"><h1>Please wait to be apporved!</h1></div>
-</div>
+<div *ngIf="show_page==false"><h1>Please wait to be approved!</h1></div>
 
 <div *ngIf="show_page==true">
 <div class="companyhead">Company: {{company.name}}</div>
