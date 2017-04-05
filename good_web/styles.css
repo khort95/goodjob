@@ -41,6 +41,16 @@ a {
   cursor: pointer;
   cursor: hand;
 }
+.logoutbutton{
+  font-family: 'Quicksand', sans-serif  !important;
+  background-color: #ccebff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 13.5px;
+  cursor: pointer;
+  cursor: hand;
+}
 .reject-button {
   font-family: 'Quicksand', sans-serif  !important;
   background-color: #d15025;
@@ -73,6 +83,44 @@ a {
 .company h3{
   font-family: 'Quicksand', sans-serif;;
   font-size: 24px;
+}
+.enter{
+  font-family: 'Quicksand', sans-serif;;
+  font-size: 20px;
+  text-align: center;
+}
+.resume_uploader{
+  font-family: 'Quicksand', sans-serif;;
+  font-size: 24px;
+  text-align: center;
+}
+.upload_resume{
+  font-family: 'Quicksand', sans-serif;;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+.stats{
+  text-align: center;
+    font-family: 'Quicksand', sans-serif;;
+    font-size: 40px;
+    font-weight: bold;
+}
+.headertype{
+  text-align: center;
+    font-family: 'Quicksand', sans-serif;;
+    font-weight: bold;
+    font-size: 30px;
+}
+.tdtab{
+  text-align: left;
+    font-family: 'Quicksand', sans-serif;;
+    font-size: 25px;
+}
+.tdtab1{
+  text-align: center;
+    font-family: 'Quicksand', sans-serif;;
+    font-size: 25px;
 }
 .addjob{
   font-family: 'Quicksand', sans-serif;
@@ -134,15 +182,18 @@ nav a.router-link-active {
   padding: .3em 0;
   height: 1.6em;
   border-radius: 4px;
+    font-family: 'Quicksand', sans-serif;
 }
 .items li:hover {
   color: #607D8B;
   background-color: #DDD;
   left: .1em;
+  font-family: 'Quicksand', sans-serif;
 }
 .items li.selected:hover {
   background-color: #BBD8DC;
   color: white;
+  font-family: 'Quicksand', sans-serif;
 }
 .items .text {
   position: relative;
@@ -230,10 +281,32 @@ nav a.router-link-active {
   cursor: pointer;
   cursor: hand;
 }
-
+.nobutton{
+  font-family: 'Quicksand', sans-serif  !important;
+  background-color: #ccebff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+  cursor: hand;
+  text-align: center;
+  margin-left: 1%;
+}
+.yesbutton{
+  font-family: 'Quicksand', sans-serif  !important;
+  background-color: #ccebff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+  cursor: hand;
+  margin-left: 45%;
+}
 .drop-down-bar{
   width: 90%;
-  margin-left: 5%; 
+  margin-left: 5%;
   font-size: 20px;
   font-family: 'Quicksand', sans-serif;
   background-color:#FFF !important;
@@ -252,15 +325,23 @@ nav a.router-link-active {
 }
 
 .topbar{
-  margin-left: 87%;
+  margin-left: 85%;
   padding-bottom: 1em;
+  padding-right: 0%;
+}
+.gear{
+  background-color: #ccebff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 7px;
+  cursor: pointer;
+  cursor: hand;
 }
 
 .Glogo{
   cursor: pointer;
   cursor: hand;
-  position: absolute;
-  padding-left: 5px;
+  padding-left: 0px;
 }
 .logonav{
   text-align: center;
@@ -313,11 +394,16 @@ div.user-in-panel a{
   padding-left: 1px;
   margin-bottom: 2%;
 }
-
+.question{
+  font-family: 'Quicksand', sans-serif;
+  text-align: center;
+  font-size: 30px;
+}
 .panel-group a{
     display: inline-block;
     width:100%;
     color:white !important;
+      font-family: 'Quicksand', sans-serif;
 }
 
 a:hover, a:visited, a:link, a:active
@@ -464,6 +550,7 @@ html {height: 101%;}
   font-size: 20px;
   font-family:  'Quicksand', sans-serif;
   font-weight: bold;
+  text-align: center;
 }
 .addjobhead{
   font-size: 30px;
@@ -551,9 +638,8 @@ font-size: 10px;
   margin-left: 39%;
 }
 .create_your_profile{
-  font-size: 50px;
+  font-size: 33px;
     font-family:  'Quicksand', sans-serif;
-    font-weight: bold;
     text-align: center;
 }
 .list-group-item{

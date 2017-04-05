@@ -1,6 +1,10 @@
     <div class="topbar">
-    <button class="createbutton" (click)="logout()">Logout</button>
-    <button class="createbutton" (click)="settings()">Settings</button>
-    <img class ="Glogo" src="app/template/images/goodjob_G.png" width="50" height="38" (click)="home()" />
+    <button class="logoutbutton" (click)="logout()">Logout</button>
+    <!--<button class="gear" (click)="settings()"></button>-->
+    <img class ="gear" src="app/template/images/gear-2.png" width="42" height="30" (click)="settings()" />
+    <img class ="Glogo" src="app/template/images/goodjob_G.png" width="40" height="32" (click)="home()" />
+
+
     </div>
+
     <router-outlet></router-outlet>

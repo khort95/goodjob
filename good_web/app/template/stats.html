@@ -1,9 +1,36 @@
 <!-- good_stats.component.ts -->
-<h1>stats page</h1>
+<div class="stats">Statistics</div>
+<br>
+<br>
+<br>
+<table align="center" border="1">
+  <tr>
+    <th class="headertype">Type</th>
+    <th class="headertype">Number</th>
+  </tr>
+<tr>
+  <td class="tdtab">Active Users:</td>
+  <td class="tdtab1">{{stats.active_count}}</td>
+</tr>
+  <tr>
+    <td class="tdtab">Requests: </td>
+    <td class="tdtab1">{{stats.requests}}</td>
+  </tr>
+  <tr>
+    <td class="tdtab">Jobs: </td>
+    <td class="tdtab1">{{stats.jobs}}</td>
+  </tr>
+  <tr>
+    <td class="tdtab">Companies: </td>
+    <td class="tdtab1">{{stats.companies}}</td>
+  </tr>
+  <tr>
+    <td class="tdtab">Chats: </td>
+    <td class="tdtab1">{{stats.chats}}</td>
+  </tr>
+  <tr>
+     <td class="tdtab">Messages: </td>
+    <td class="tdtab1">{{stats.message_count}}</td>
+  </tr>
+</table>
 
-<div><b>requests:</b>{{stats.requests}}</div>
-<div><b>active users:</b>{{stats.active_count}}</div>
-<div><b>jobs:</b>{{stats.jobs}}</div>
-<div><b>companies:</b>{{stats.companies}}</div>
-<div><b>chats:</b>{{stats.chats}}</div>
-<div><b>messages:</b>{{stats.message_count}}</div>
