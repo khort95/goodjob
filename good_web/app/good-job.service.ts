@@ -15,8 +15,8 @@ export class GoodJobService{
   public static hr_person: HrPerson
   public static company: Company
 
-  public base_url: string = "ec2-34-207-144-227.compute-1.amazonaws.com:4000/"
-  //public static base_url: string = "localhost:4000/"
+  //public base_url: string = "ec2-34-207-144-227.compute-1.amazonaws.com:4000/"
+  public base_url: string = "localhost:4000/"
   
   url: string = "http://"+this.base_url
 
@@ -300,6 +300,10 @@ export class GoodJobService{
       return this.http.post(this.url + 'api/chat', creds, {
         headers: headers
         }).map(this.map_chat);
+    }
+
+    create_new_message(sender: string, sender_name: string, msg: string): any{
+      return {sender: sender, sender_name: sender_name, content: msg};
     }
 
     map_chat(response:Response): Chat{

@@ -1,7 +1,7 @@
  <!-- chat.component.ts -->
  <div class="chathead" align=center>You're Now Chatting With {{chat.job_seeker}}!</div>
 
-  <div class="chat-class">
+  <div #scrollMe class="chat-class">
      <ul class="chatlist">
 
     <li *ngFor="let message of chat.messages">
@@ -23,7 +23,7 @@
 
   <div class="chatbox">
      <form [formGroup]="send_message" (ngSubmit)="sendMessage($event)">
-      <input formControlName="message" type="message" placeholder="New Message">
+      <input formControlName="message" type="message" placeholder="New Message" required>
       <button class ="sendbutton" type="submit">Send</button>
      </form>
 </div>

@@ -498,7 +498,7 @@ html {height: 101%;}
 
 }
 .sendbutton{
-  font-family: 'Quicksand', sans-serif;  !important;
+  font-family: 'Quicksand', sans-serif  !important;
   background-color: #99ebff;
   border: none;
   padding: 5px 10px;
@@ -603,5 +603,8 @@ font-size: 10px;
   min-width: 100%;
   min-height: 100%;
   /* Preserve aspet ratio */
+}
 
+.dropdown-toggle{
+  background: transparent;
 }
