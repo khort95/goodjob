@@ -1,22 +1,22 @@
  <!-- create_company.ts -->
 <img src="app/template/images/background_bridge.jpg" id="cg" alt="">
-<div>does your company already have page?</div>
+<div class="question">Does your company already have a page?</div>
+<br>
   <div>
-    <button (click)="yes_company()">yes</button>
-    <button (click)="no_company()">no</button>
+    <button class=yesbutton (click)="yes_company()">Yes</button>
+    <button class=nobutton (click)="no_company()">No</button>
   </div>
 <br>
 
 
 <div *ngIf="new_company==false">
-<div class="create_your_profile">Add Your Company's Information</div>
+<div class="create_your_profile">Please Add Your Company's Information</div>
 <div class="userform">
   <form [formGroup]="loginForm" (ngSubmit)="newUser($event)" required>
     <input formControlName="name" type="name" placeholder="Company name" required>
-    <input formControlName="logo" type="logo" placeholder="Company logo" required>
     <input formControlName="bio" type="bio" placeholder="Company bio" required>
     <input formControlName="link_to_website" type="link_to_website" placeholder="Link to Company Website" required>
-    <input formControlName="list_of_locations" type="list_of_locations" placeholder="Comapny Location(s)" required>
+    <input formControlName="list_of_locations" type="list_of_locations" placeholder="Company Location(s)" required>
     <br>
     <br>
   <div align="center"><button class="createbutton" type="submit">Create!</button></div>

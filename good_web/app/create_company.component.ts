@@ -19,30 +19,29 @@ export class CreateCompany {
   status_msg: string
   companyView: CompanyView
   company_found_: boolean
- 
+
   public loginForm = this.fb.group({
     name: ["", Validators.required],
-    logo: ["", Validators.required],
     bio: ["", Validators.required],
     link_to_website: ["", Validators.required],
-    list_of_locations: ["", Validators.required]  
+    list_of_locations: ["", Validators.required]
   });
 
-  
+
   constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {
       this.company.name = undefined
   }
   newUser(event: any) {
     this.company = {name: this.loginForm.value.name, logo: "link-to-picture", bio: this.loginForm.value.bio,  list_of_locations: this.loginForm.value.list_of_locations,  link_to_website: this.loginForm.value.link_to_website, hr_manager_ids:[], jobs:[]}
-    var response = this.goodJobService.create_company(this.create(this.company, this.goodJobService.get_temp_user().email)) 
+    var response = this.goodJobService.create_company(this.create(this.company, this.goodJobService.get_temp_user().email))
     this.router.navigate(['/start'])
   }
 
   create(company: Company, email: string) :any{
-       let comp = 
+       let comp =
          {
           "create": {
-            "name": company.name, 
+            "name": company.name,
             "logo": company.logo,
             "bio": company.bio,
             "link_to_website": company.link_to_website,
@@ -86,5 +85,5 @@ export class CreateCompany {
     this.goodJobService.add_user_to_company(this.company_entered, this.goodJobService.get_temp_user().email)
     .subscribe(ok => this.router.navigate(['/start']), error=>this.status_msg="error adding you to the company")
   }
-  
+
 }

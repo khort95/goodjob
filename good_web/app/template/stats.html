@@ -1,7 +1,28 @@
 <!-- good_stats.component.ts -->
-<h1>stats page</h1>
+<div class="stats">Statistics</div>
+<br>
+<br>
+<br>
 
-<div><b>requests:</b>{{stats.requests}}</div>
-<div><b>jobs:</b>{{stats.jobs}}</div>
-<div><b>companies:</b>{{stats.companies}}</div>
-<div><b>chats:</b>{{stats.chats}}</div>
+<table align="center" border="1">
+  <tr>
+    <th class="headertype">Type</th>
+    <th class="headertype">Number</th>
+  </tr>
+  <tr>
+    <td class="tdtab">Requests: </td>
+    <td class="tdtab1">{{stats.requests}}</td>
+  </tr>
+  <tr>
+    <td class="tdtab">Jobs: </td>
+    <td class="tdtab1">{{stats.jobs}}</td>
+  </tr>
+  <tr>
+    <td class="tdtab">Companies: </td>
+    <td class="tdtab1">{{stats.companies}}</td>
+  </tr>
+  <tr>
+    <td class="tdtab">Chats: </td>
+    <td class="tdtab1">{{stats.chats}}</td>
+  </tr>
+</table>
