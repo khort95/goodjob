@@ -1,7 +1,7 @@
 module.export = {
 ghostMode: {
-    clicks: true,
-    forms: true,
+    clicks: false,
+    forms: false,
     scroll: false
 }
 }
