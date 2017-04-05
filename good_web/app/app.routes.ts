@@ -54,7 +54,7 @@ const routes: Routes = [
   // map '/' to '/persons' as our default route
   {
     path: '',
-    redirectTo: '/start',
+    redirectTo: 'start',
     pathMatch: 'full'
   },
 ];

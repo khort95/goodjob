@@ -1,0 +1,10 @@
+{
+  "ghostMode":false,
+  "port": 3000,
+  "files": ["/app/**/*.{html,htm,css,js}"],
+  "server": { "baseDir": ["."],
+              "routes": {
+                  "/node_modules": "node_modules" , "/app": "app", "/app.component": "app"
+              }
+    }
+}
