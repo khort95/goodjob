@@ -1,9 +1,11 @@
 defmodule GoodApi2.NotificationChannel do
     use Phoenix.Channel
+    alias GoodApi2.EventServer, as: Event
 
     intercept(["new_notification"])
 
     def join("notifications:"<> _room_code, _message, socket) do
+        Event.active_plus
         {:ok, socket}
     end
 
@@ -11,6 +13,11 @@ defmodule GoodApi2.NotificationChannel do
     def handle_out("new_notification", payload, socket) do
         push socket, "update", payload
         {:noreply, socket}
+    end
+
+    def terminate(_, socket) do
+        Event.active_minus
+        {:shutdown, :left}
     end
 
     def send_notifcation(user, message) do

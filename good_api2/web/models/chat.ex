@@ -2,7 +2,8 @@
 defmodule GoodApi2.Chat do
     use GoodApi2.Web, :model
     alias GoodApi2.CouchDb, as: Couch
-    alias GoodApi2.NotificationChannel, as: NC
+   # alias GoodApi2.NotificationChannel, as: NC
+    alias GoodApi2.EventServer, as: Event
 
     ##NOTIFICATIONS NEED TO BE HANDLED IN A SMARTER WAY!!
     def new_message(sender, job_seeker, job, content) do
@@ -10,7 +11,8 @@ defmodule GoodApi2.Chat do
         
         case Couch.send_message(job_seeker, job, message) do
             {:ok, msg} -> 
-                NC.send_notifcation(sender, content<>" new message")
+                #NC.send_notifcation(sender, content<>" new message")
+                Event.message_count
                 {:ok, msg}
             {:error, msg} -> {:error, msg}
         end
@@ -23,6 +25,10 @@ defmodule GoodApi2.Chat do
             {:error, msg} -> {:error, msg}
         end
     end
+end
+
+defmodule GoodApi2.Message do
+    defstruct [:sender, :sender_name, :content, :timestamp] 
 end
 """
 curl -X POST -H "Content-Type: application/json" -d '

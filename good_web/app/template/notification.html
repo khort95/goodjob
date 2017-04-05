@@ -1,6 +1,15 @@
 <!-- notification.component.ts -->
 
-<h1>Notifications</h1>
-<div *ngFor="let notification of notifications">
-    {{notification}}
+<div *ngIf="size > 0" class="btn-group">
+  <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <div> Notifications ({{size}})</div>
+   <span class="caret"></span>
+  </button>
+
+  <ul class="dropdown-menu">
+    <li *ngFor="let notification of notifications; let i = index;">
+     <div (click)="remove_notification(i)">{{notification}} 
+      </div>
+    </li>
+  </ul>
 </div>

@@ -5,6 +5,7 @@ defmodule GoodApi2.UserSocket do
   # channel "room:*", GoodApi2.RoomChannel
   channel "stats_channel:*", GoodApi2.StatsChannel
   channel "notifications:*", GoodApi2.NotificationChannel
+  channel "chat:*", GoodApi2.ChatChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

@@ -1,7 +1,7 @@
 defmodule GoodApi2.EventServer do
     use GenServer
     
-    defmodule GoodState do defstruct [:users, :companies, :jobs, :chats, :active_count, :total_requests] end
+    defmodule GoodState do defstruct [:users, :companies, :jobs, :chats, :active_count, :total_requests, :message_count] end
 
     def start_link do
          GenServer.start_link(__MODULE__, [], name: __MODULE__)
@@ -21,6 +21,10 @@ defmodule GoodApi2.EventServer do
 
     def add_chat(chat) do
         GenServer.cast(__MODULE__, {:add_chat, chat})
+    end
+
+    def message_count() do
+        GenServer.cast(__MODULE__, :message_count)
     end
 
     def active_plus do
@@ -44,7 +48,7 @@ defmodule GoodApi2.EventServer do
     end
 
     def init([]) do
-        state = %GoodState{users: [], companies: [], jobs: [], chats: [], active_count: 0, total_requests: {0, []}}
+        state = %GoodState{users: [], companies: [], jobs: [], chats: [], active_count: 0, total_requests: {0, []}, message_count: 0}
         {:ok, state}
     end
 
@@ -77,9 +81,19 @@ defmodule GoodApi2.EventServer do
         {:noreply, %GoodState{state | total_requests: {count + 1, [{type, DateTime.to_string(DateTime.utc_now())} | requests]}}}
     end
 
+     def handle_cast(:message_count, state) do
+        count = state.message_count
+        {:noreply, %GoodState{state | message_count: count + 1}}
+    end
+
     def handle_call(:view, _from, state) do
         {total, _requests} = state.total_requests 
-        {:reply, %{active_count: state.active_count, requests: total, users: Enum.count(state.users), companies: Enum.count(state.companies), jobs: Enum.count(state.jobs), chats: Enum.count(state.chats)}, state}
+        {:reply, %{
+                    active_count: state.active_count, 
+                    requests: total, users: Enum.count(state.users), 
+                    companies: Enum.count(state.companies), jobs: Enum.count(state.jobs), 
+                    chats: Enum.count(state.chats), message_count: state.message_count
+                }, state}
     end
 
     def handle_call(:view_detailed, _from, state) do

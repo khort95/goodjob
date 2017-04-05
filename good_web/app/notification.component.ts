@@ -13,6 +13,7 @@ import { PhoenixChannelService } from './phoenix.channels.service'
 export class GoodNotification{
   notifications: string[] = []
   socket: any
+  size: number
  
   constructor(private goodJobService: GoodJobService, phoenixChannel: PhoenixChannelService) {
      phoenixChannel.socket.connect();
@@ -29,11 +30,19 @@ export class GoodNotification{
 
      this.notifications.push("test1")
      this.notifications.push("test2")
+     this.size = this.notifications.length
+     console.log(this.notifications)
   }
 
   update(notification: any){
     this.notifications.push(notification.message)
-    console.log(notification)
+    this.size = this.size + 1
+  }
+
+  remove_notification(i: number){
+    console.log(i)
+    delete this.notifications[i]
+    this.size = this.size - 1
   }
 
 }

@@ -217,6 +217,7 @@ defmodule GoodApi2.CouchDb do
         "#{job_seeker}&&#{job}"
     end
 
+##think about how to intergrate this with sockets .. bad duplucation of data
     def send_message(job_seeker, job, message) do
         chat_id = make_chat_id(job_seeker, job)
         case valid_document?(chat_id, "chat not found") do

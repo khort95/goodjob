@@ -113,6 +113,6 @@ curl -X POST -H "Content-Type: application/json" -d '
 ' "http://localhost:4000/api/company/add_user"
 
 curl -X POST -H "Content-Type: application/json" -d '
-{"sender":"hr_dimarco@gmail.com", "company": "Evil Corp", "email":"ww@w.com"}
+{"sender":"hr_dimarco@gmail.com", "company": "GoodJob", "email":"another_user@gmail.com"}
 ' "http://localhost:4000/api/company/approve_user"
 """
