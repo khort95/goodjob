@@ -38,4 +38,6 @@ curl -X POST -H "Content-Type: application/json" -d '
 curl -X POST -H "Content-Type: application/json" -d '
 {"job_seeker":"se.phildimarco@gmail.com", "job":"Evil Corp&paper boy"}
 ' "http://localhost:4000/api/chat/show"
+
+send socket {sender: sender, sender_name: sender_name, content: msg}
 """

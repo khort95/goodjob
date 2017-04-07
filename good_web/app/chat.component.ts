@@ -27,25 +27,16 @@ export class ChatWindow implements OnInit{
   chat_click_sub: Subscription
   channel: any
 
+  phoenixChannel: PhoenixChannelService
+
   //for chat scrolling
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
 
  
   constructor(private goodJobService: GoodJobService, public fb: FormBuilder, private messageService: MessageService, phoenixChannel: PhoenixChannelService) {
+    this.phoenixChannel = phoenixChannel
     this.chat = goodJobService.fetch_null_chat();
     this.chat_click_sub = this.messageService.getChatClick().subscribe(chat=>this.update_chat_window(chat));
-
-     phoenixChannel.socket.connect();
-     console.log('Constructed');
-     let channel_name: string = "chat:" + goodJobService.get_user().company
-     console.log(channel_name)
-     this.channel = phoenixChannel.socket.channel(channel_name)
-     
-     this.channel.on("new_message", (msg: any) => this.add_message(msg) )
-
-     this.channel.join()
-     .receive("ok", (messages: any) => console.log("catching up", messages) )      .receive("error", ({reason}) => console.log("failed join", reason) )
-     .receive("timeout", () => console.log("Networking issue. Still waiting...") )
   }
 
     ngOnInit(){
@@ -58,10 +49,22 @@ export class ChatWindow implements OnInit{
         this.sender_name = this.goodJobService.get_user().name
 
         this.goodJobService.fetch_chat(this.job_seeker, this.company, this.job)
-      .subscribe(p => this.chat = p)
+          .subscribe(p => this.chat = p)
         console.log(this.chat)
-      
-      this.scrollToBottom();
+
+        this.phoenixChannel.socket.connect();
+        console.log('Constructed');
+        let channel_name: string = "chat:" + this.chat_data.company + "&" + this.chat_data.job
+        console.log(channel_name)
+        this.channel = this.phoenixChannel.socket.channel(channel_name)
+        
+        this.channel.on("new_message", (msg: any) => this.add_message(msg) )
+
+        this.channel.join()
+          .receive("ok", (messages: any) => console.log("catching up", messages) )      .receive("error", ({reason}) => console.log("failed join", reason) )
+          .receive("timeout", () => console.log("Networking issue. Still waiting...") )
+          
+        this.scrollToBottom();
     }
     
   }
