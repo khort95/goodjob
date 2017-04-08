@@ -32,6 +32,7 @@ defmodule GoodApi2.Router do
     post "/job/job_feed", JobController, :job_feed
 
     post "/chat", ChatController, :send_message
+    post "/chat_android", ChatController, :android_send_message
     post "/chat/show", ChatController, :show
   end
 end

@@ -14,7 +14,15 @@ defmodule GoodApi2.ChatChannel do
         {:noreply, socket}
     end
 
-#GoodApi2.Endpoint.broadcast("notifications:hr_dimarco@gmail.com", "new_notification", %{msg: "new message"})
+    def handle_in("chat_send", message, socket) do
+        IO.inspect(message)
+        #save message to db and brodcast if valid
+        broadcast! socket, "chat_send", message
+        {:noreply, socket}
+    end
+
+
+#GoodApi2.Endpoint.broadcast("chat_id", "chat_send", new message)
     def handle_out("chat_send", payload, socket) do
         push socket, "new_message", payload
         {:noreply, socket}

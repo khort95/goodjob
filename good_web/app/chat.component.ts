@@ -52,9 +52,10 @@ export class ChatWindow implements OnInit{
           .subscribe(p => this.chat = p)
         console.log(this.chat)
 
-        this.phoenixChannel.socket.connect();
-        console.log('Constructed');
-        let channel_name: string = "chat:" + this.chat_data.company + "&" + this.chat_data.job
+        this.phoenixChannel.socket.connect()
+        console.log('Constructed')
+        let channel_name: string = "chat:" + this.job_seeker + "&&"+ this.chat_data.company + "&" + this.chat_data.job
+         console.log('Constructed' + channel_name)
         console.log(channel_name)
         this.channel = this.phoenixChannel.socket.channel(channel_name)
         
