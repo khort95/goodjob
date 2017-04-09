@@ -76,12 +76,25 @@ defmodule GoodApi2.JobController do
         end
     end
 
+    #change this to email for to match others ...
     def job_feed(conn, %{"email" => email}) do
          case Couch.profile(email) do
             {:ok, job_seeker} ->
                 jobs = Job.job_feed(job_seeker["seen"])
                 conn
                 |>json(jobs)
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end
+    end
+
+    def delete_job(conn, %{"user" => user, "job" => job}) do
+        case Job.delete(user, job) do
+            {:ok, _msg} ->
+                conn
+                |>json(%{ok: "job #{job} removed"})
             {:error, msg} ->
                 conn
                 |>put_status(:not_found)

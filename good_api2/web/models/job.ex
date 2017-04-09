@@ -5,6 +5,7 @@ defmodule GoodApi2.Job do
     alias GoodApi2.Tag, as: Tag
     alias GoodApi2.JobServer, as: JobServer
     alias GoodApi2.EventServer, as: Events
+    alias GoodApi2.Util
 
     defstruct [:name, :company, :likes, :active_chats, :description, 
         :post_date, :salary_range, :employment_type, 
@@ -32,7 +33,7 @@ defmodule GoodApi2.Job do
                         add_job_to_company(job["company"], job["name"])
                         Tag.add(job["tags"])
                         Events.add_job(job["name"])
-                        JobServer.add(job["company"], job["name"], job["description"], job["tags"]) 
+                        JobServer.add("#{job["company"]}&#{job["name"]}", job["company"], job["name"], job["description"], job["tags"]) 
                         {:ok, add}
                     {:error, _, _} -> {:error, "cannot fit inside"}
                     {:error, msg}  -> {:error, msg} 
@@ -77,11 +78,59 @@ defmodule GoodApi2.Job do
         
     def job_feed(seen) do
         JobServer.get()
-        |>Enum.take(5)
-        |>Enum.map(fn({company, job, des, tags}) -> %{id: "#{company}&#{job}", name: job, company: company, description: des, tags: tags} end)
+        |>Enum.take(50)
+        |>Enum.map(fn({id, company, job, des, tags}) -> %{id: id, name: job, company: company, description: des, tags: tags} end)
         |>Enum.filter(fn(%{id: job}) -> 
             Enum.all?(seen, fn(seen_job) -> job != seen_job end) 
         end)
+    end
+
+    def delete(email, job_name) do
+        #valid head_hr?
+        #valid job?
+        #get chats
+        #get all users
+        #remove chats from users
+        #remove job from company
+        #remove job from JobServer
+        with {:ok, hr_head} <- Couch.get_document(email, "user not found"),
+             {:ok, job} <- Couch.get_document(job_name, "job not found"),
+             {:ok, company} <- Couch.get_document(hr_head["company"], "job not found"),
+             :ok <- is_hr_head?(hr_head, company) do
+                 all_users = job["active_chats"]
+                 
+                 #removing job from company
+                 {:ok, new_job_list} = Couch.test_and_remove(company["jobs"], job["name"], "remove me!")
+                 Couch.update_document(company, "jobs", new_job_list, "failed to remove job")
+
+                 #removing active_chats from users
+                 Enum.each(all_users, fn(a_user) -> 
+                     {:ok, some_user} = Couch.get_document(a_user, "failed to find user")
+                     {:ok, new_chat_ids} = Couch.test_and_remove(some_user["chat_ids"], job_name, "remove me!")
+                     Couch.update_document(some_user, "chat_ids", new_chat_ids, "failed to remove job from user")
+                     end)
+                 
+                 #removing chats
+                 _chats_to_delete = all_users |>Enum.map(fn(user) -> Couch.delete_document("#{user}&&#{job_name}", "failed to delete chat document") end)
+
+                
+                 #removing job from job server and doc
+                 Couch.delete_document(job_name, "failed to delete job document")
+                 JobServer.delete(job_name)
+                 {:ok, "done"} 
+        else
+            {:error, msg} -> {:error, msg}
+        end 
+    end
+
+    defp is_hr_head?(user, company) do
+            with true <- Util.equals(true, user["is_head?"]),
+                 true <- Util.equals(user["company"], company["name"]) do
+                :ok
+            else
+                {:error, _msg} -> {:error, "hr person cannot approve that user"}
+                _ -> {:error, "hr person cannot approve that user"}
+            end
     end
 end
 """
@@ -118,5 +167,10 @@ curl -X POST -H "Content-Type: application/json" -d '
 ' "http://localhost:4000/api/job/job_feed"
 
     returns a list [{id: company&job, name: job, company: company, description: des, tags: tags} ..]
-    with the last 5 jobs created
+    with the last 50 jobs created
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"job":"Evil Corp&arble10", "user":"hr_dimarco@gmail.com"}
+' "http://localhost:4000/api/job/delete"
+
 """

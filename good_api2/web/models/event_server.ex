@@ -48,7 +48,7 @@ defmodule GoodApi2.EventServer do
     end
 
     def init([]) do
-        state = %GoodState{users: [], companies: [], jobs: [], chats: [], active_count: 0, total_requests: {0, []}, message_count: 0}
+        state = %GoodState{users: [], companies: [], jobs: [], chats: [], active_count: 0, total_requests: {0, %{}}, message_count: 0}
         {:ok, state}
     end
 
@@ -78,7 +78,7 @@ defmodule GoodApi2.EventServer do
 
     def handle_cast({:request, type}, state) do
         {count, requests} = state.total_requests
-        {:noreply, %GoodState{state | total_requests: {count + 1, [{type, DateTime.to_string(DateTime.utc_now())} | requests]}}}
+        {:noreply, %GoodState{state | total_requests: {count + 1, Map.update(requests, type, 1, &(&1 + 1))}}}
     end
 
      def handle_cast(:message_count, state) do

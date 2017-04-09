@@ -30,6 +30,7 @@ defmodule GoodApi2.Router do
     post "/job/like", JobController, :like
     post "/job/approve", JobController, :approve
     post "/job/job_feed", JobController, :job_feed
+    post "/job/delete", JobController, :delete_job
 
     post "/chat", ChatController, :send_message
     post "/chat_android", ChatController, :android_send_message

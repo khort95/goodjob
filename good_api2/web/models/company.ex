@@ -71,20 +71,13 @@ defmodule GoodApi2.Company do
 
     defp sender_is_hr_head?(sender, company) do
        with {:ok, user} <- Couch.get_document(sender, "user not found"),
-            true <- equals(true, user["is_head?"]),
-            true <- equals(user["company"], company) do
+            true <- Util.equals(true, user["is_head?"]),
+            true <- Util.equals(user["company"], company) do
                 :ok
             else
                 {:error, _msg} -> {:error, "hr person cannot approve that user"}
                 _ -> {:error, "hr person cannot approve that user"}
             end
-    end
-
-    defp equals(a, b) do
-      case {a, b} do
-           {a, b} when a == b -> true
-            _ -> false
-      end
     end
 end
 

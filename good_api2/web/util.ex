@@ -5,4 +5,11 @@ defmodule GoodApi2.Util do
             false -> {:error, "missing"}
         end
   end
+
+  def equals(a, b) do
+      case {a, b} do
+           {a, b} when a == b -> true
+            _ -> false
+      end
+    end
 end

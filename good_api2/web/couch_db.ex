@@ -25,6 +25,7 @@ defmodule GoodApi2.CouchDb do
          end
     end
 
+
     @doc"""
     returns a document if found (not decoded from JSON)
 
@@ -37,11 +38,26 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
-     def get_document(key, error) do
+
+     @doc"""
+    returns a document if found decoded from JSON
+
+    returns {:ok, document}
+    """  
+    def get_document(key, error) do
         case Reader.get(@goodjob_db, key) do
             {:ok, data} -> {:ok, Poison.decode!(data)}
             {:error, _} -> {:error, error}  
         end
+    end
+
+    def delete_document(key, error) do
+         case get_document(key, error) do
+             {:ok, document} -> 
+                 Couchdb.Connector.destroy(@goodjob_db, key, document["_rev"])
+                 {:ok, "document deleted"}
+            _ -> {:error, error}
+         end
     end
 
     def new_user(user) do
@@ -121,7 +137,7 @@ defmodule GoodApi2.CouchDb do
         IO.inspect job
         json = Poison.encode!(job)
      
-        case !String.contains?(job.name, "@") do
+        case !String.contains?(job.name, "&") do
             true  -> 
                 case get_company(job.company) do
                     {:ok, _company} -> Writer.create(@goodjob_db, json, "#{job.company}&#{job.name}")
