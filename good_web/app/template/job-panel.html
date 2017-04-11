@@ -8,7 +8,7 @@
     </div>
     <div id="{{strId}}" class="panel-collapse collapse">
       <ul class="list-group">
-      <li class="list-group-item"><button (click)="edit_job()">edit</button></li>
+      <li class="list-group-item"><button class ="editbutton"(click)="edit_job()">Edit</button></li>
       <li class="list-group-item">
         <ul class="list-group">
           <div class="chats">Chats</div>
@@ -39,7 +39,7 @@
             </ul>
         </li>
 
-         
+
          <li *ngIf="edit==false" class="list-group-item">
           <ul class="list-group">
             <div class="chats">Details</div>
@@ -57,18 +57,18 @@
           <form [formGroup]="editJobForm" (ngSubmit)="editJobEvent($event)">
           <input [(ngModel)]="job.description" class="bigger" formControlName="description" type="description" placeholder="Job Description" required>
           <input [(ngModel)]="job.salary_range" formControlName="salary_range" type="salary_range" placeholder="Salary Range" required>
-                     
-           
+
+
               <select class="drop-down-bar" id="editJobDropdown" (change)="seeVal()">
                 <option *ngFor="let c of choices">{{c}}</option>
               </select>
-         
+
           <input [(ngModel)]="job.location" formControlName="location" type="employment_type" placeholder="Job Location (City, State)" required>
           <input [(ngModel)]="tag_display" formControlName="tags" type="tags" placeholder="Job Tags (For Users to Search, Separate by ,)" required>
-          <button class="jobbutton" type="edit">edit</button>
+          <button class="jobbutton1" type="edit">Commit Changes</button>
           </form>
           </div>
-          <button class="reject-button" (click)="deleteJob()">delete</button>
+          <button class="reject-button" (click)="deleteJob()">Delete</button>
           </li>
 
        </ul>

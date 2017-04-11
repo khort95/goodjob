@@ -270,11 +270,32 @@ nav a.router-link-active {
           margin-right:55%;
           border-width: 0.05px;
         }
-.jobbutton{
+.jobbutton1{
   margin-top: 5%;
-  margin-left: 5%;
+  margin-left: 32%;
   font-family: 'Quicksand', sans-serif;
-  background-color: #cccccc;
+  background-color: #00cc00;
+  border: none;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+  cursor: hand;
+}
+.createjob1{
+  margin-top: 5%;
+  margin-left: 38%;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #ccebff;
+  border: none;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+  cursor: hand;
+}
+.editbutton{
+  margin-left: 93%;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #e6e6e6;
   border: none;
   border-radius: 7px;
   font-size: 20px;
@@ -323,7 +344,38 @@ nav a.router-link-active {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
-
+.EnterCompany{
+  text-align: center;
+  font-size: 22px;
+  font-family: 'Quicksand', sans-serif;
+}
+.companyname{
+  margin-left: 40.2%;
+}
+.find{
+  margin-left: 0%;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #e6e6e6;
+  border: none;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+  cursor: hand;
+}
+.confirmbutton{
+  margin-left: 0%;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #00cc00;
+  border: none;
+  border-radius: 7px;
+  font-size: 20px;
+  cursor: pointer;
+  cursor: hand;
+}
+.findmessage{
+  font-family: 'Quicksand', sans-serif;
+  font-size: 18px;
+}
 .topbar{
   margin-left: 85%;
   padding-bottom: 1em;
