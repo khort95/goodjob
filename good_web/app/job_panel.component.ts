@@ -163,6 +163,4 @@ export class JobPanel implements OnInit{
 
     return str.slice(0, -2)
   }
-
-
 }

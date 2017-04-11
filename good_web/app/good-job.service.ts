@@ -17,7 +17,7 @@ export class GoodJobService{
 
   public base_url: string = "ec2-34-200-21-214.compute-1.amazonaws.com:4000/"
   //public base_url: string = "localhost:4000/"
-
+  
   url: string = "http://"+this.base_url
 
   //base64 encoded
