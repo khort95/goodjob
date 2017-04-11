@@ -112,7 +112,6 @@ export class MainPage implements OnInit{
       if (index > -1) {
          this.company.jobs.splice(index, 1);
       }
-
   }
 
   updateHeader(evt: any) {
