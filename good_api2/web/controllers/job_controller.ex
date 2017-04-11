@@ -20,6 +20,18 @@ defmodule GoodApi2.JobController do
         end  
     end
 
+    def edit(conn, %{"edit" => inputs}) do
+        case Job.edit(inputs) do
+            {:ok, job} ->
+                conn
+                |>render("job_couch.json", %{job: job})
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end  
+    end
+
     def show(conn, %{"company"=>company, "job" => name}) do
         case Job.show(company, name) do
             {:ok, job} ->
@@ -90,8 +102,8 @@ defmodule GoodApi2.JobController do
         end
     end
 
-    def delete_job(conn, %{"user" => user, "job" => job}) do
-        case Job.delete(user, job) do
+    def delete_job(conn, %{"user" => user, "job" => job, "company"=>company}) do
+        case Job.delete(user, job, company) do
             {:ok, _msg} ->
                 conn
                 |>json(%{ok: "job #{job} removed"})

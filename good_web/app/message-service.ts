@@ -8,6 +8,7 @@ export class MessageService {
     private subject = new Subject<any>();
     private email = new Subject<any>();
     private chat = new Subject<any>();
+    private deleteJobMessage = new Subject<any>();
  
     sendJob(job: Job) {
         this.subject.next(job);
@@ -31,5 +32,13 @@ export class MessageService {
 
     getChatClick(): Observable<any>{
         return this.chat.asObservable();
+    }
+
+    sendDeleteJob(job: string){
+        this.deleteJobMessage.next(job);
+    }
+
+    getDeleteJob(): Observable<any>{
+        return this.deleteJobMessage.asObservable();
     }
 }

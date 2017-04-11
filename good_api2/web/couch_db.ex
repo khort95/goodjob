@@ -25,6 +25,13 @@ defmodule GoodApi2.CouchDb do
          end
     end
 
+    def update_document_map(old, map, success) do
+         case Connector.update(@goodjob_db, new = Map.merge(old, map)) do
+             {:ok, %{:headers => _h, :payload => _p}} -> {:ok, new}
+             {:error, _} -> {:error, "failed to update document (error doing #{success})"}
+         end
+    end
+
 
     @doc"""
     returns a document if found (not decoded from JSON)
@@ -133,14 +140,16 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
+    def create_job_id(company, name) do
+        "#{company}&#{name}"
+    end
+
     def new_job(job) do
-        IO.inspect job
         json = Poison.encode!(job)
-     
         case !String.contains?(job.name, "&") do
             true  -> 
                 case get_company(job.company) do
-                    {:ok, _company} -> Writer.create(@goodjob_db, json, "#{job.company}&#{job.name}")
+                    {:ok, _company} -> Writer.create(@goodjob_db, json, create_job_id(job.company, job.name))
                     {:error, _} -> {:error, "invalid company"}
                 end
             false -> {:error, "has @ sign", :bad}
@@ -158,7 +167,7 @@ defmodule GoodApi2.CouchDb do
                  {:ok, "job passed"}
         else
             {:error, message}       -> {:error, message}
-            str when is_binary(str) -> {:error, "job in liked active chat cannot pass"}
+            str when is_binary(str) -> {:error, "job in liked active chat cannot pass"} #job was found in lkes/active chat
                                   _ -> {:error, "failed to pass"}       
         end
     end

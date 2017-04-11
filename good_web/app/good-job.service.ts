@@ -236,6 +236,29 @@ export class GoodJobService{
         }).map(this.mapJob);
       }
 
+
+    edit_job(job: any) :Observable<Job>{
+      let creds = JSON.stringify(job);
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      return this.http.post(this.url + 'api/job/edit', creds, {
+        headers: headers
+        }).map(this.mapJob);
+      }
+
+    delete_job(name: string, user: string, company: string) :Observable<Job>{
+      let creds = JSON.stringify({job: name, user: user, company: company});
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      return this.http.post(this.url + 'api/job/delete', creds, {
+        headers: headers
+        }).map(this.map_message);
+    }
+
     fetch_job(company: string, name: string) :Observable<Job>{
       let creds = JSON.stringify({job: name, company: company});
 

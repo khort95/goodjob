@@ -31,6 +31,7 @@ export class MainPage implements OnInit{
   add_job: Subscription;
   profile_click_sub: Subscription;
   chat_click_sub: Subscription;
+  delete_job_sub: Subscription;
 
   is_scrolled = false;
   currPos: number = 0;
@@ -43,6 +44,7 @@ export class MainPage implements OnInit{
     this.add_job = this.messageService.getJob().subscribe(job => this.addJob(job));
     this.profile_click_sub = this.messageService.getProfileClick().subscribe(email=>this.drawProfile(email));
     this.chat_click_sub = this.messageService.getChatClick().subscribe(chat=>this.drawChat(chat));
+    this.delete_job_sub = this.messageService.getDeleteJob().subscribe(job=>this.deleteJob(job))
   }
 
   ngOnInit(){
@@ -73,6 +75,7 @@ export class MainPage implements OnInit{
         this.add_job.unsubscribe();
         this.chat_click_sub.unsubscribe();
         this.profile_click_sub.unsubscribe();
+        this.delete_job_sub.unsubscribe();
     }
 
   private setCompany(p: Company){
@@ -102,6 +105,16 @@ export class MainPage implements OnInit{
     console.log(this.current_chat)
   }
 
+  private deleteJob(job: string){
+     console.log(job + "has been removed")
+      var index = this.company.jobs.indexOf(job)
+
+      if (index > -1) {
+         this.company.jobs.splice(index, 1);
+      }
+
+  }
+
   updateHeader(evt: any) {
         let tracker = evt.target;
         let limit = tracker.scrollHeight - tracker.clientHeight;
@@ -117,6 +130,5 @@ export class MainPage implements OnInit{
             if(this.font_size < 60){this.font_size = this.font_size + 2;}
         }
     }
-
 }
 // Close the dropdown menu if the user clicks outside of it

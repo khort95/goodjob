@@ -42,6 +42,17 @@ defmodule GoodApi2.Job do
         end
     end
 
+    def edit(inputs) do
+        keys = ["name", "company", "description", "salary_range", "employment_type", "location", "tags"]
+        with {:ok, edits} <- Util.check_keys(keys, inputs),
+             {:ok, job} <- Couch.get_document(Couch.create_job_id(edits["company"], edits["name"]), "could not find job") do
+                 Tag.add(job["tags"])
+                 Couch.update_document_map(job, edits, "job edits applied")
+        else 
+            {:error, msg} -> {:error, msg} 
+        end    
+    end
+
     def show(company, job) do
         case Couch.valid_document?("#{company}&#{job}", "job not found") do
             {:found, job} -> {:ok, Poison.decode!(job)}
@@ -85,7 +96,8 @@ defmodule GoodApi2.Job do
         end)
     end
 
-    def delete(email, job_name) do
+    def delete(email, job_name_, company_name) do
+        job_name = Couch.create_job_id(company_name, job_name_)
         #valid head_hr?
         #valid job?
         #get chats
@@ -108,7 +120,7 @@ defmodule GoodApi2.Job do
                      {:ok, some_user} = Couch.get_document(a_user, "failed to find user")
                      {:ok, new_chat_ids} = Couch.test_and_remove(some_user["chat_ids"], job_name, "remove me!")
                      Couch.update_document(some_user, "chat_ids", new_chat_ids, "failed to remove job from user")
-                     end)
+                 end)
                  
                  #removing chats
                  _chats_to_delete = all_users |>Enum.map(fn(user) -> Couch.delete_document("#{user}&&#{job_name}", "failed to delete chat document") end)
@@ -147,6 +159,18 @@ curl -X POST -H "Content-Type: application/json" -d '
 ' "http://localhost:4000/api/job"
 
 curl -X POST -H "Content-Type: application/json" -d '
+{"edit": 
+{"company":"Evil Corp",
+"name": "paper boy",
+"description": "get papers to people",
+"salary_range": "14 dollars an hour",
+"employment_type": "full-time",
+"location": "west long branch",
+"tags":["paper", "boy", "newspapers"]}
+}
+' "http://localhost:4000/api/job/edit"
+
+curl -X POST -H "Content-Type: application/json" -d '
 {"company":"Evil Corp", "job":"paper boy"}
 ' "http://localhost:4000/api/job/show"
 
@@ -170,7 +194,7 @@ curl -X POST -H "Content-Type: application/json" -d '
     with the last 50 jobs created
 
 curl -X POST -H "Content-Type: application/json" -d '
-{"job":"Evil Corp&arble10", "user":"hr_dimarco@gmail.com"}
+{"company": "Evil Corp", "job":"aa", "user":"hr_dimarco@gmail.com"}
 ' "http://localhost:4000/api/job/delete"
 
 """

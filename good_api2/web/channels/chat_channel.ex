@@ -21,7 +21,6 @@ defmodule GoodApi2.ChatChannel do
         {:noreply, socket}
     end
 
-
 #GoodApi2.Endpoint.broadcast("chat_id", "chat_send", new message)
     def handle_out("chat_send", payload, socket) do
         push socket, "new_message", payload

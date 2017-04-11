@@ -38,9 +38,6 @@ export class CreateJob {
     this.job.location = this.loginForm.value.location
     this.job.tags = []
 
-  
-
-
     this.goodJobService.new_job(this.create(this.job))
    .subscribe(job => this.push_new_job(job), error=> this.job.name = "error creating job!")
   }

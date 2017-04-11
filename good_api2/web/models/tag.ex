@@ -3,8 +3,13 @@ defmodule GoodApi2.Tag do
         :ets.new(:tags, [:named_table, :ordered_set, :public])
     end
 
-    def add(list) do
+    def add(list) when is_list(list) do
         Enum.map(list, fn(tag) -> add_tag(tag) end)
+        :ok
+    end
+
+    def add(item) do 
+        add_tag(item)
         :ok
     end
 
