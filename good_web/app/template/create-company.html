@@ -28,17 +28,19 @@
 </div>
 
 <div *ngIf="new_company==true">
-    <div>enter your company's name</div>
-    <input [(ngModel)]="company_entered" type="name" placeholder="Company Name">
-    <button (click)="search_company()">find</button>
+    <div class="EnterCompany">Enter Your Company's Name</div>
+    <input class="companyname" [(ngModel)]="company_entered" type="name" placeholder="Company Name">
+    <button class="find" (click)="search_company()">Find</button>
 
-    <div *ngIf="companyView">
-      <div>{{companyView.name}}</div>
-      <div>{{companyView.bio}}</div>
+    <div align=center *ngIf="companyView && company_found_ == true">
+      <div class="findmessage">{{companyView.name}}</div>
+      <div class="findmessage">{{companyView.bio}}</div>
       <div><img src={{companyView.logo}}></div>
-      <div>{{status_msg}}</div>
-      <button (click)="send_user_to_company()">confirm</button>
+      <br>
+      <div class="findmessage">{{status_msg}}</div>
+      <br>
+      <button class="confirmbutton" (click)="send_user_to_company()">Confirm</button>
     </div>
 
-    <div *ngIf="company_found_ == false">company not found try again</div>
+    <div align =center class="findmessage" *ngIf="company_found_ == false">Company Not Found Try Again</div>
 </div>

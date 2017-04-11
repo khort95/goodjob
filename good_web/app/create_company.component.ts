@@ -70,7 +70,7 @@ export class CreateCompany {
   company_found(companyView: CompanyView){
     this.company_found_ = true
     this.companyView = companyView
-    this.status_msg = "If this is your company please click confirm"
+    this.status_msg = "If This is Your Company Please Click Confirm"
   }
 
   company_not_found(){
