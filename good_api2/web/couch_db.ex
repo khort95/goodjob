@@ -2,6 +2,7 @@ defmodule GoodApi2.CouchDb do
     alias Couchdb.Connector.Writer
     alias Couchdb.Connector.Reader
     alias Couchdb.Connector
+    alias GoodApi2.NotificationChannel
     
     #http://127.0.0.1:5984/_utils/index.html
     @goodjob_db %{protocol: "http", hostname: "localhost",database: "good_job", port: 5984}
@@ -65,6 +66,14 @@ defmodule GoodApi2.CouchDb do
                  {:ok, "document deleted"}
             _ -> {:error, error}
          end
+    end
+
+    def write_document(key, body) do
+        json = Poison.encode!(%{"body"=>body})
+        case Writer.create(@goodjob_db, json, key) do
+            {:ok, _, _} -> {:ok, "document added"}
+            {:error, _, _} -> {:error, "cound not add document"}
+        end
     end
 
     def new_user(user) do
@@ -156,6 +165,7 @@ defmodule GoodApi2.CouchDb do
         end
     end
 
+    #this can be moved to Job model
     def like(job_name, user_name, "pass") do
         with {:found, user_result}   <- valid_document?(user_name, "job seeker not found"),
              {:found, job_result}    <- valid_document?(job_name, "job not found"),
@@ -181,6 +191,7 @@ defmodule GoodApi2.CouchDb do
              nil                    <- Enum.find(job["active_chats"], fn(user)->user==user_name end) do 
                 update_document(job, "likes", add_to_list(job["likes"], user_name), "user added to liked jobs")
                 update_document(user, "seen", add_to_list(user["seen"], job_name), "job added to seen")
+                NotificationChannel.send_notification(job["company"], "new like on #{job["name"]}")
                 {:ok, "job liked"}
         else
             {:error, message}       -> {:error, message}

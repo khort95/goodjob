@@ -33,6 +33,7 @@ defmodule GoodApi2.Mixfile do
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
      {:couchdb_connector, "~> 0.5.0"},
-     {:cors_plug, "~> 1.1"}]
+     {:cors_plug, "~> 1.1"},
+     {:bertex, "~> 1.2"}]
   end
 end
