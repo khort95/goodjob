@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NgModule, OnInit}      from '@angular/core';
 import { HrPerson, Company } from './data-class';
 import { GoodJobService } from './good-job.service';
-import { CreateJob} from './create_job.component'
 import { Subscription } from 'rxjs/Subscription';
 import { MessageService } from "./message-service";
 import {Job} from "./data-class";
@@ -20,9 +19,11 @@ export class MainPage implements OnInit{
   company: Company
   company_name: string
   current_job_name: string = "empty"
-  profile_click: boolean = false;
-  chat_click: boolean = false;
-  show_page: boolean;
+  profile_click: boolean = false
+  chat_click: boolean = false
+  show_page: boolean
+  new_hr_managers: boolean = false
+  hr_approve_list: string[]
 
   current_chat: string
   current_profile: string
@@ -81,6 +82,7 @@ export class MainPage implements OnInit{
   private setCompany(p: Company){
     this.company = p;
     this.company_name = this.company.name
+    if(this.user.head){this.canApproveHrManager()}
   }
 
   private addJob(job: Job){
@@ -128,6 +130,23 @@ export class MainPage implements OnInit{
         else {
             if(this.font_size < 60){this.font_size = this.font_size + 2;}
         }
+    }
+
+    canApproveHrManager(){
+      var email_list: string[] = [];
+      for(let i in this.company.hr_manager_ids){
+        var person = this.company.hr_manager_ids[i]
+        var email = Object.keys(person)[0]
+    
+        if(person[email] == false){
+          email_list.push(email)
+        }
+      }
+       //console.log(email_list)
+       if(email_list.length > 0){
+         this.hr_approve_list = email_list
+         this.new_hr_managers = true;
+       }
     }
 }
 // Close the dropdown menu if the user clicks outside of it

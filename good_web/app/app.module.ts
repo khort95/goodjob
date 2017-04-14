@@ -15,6 +15,7 @@ import { CreateJob } from './create_job.component';
 import { ChatWindow } from './chat.component';
 import { Settings } from './settings.component';
 import { JobPanel } from './job_panel.component';
+import { HrPanel } from './approve_hr.component';
 import { JobSeekerPanel } from './job_seeker.component';
 import { UploadResume } from './upload-resume.component';
 import { ViewResume } from './view-resume.component';
@@ -30,7 +31,7 @@ import { MessageService } from "./message-service";
 
 @NgModule({
   imports: [ BrowserModule, ReactiveFormsModule, HttpModule, routing, FormsModule],
-  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Settings, JobPanel, ChatWindow, JobSeekerPanel, UploadResume, ViewResume, GoodStats, GoodNotification],
+  declarations: [ AppComponent, LoginPage, CreateUser, MainPage, CreateCompany, CreateJob, Settings, JobPanel, HrPanel, ChatWindow, JobSeekerPanel, UploadResume, ViewResume, GoodStats, GoodNotification],
   bootstrap: [ AppComponent ],
   providers: [GoodJobService, CookieService, MessageService, PhoenixChannelService]
 })

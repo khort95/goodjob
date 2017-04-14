@@ -19,7 +19,8 @@ export class CreateUser {
     permissions: [], 
     role: "", 
     name: undefined,
-    company:""
+    company:"",
+    head: false
   }
  
   public loginForm = this.fb.group({
@@ -34,7 +35,7 @@ export class CreateUser {
   constructor(public fb: FormBuilder, private goodJobService: GoodJobService, private router: Router) {}
   newUser(event: any) {
     console.log("new user event")
-    this.user = {email: this.loginForm.value.email, picture: "no-picture", bio: this.loginForm.value.bio,  permissions: [], role: this.loginForm.value.role, name: this.loginForm.value.name, company: ""}
+    this.user = {email: this.loginForm.value.email, picture: "no-picture", bio: this.loginForm.value.bio,  permissions: [], role: this.loginForm.value.role, name: this.loginForm.value.name, company: "", head: false}
 
     this.goodJobService.create_user(this.create(this.user, this.loginForm.value.password)).subscribe(okay=>this.create_company_page(), error=>this.user.name ="error creating user")
   }

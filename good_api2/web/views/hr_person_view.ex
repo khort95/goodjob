@@ -8,7 +8,8 @@ defmodule GoodApi2.HrPersonView do
             picture: hr_person.picture,
             bio: hr_person.bio,
             permissions: hr_person.permissions, 
-            role: hr_person.role 
+            role: hr_person.role,
+            head: hr_person.is_head? 
         }
     end
 
@@ -20,7 +21,8 @@ defmodule GoodApi2.HrPersonView do
             bio: hr_person["bio"],
             permissions: hr_person["permissions"], 
             role: hr_person["role"],
-            company: hr_person["company"]
+            company: hr_person["company"],
+            head: hr_person["is_head?"] 
         }
     end
 end

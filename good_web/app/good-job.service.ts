@@ -15,8 +15,8 @@ export class GoodJobService{
   public static hr_person: HrPerson
   public static company: Company
 
-  //public base_url: string = "ec2-34-200-21-214.compute-1.amazonaws.com:4000/"
-  public base_url: string = "localhost:4000/"
+  public base_url: string = "ec2-34-200-21-214.compute-1.amazonaws.com:4000/"
+  //public base_url: string = "localhost:4000/"
   
   url: string = "http://"+this.base_url
 
@@ -80,7 +80,7 @@ export class GoodJobService{
     }
 
     fetch_null_hr_person() :HrPerson {
-     return {email: "", picture: "", bio: "",  permissions: [], role: undefined, name: "Please Login", company: ""}
+     return {email: "", picture: "", bio: "",  permissions: [], role: undefined, name: "Please Login", company: "", head: false}
     }
 
     login(password: string, email: string): Observable<HrPerson>{
@@ -126,7 +126,8 @@ export class GoodJobService{
             bio: data.bio,
             permissions: data.permissions,
             role: data.role,
-            company: data.company
+            company: data.company,
+            head: data.head
         })
        // console.log("parsed company!", user)
         GoodJobService.hr_person = user
@@ -201,8 +202,8 @@ export class GoodJobService{
           }).map(this.map_message);
     }
 
-    approve_user_to_company(sender: string, company: string, user: string){
-        let body = JSON.stringify({sender: sender, company: company, email: user});
+    approve_user_to_company(sender: string, company: string, user: string, choice: string){
+        let body = JSON.stringify({sender: sender, company: company, email: user, choice: choice});
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 

@@ -53,8 +53,8 @@ defmodule GoodApi2.CompanyController do
         end
     end
 
-    def approve_user(conn, %{"sender" => sender, "email" => email, "company" => company}) do
-        case Company.approve_user(sender, email, company) do
+    def approve_user(conn, %{"sender" => sender, "email" => email, "company" => company, "choice"=>choice}) do
+        case Company.approve_user(sender, email, company, choice) do
             {:ok, msg} ->
                 conn
                 |>json(%{ok: msg})

@@ -55,8 +55,8 @@ defmodule GoodApi2.Company do
                   {:error, msg} -> {:error, msg}
               end
     end
-
-    def approve_user(sender, email, company) do
+    
+    def approve_user(sender, email, company, "approve") do
          with  :ok <- sender_is_hr_head?(sender, company),
               {:ok, user} <- Couch.get_document(email, "user not found"),
               {:ok, company} <- Couch.get_document(company, "company not found"),
@@ -67,6 +67,21 @@ defmodule GoodApi2.Company do
               else
                     {:error, msg} -> {:error, msg}
               end
+    end
+
+     def approve_user(sender, email, company, "reject") do
+         with  :ok <- sender_is_hr_head?(sender, company),
+              {:ok, user} <- Couch.get_document(email, "user not found"),
+              {:ok, company} <- Couch.get_document(company, "company not found"),
+              {:ok, list} <- Couch.test_and_remove(company["manager_ids"], %{email => false}, "failed to find user in company") do
+                   Couch.update_document(company, "manager_ids", list, "user been rejected")
+              else
+                    {:error, msg} -> {:error, msg}
+              end
+    end
+
+    def approve_user(sender, email, company, choice) do
+        {:error, "invalid choice"}
     end
 
     defp sender_is_hr_head?(sender, company) do
@@ -106,6 +121,7 @@ curl -X POST -H "Content-Type: application/json" -d '
 ' "http://localhost:4000/api/company/add_user"
 
 curl -X POST -H "Content-Type: application/json" -d '
-{"sender":"hr_dimarco@gmail.com", "company": "GoodJob", "email":"another_user@gmail.com"}
+{"sender":"hr_dimarco@gmail.com", "company": "GoodJob", "email":"another_user@gmail.com", "choice":"approve" } 
 ' "http://localhost:4000/api/company/approve_user"
+        ##approve or reject
 """

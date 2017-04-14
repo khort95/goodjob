@@ -58,6 +58,7 @@ export interface HrPerson{
     permissions: string[], 
     role: string,
     company: string
+    head: boolean
 }
 
 export interface StatsData{
