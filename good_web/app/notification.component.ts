@@ -18,7 +18,7 @@ export class GoodNotification{
   constructor(private goodJobService: GoodJobService, phoenixChannel: PhoenixChannelService) {
      phoenixChannel.socket.connect();
      console.log('Constructed');
-     let channel_name: string = "notifications:" + goodJobService.get_user().email
+     let channel_name: string = "notifications:" + goodJobService.get_user().company
      console.log(channel_name)
      let channel = phoenixChannel.socket.channel(channel_name)
      
@@ -35,6 +35,7 @@ export class GoodNotification{
   }
 
   update(notification: any){
+    console.log(notification)
     this.notifications.push(notification.message)
     this.size = this.size + 1
   }

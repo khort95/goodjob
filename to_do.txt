@@ -1,12 +1,9 @@
-1. a refresh for chats??
-2. refactor CouchDB code, maybe it should all be in the models? USE with, clean up cases .. do
-3. fix refresh problem on chat page
-    3a. less reliance on params in url maybe?
-4. when a user makes a new job maybe return a new company thing kind of like how chat works - did this didn't work
-5. figure out how to deliver best jobs for users
+1. backup for genserver data
+1. logos for companys andorid users ..
+2. new hr people sign up for company
+3. notifcations for new messages/job approves
+4. figure out how to deliver best jobs for users
     4a. filter based on a set of params
     4b. most relevent jobs to the top
     4c. figure out best way to store these jobs in DB
     4d. should job list be figured out as soon as login?
-6. look into real time chat
-    5a. notifcations for new messages/job approves

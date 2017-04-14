@@ -90,7 +90,13 @@ defmodule GoodApi2.Job do
     def job_feed(seen) do
         JobServer.get()
         |>Enum.take(50)
-        |>Enum.map(fn({id, company, job, des, tags}) -> %{id: id, name: job, company: company, description: des, tags: tags} end)
+        |>Enum.map(fn
+            (map) ->
+                [id] = Map.keys(map)
+                data = map[id]
+                       |>List.to_tuple()
+                {name, company, des, tags} = data
+                %{id: id, name: name, company: company, description: des, tags: tags} end)
         |>Enum.filter(fn(%{id: job}) -> 
             Enum.all?(seen, fn(seen_job) -> job != seen_job end) 
         end)
@@ -179,7 +185,7 @@ curl -X POST -H "Content-Type: application/json" -d '
 ' "http://localhost:4000/api/job/view"
 
 curl -X POST -H "Content-Type: application/json" -d '
-{"job":"Evil Corp&newJon", "user":"se.phildimarco@gmail.com", "choice":"like"}
+{"job":"Evil Corp&anewjob", "user":"se.phildimarco@gmail.com", "choice":"like"}
 ' "http://localhost:4000/api/job/like"
 
 curl -X POST -H "Content-Type: application/json" -d '

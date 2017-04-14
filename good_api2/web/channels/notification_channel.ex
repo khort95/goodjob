@@ -20,7 +20,7 @@ defmodule GoodApi2.NotificationChannel do
         {:shutdown, :left}
     end
 
-    def send_notifcation(user, message) do
+    def send_notification(user, message) do
         GoodApi2.Endpoint.broadcast("notifications:"<>user, "new_notification", %{message: message})
     end
 end
