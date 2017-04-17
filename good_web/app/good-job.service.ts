@@ -116,6 +116,17 @@ export class GoodJobService{
         }).map(this.mapHrPerson)
     }
 
+     upload_logo(email: string, company: string, picture: string): Observable<any>{
+      let body = JSON.stringify({ email: email, company: company, picture: picture });
+      console.log(body)
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      return this.http.post(this.url + 'api/company/update_picture', body, {
+        headers: headers
+        }).map(this.map_message)
+    }
+
     mapHrPerson(response:Response): HrPerson{
      // console.log("res::", response.json())
       let data = response.json();
@@ -158,6 +169,17 @@ export class GoodJobService{
       return this.http.post(this.url + 'api/company/view', body, {
         headers: headers})
         .map(this.mapCompany);
+    }
+
+    fetch_company_logo(name: string): Observable<any>{
+      let body = JSON.stringify({ company: name});
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+
+      return this.http.post(this.url + 'api/company/logo', body, {
+        headers: headers})
+        .map(this.map_message);
     }
 
   mapCompany(response:Response): Company{

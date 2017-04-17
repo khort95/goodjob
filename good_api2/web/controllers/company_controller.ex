@@ -64,4 +64,28 @@ defmodule GoodApi2.CompanyController do
                 |>json(%{error: msg})
         end
     end
+
+    def update_picture(conn, %{"email" => email, "company"=>company,"picture" => picture}) do
+        case Company.update_picture(email, company, picture) do
+            {:ok, company} ->
+                conn
+                |>json(%{logo: company["logo"]})
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end
+    end
+
+    def get_logo(conn, %{"company"=>company}) do
+        case Company.get_logo(company) do
+            {:ok, logo} ->
+                conn
+                |>json(%{logo: logo})
+            {:error, msg} ->
+                conn
+                |>put_status(:not_found)
+                |>json(%{error: msg})
+        end
+    end
 end

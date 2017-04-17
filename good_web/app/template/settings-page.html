@@ -1,8 +1,8 @@
-<img src="Bridge4.jpg" id="fg" alt="">
+<img src="app/template/images/Bridge4.jpg" id="fg" alt="">
 <div class="settings">{{user.company}} Settings Page</div>
 
  <div>
-     <div class="addpicture">Add Picture:</div>
+     <div class="addpicture">Add A Company Logo</div>
      <input type="file" accept="image/*" (change)="changeListener($event)">
  </div>
- <div><img height="200" alt="Embedded Image" src={{user.picture}}><div>
+ <div><img height="200" alt="Embedded Image" src={{company.logo}}><div>

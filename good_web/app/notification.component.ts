@@ -1,5 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { NgModule, OnInit, Input}      from '@angular/core';
+import { Router} from '@angular/router';
 import { StatsData } from './data-class';
 import { GoodJobService } from './good-job.service';
 import { PhoenixChannelService } from './phoenix.channels.service'
@@ -15,7 +16,7 @@ export class GoodNotification{
   socket: any
   size: number
  
-  constructor(private goodJobService: GoodJobService, phoenixChannel: PhoenixChannelService) {
+  constructor(private goodJobService: GoodJobService, phoenixChannel: PhoenixChannelService, private router: Router) {
      phoenixChannel.socket.connect();
      console.log('Constructed');
      let channel_name: string = "notifications:" + goodJobService.get_user().company
@@ -45,5 +46,19 @@ export class GoodNotification{
     delete this.notifications[i]
     this.size = this.size - 1
   }
+
+//for notification bar
+    logout(event: any){
+        this.goodJobService.logout();
+        this.router.navigate(['/start'])
+    }
+
+    settings(event: any){
+        this.router.navigate(['/app/settings'])
+    }
+
+    home(event: any){
+        this.router.navigate(['/app'])
+    }
 
 }

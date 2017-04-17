@@ -23,6 +23,8 @@ defmodule GoodApi2.Router do
     post "/company/view", CompanyController, :view
     post "/company/add_user", CompanyController, :add_user
     post "/company/approve_user", CompanyController, :approve_user
+    post "/company/update_picture", CompanyController, :update_picture
+    post "/company/logo", CompanyController, :get_logo
 
     post "/job", JobController, :create
     post "/job/edit", JobController, :edit

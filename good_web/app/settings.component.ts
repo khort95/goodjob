@@ -11,7 +11,6 @@ import { CreateJob} from './create_job.component'
 
 export class Settings implements OnInit{
   user: HrPerson = null
-  @Input()
   company: Company
   image: any 
  
@@ -20,6 +19,11 @@ export class Settings implements OnInit{
 
   ngOnInit(){
       this.user = this.goodJobService.get_user()
+      this.company = this.goodJobService.fetch_null_company()
+      this.goodJobService.fetch_company_logo( this.user.company)
+        .subscribe(p=> this.company.logo = p.logo,
+                   error=> console.log("failed to get company logo")
+                )
   }
 
   changeListener(event: any) : void {
@@ -34,7 +38,7 @@ export class Settings implements OnInit{
         this.image = myReader.result
         
         
-        this.goodJobService.upload_picture(this.user.email, this.image)
+        this.goodJobService.upload_logo(this.user.email, this.user.company, this.image)
         .subscribe(p=> this.success(p),
                    error=> window.alert("image failed to upload")
                 )
@@ -45,7 +49,8 @@ export class Settings implements OnInit{
 
    private success(p: any){
       window.alert("image uploaded!")
-      this.user = p
+      this.company.logo = p.logo
+      console.log(p)
    }
 
 }

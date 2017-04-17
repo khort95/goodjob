@@ -71,7 +71,7 @@ defmodule GoodApi2.Company do
 
      def approve_user(sender, email, company, "reject") do
          with  :ok <- sender_is_hr_head?(sender, company),
-              {:ok, user} <- Couch.get_document(email, "user not found"),
+              {:ok, _user} <- Couch.get_document(email, "user not found"),
               {:ok, company} <- Couch.get_document(company, "company not found"),
               {:ok, list} <- Couch.test_and_remove(company["manager_ids"], %{email => false}, "failed to find user in company") do
                    Couch.update_document(company, "manager_ids", list, "user been rejected")
@@ -80,8 +80,26 @@ defmodule GoodApi2.Company do
               end
     end
 
-    def approve_user(sender, email, company, choice) do
+    def approve_user(_sender, _email, _company, _choice) do
         {:error, "invalid choice"}
+    end
+
+    def update_picture(email, company, picture) do
+        with {:ok, company} <- Couch.get_document(company, "company not found"),
+             :ok <- sender_is_hr_head?(email, company["name"]),
+             {:ok, updated} <- Couch.update_document(company, "logo", picture, "logo added successfully!") do
+                {:ok, updated}
+        else
+            {:error, message} -> {:error, message}
+        end
+    end
+
+    def get_logo(company) do
+        with {:ok, company} <- Couch.get_document(company, "company not found") do
+                {:ok, company["logo"]}
+        else
+            {:error, message} -> {:error, message}
+        end
     end
 
     defp sender_is_hr_head?(sender, company) do
@@ -124,4 +142,13 @@ curl -X POST -H "Content-Type: application/json" -d '
 {"sender":"hr_dimarco@gmail.com", "company": "GoodJob", "email":"another_user@gmail.com", "choice":"approve" } 
 ' "http://localhost:4000/api/company/approve_user"
         ##approve or reject
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"email":"hr_dimarco@gmail.com", "company": "GoodJob", "picture":"a_base64_encoded_picture" } 
+' "http://localhost:4000/api/company/update_picture"
+
+curl -X POST -H "Content-Type: application/json" -d '
+{"company": "Evil Corp" } 
+' "http://localhost:4000/api/company/logo"
+
 """
