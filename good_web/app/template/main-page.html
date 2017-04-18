@@ -13,18 +13,18 @@
 
 <div style="float:left; width:50%;">
   <div *ngIf="new_hr_managers">
-    <div class="addjob">Add Hr Manager</div>
+    <div class="addjob">Add Hr Manager:</div>
     <ul><li class="joblist">
     <hr-panel [user]=user [hr_list]=hr_approve_list></hr-panel>
     </li></ul>
   </div>
-  
-  <div class="addjob">Add Job</div>
+
+  <div class="addjob">Add Job:</div>
   <ul><li class="joblist">
   <create-job></create-job>
   </li></ul>
 
-    <div class="addjob">Jobs</div>
+    <div class="addjob">Jobs:</div>
     <div>
     <ul>
       <li class="joblist" *ngFor="let job of company.jobs">

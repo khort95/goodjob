@@ -23,7 +23,7 @@
 
   <div class="chatbox">
      <form [formGroup]="send_message" (ngSubmit)="sendMessage($event)">
-      <input formControlName="message" type="message" placeholder="New Message" required>
+      <input class="message_in" formControlName="message" type="message" placeholder="New Message" required>
       <button class ="sendbutton" type="submit">Send</button>
      </form>
 </div>
