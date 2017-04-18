@@ -53,7 +53,7 @@ export class JobPanel implements OnInit{
       this.choices.splice(index, 1);
     }
     this.choices.unshift(this.job.employment_type)
-    this.tag_display = this.write_tags(job.tags)
+    this.tag_display = this.write_tags_from_db(job.tags)
   }
 
   approve(user: string){
@@ -162,5 +162,16 @@ export class JobPanel implements OnInit{
     }
 
     return str.slice(0, -2)
+  }
+
+
+  write_tags_from_db(tags: string[]): string{
+    let str: string = tags[0];
+    
+    for(var i = 1; i < tags.length; i++){
+      str = str+", " + tags[i]
+    }
+
+    return str
   }
 }
