@@ -37,19 +37,30 @@ a {
   border: none;
   padding: 5px 10px;
   border-radius: 7px;
-  font-size: 15px;
+  font-size: 17px;
   cursor: pointer;
   cursor: hand;
 }
+.message_in{
+  border-radius: 5px;
+}
+.caret{
+  cursor: hand;
+  cursor: pointer;
+}
 .logoutbutton{
   font-family: 'Quicksand', sans-serif  !important;
-  background-color: #ccebff;
+  background-color: #e6e6e6;
   border: none;
   padding: 5px 10px;
   border-radius: 7px;
   font-size: 13.5px;
   cursor: pointer;
   cursor: hand;
+  margin-left: 2px;
+}
+.logoutbutton:hover{
+  background-color: #e6e6e6;
 }
 .reject-button {
   font-family: 'Quicksand', sans-serif  !important;
@@ -124,7 +135,10 @@ a {
 }
 .addjob{
   font-family: 'Quicksand', sans-serif;
-  font-size: 24px;
+  font-size: 30px;
+  margin-left: 40px;
+  font-weight: bold;
+  opacity: 0.8;
 }
 .jobs h2{
   font-family: 'Boogaloo', cursive;
@@ -382,18 +396,35 @@ nav a.router-link-active {
   padding-right: 0%;
 }
 .gear{
-  background-color: #ccebff;
+  background-color: clear;
   border: none;
   padding: 5px 10px;
   border-radius: 7px;
   cursor: pointer;
   cursor: hand;
 }
-
-.Glogo{
+.noti{
+  font-family: 'Quicksand', sans-serif;
+  cursor: hand;
+  text-align: center;
+}
+.btn-group{
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
   cursor: pointer;
   cursor: hand;
+  margin-left: 30%;
+}
+.dropdown-menu{
+  opacity: 0.75;
+}
+.Glogo{
+  cursor: hand;
   padding-left: 0px;
+}
+.notnum{
+    font-family: 'Quicksand', sans-serif;
+    cursor: hand;
 }
 .logonav{
   text-align: center;
